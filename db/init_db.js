@@ -4,6 +4,10 @@ const {
   // other db methods 
 } = require('./index');
 
+function dropTables() {
+  
+}
+
 async function buildTables() {
   try {
     client.connect();
