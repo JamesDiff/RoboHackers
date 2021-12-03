@@ -16,7 +16,7 @@ export const getAllProducts = () => {
   } 
   
   catch (error) {
-    console.error(chalk.red('ERROR fetching all products!!! 🤦‍♂️'));
+    console.error('ERROR fetching all products!!! 🤦‍♂️');
     throw error;
   }
 }
