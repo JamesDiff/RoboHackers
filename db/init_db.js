@@ -2,7 +2,8 @@
 const {
   client,
   createProduct, 
-  createUser
+  createUser, 
+  createOrder
 } = require('./index');
 
 async function dropTables() {
@@ -10,6 +11,7 @@ async function dropTables() {
 
   try{
     await client.query(`
+      DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS users;
       DROP TABLE IF EXISTS products;
     `);
@@ -44,6 +46,12 @@ async function createTables() {
           state VARCHAR(255) NOT NULL, 
           zip VARCHAR(255) NOT NULL,
           phone VARCHAR(255) NOT NULL
+        );
+        CREATE TABLE orders(
+          id SERIAL PRIMARY KEY,
+          "userId" INTEGER REFERENCES users(id), 
+          total_price FLOAT NOT NULL,
+          order_status VARCHAR(255) NOT NULL
         );
     `);
 
@@ -156,8 +164,39 @@ async function createInitialUsers(){
     const users = await Promise.all(usersToCreate.map(user => createUser(user)));
     console.log('Users Created: ', users);
     console.log('Finished creating users.');
+    return users;
   } catch (error) {
     console.error("Error creating initial users!")
+  }
+}
+
+async function createInitialUsersOrders(users){
+  try{
+    console.log("starting to create orders...")
+    //Create an order for each new user
+    const ordersToCreate = [];
+
+    users.forEach((user) => {
+      const newOrder = {
+        userId: user.id,
+        total_price: 0, 
+        order_status: "Open"
+      }
+      ordersToCreate.push(newOrder)
+    });
+
+    //Create a guest order
+    ordersToCreate.push({
+      total_price: 0, 
+      order_status: "Open"
+    })
+
+    const orders = await Promise.all(ordersToCreate.map(order => createOrder(order)));
+    console.log('Orders Created: ', orders);
+    console.log('Finished creating Orders.');
+    return users;
+  } catch (error) {
+    console.error("Error creating initial Orders!")
   }
 }
 
@@ -165,7 +204,8 @@ async function populateInitialData() {
   try {
     // create useful starting data
     await createInitialProducts();
-    await createInitialUsers();
+    const users = await createInitialUsers();
+    await createInitialUsersOrders(users);
   } catch (error) {
     throw error;
   }
