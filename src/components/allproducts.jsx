@@ -19,6 +19,9 @@ const AllProducts = (props) => {
             
                         return (
                             <div key={index} className="containter">
+                                <div className="form-group bg-success list-group-item-text">
+                                    Image: { product.img_url }
+                                </div>
                                 <h2 className="list-group-item-heading">
                                     ID: { product.id }
                                 </h2>
@@ -33,9 +36,6 @@ const AllProducts = (props) => {
                                 </div>
                                 <div className="form-group list-group-item-text bg-success text-danger">
                                     QTY On-Hand: {product.inventory_qty }
-                                </div>
-                                <div className="form-group bg-success list-group-item-text">
-                                    Image: { product.img_url }
                                 </div>
                                 <br></br>
                             </div>)
