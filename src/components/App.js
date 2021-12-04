@@ -29,6 +29,7 @@ const App = () => {
           <Route path="/users/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           <Route path="/users/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
           <Route path="/users/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
+          <Route path="/users/:userId" render={(routeProps) => <SingleUser {...routeProps} token={token} user={user} />} />
           <Route path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} setUser={setUser} />} />
           <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} />
           <Route path="/orders" render={(routeProps) => <Orders {...routeProps} token={token} user={user} />} />
@@ -36,7 +37,7 @@ const App = () => {
           <Route path="/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} />
           <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} />
         </Router>
-        
+
       </>
     // <div className="App">
     //   <h1>Hello, World!</h1>
