@@ -38,11 +38,13 @@ const App = () => {
           <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} />
         </Router>
 
+        <div className="App">
+          <h1>Hello, World!</h1>
+          <h2>{ message }</h2>
+        </div>
+
       </>
-    // <div className="App">
-    //   <h1>Hello, World!</h1>
-    //   <h2>{ message }</h2>
-    // </div>
+    
   );
 }
 
