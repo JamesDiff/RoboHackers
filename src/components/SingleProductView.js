@@ -19,7 +19,7 @@ const SingleProductView = ({productId}) => {
     useEffect(async () => {
         const result = await getProductById();
         console.log(result);
-        setProduct(result)
+        // setProduct(result)
     })
 
 
