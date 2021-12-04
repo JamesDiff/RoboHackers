@@ -3,8 +3,9 @@ const productsRouter = express.Router();
 const requireUser = require('') //where do I require user from?
 
 
-import { createProduct, getAllProducts } from '../../db/product';
-//{ getProductById, updateProduct, deleteProduct } 
+
+import { createProduct, getAllProducts, getProductById } from '../../db/product';
+//{ updateProduct, deleteProduct } 
 
 //get products
 productsRouter.get('/products', async(req, res, next) => {
@@ -28,28 +29,28 @@ productsRouter.get('/products/:productId', async(req, res, next) => {
     } catch(error) {
       next(error);
     }
-    })
+})
 
 
 //post products
-productsRouter.post('/products', requireUser, async (req, res, next) => {
-    const creatorId = req.user.id;
-    const { name, description, price, inventory_qty, img_url } = req.body;
+// productsRouter.post('/products', requireUser, async (req, res, next) => {
+//     const creatorId = req.user.id;
+//     const { name, description, price, inventory_qty, img_url } = req.body;
 
-    const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
+//     const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
 
-    try {
-      const newProduct = await createProduct(productToCreate);
-      res.send(newProduct);
+//     try {
+//       const newProduct = await createProduct(productToCreate);
+//       res.send(newProduct);
   
-    } catch (error) {
-      next(error);
-    }
+//     } catch (error) {
+//       next(error);
+//     }
     
-  })
+//   })
 
 //update/patch
-productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
+/*productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
    const id = req.params.productId;
    const userId = req.user.id;
    const {name, description, price, inventory_qty, img_url} = req.body
@@ -68,11 +69,11 @@ productsRouter.patch ('/products/:productId', requireUser, async(req, res, next)
     }catch(error) {
       next(error);
     }
-})
+}) */
 
 
 //delete product
-productsRouter.delete('/products/:productId', requireUser, async (req, res, next) => { 
+/*productsRouter.delete('/products/:productId', requireUser, async (req, res, next) => { 
     const productId = req.params.productId;
     const userId = req.user.id;
 
@@ -88,4 +89,4 @@ productsRouter.delete('/products/:productId', requireUser, async (req, res, next
     } catch(error) {
       next(error);
     }
-})
+})*/
