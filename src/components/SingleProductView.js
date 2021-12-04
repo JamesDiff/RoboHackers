@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getProductById } from '../api'
 // import { // all necessary/relevant API calls // } from //wherever they're stored//
 
 /*As a user, I want to be able to click a product from the all products page 
@@ -12,12 +13,13 @@ and get a detailed product page with more information about the product on it.*/
 const SingleProductView = ({productId}) => {
 
     const [product, setProduct] = useState([]);
-    const [cart, setCart] = useState([]);
+    // const [cart, setCart] = useState([]);
 
 
-    useEffect(() => {
-        //function to GET singleProductById//
-        //then set it to state//
+    useEffect(async () => {
+        const result = await getProductById();
+        console.log(result);
+        setProduct(result)
     })
 
 
@@ -45,7 +47,7 @@ const SingleProductView = ({productId}) => {
                     </div>
 
                     <div>
-                        <button type="submit" id="addToCartButton" onClick={async(event) => {
+                        {/* <button type="submit" id="addToCartButton" onClick={async(event) => {
                             event.preventDefault();
                             try {
                                 const result = await handleAddToCart();
@@ -54,11 +56,11 @@ const SingleProductView = ({productId}) => {
                                 console.error(error)
                             };
                         }}> Add to Cart
-                        </button>
+                        </button> */}
                     </div>
 
                     <div>
-                        <button type="submit" id="viewCartButton" onClick={async(event) => {
+                        {/* <button type="submit" id="viewCartButton" onClick={async(event) => {
                             event.preventDefault();
                             try {
                                 const result = await handleViewCart();
@@ -66,7 +68,7 @@ const SingleProductView = ({productId}) => {
                                 console.error(error)
                             };
                         }}> View Cart 
-                        </button>
+                        </button> */}
                     </div>
 
         </div>
