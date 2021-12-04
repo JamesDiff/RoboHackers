@@ -1,16 +1,16 @@
 const express = require('express');
 const productsRouter = express.Router();
-const requireUser = require('') //where do I require user from?
+//const requireUser = require('') //where do I require user from?
 
-
-
-import { createProduct, getAllProducts, getProductById } from '../../db/product';
-//{ updateProduct, deleteProduct } 
+const { getAllProducts, getProductById } = require('../db');
+//{ createProduct, updateProduct, deleteProduct } 
 
 //get products
-productsRouter.get('/products', async(req, res, next) => {
+productsRouter.get('/', async(req, res, next) => {
+    console.log("you've hit get all products")
     try{
         const products = await getAllProducts();
+        console.log("got products")
         res.send(products)
 
     } catch(error) {
@@ -19,7 +19,7 @@ productsRouter.get('/products', async(req, res, next) => {
 })
 
 //get product by id
-productsRouter.get('/products/:productId', async(req, res, next) => {
+productsRouter.get('/:productId', async(req, res, next) => {
     const productId = req.params.productId;
 
     try{
@@ -90,3 +90,5 @@ productsRouter.get('/products/:productId', async(req, res, next) => {
       next(error);
     }
 })*/
+
+module.exports = productsRouter
