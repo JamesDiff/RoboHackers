@@ -9,4 +9,4 @@ apiRouter.get("/", (req, res, next) => {
 module.exports = apiRouter;
 
 const productsRouter = require('./products');
-apiRouter.use('/products', productsRouter);
+apiRouter.use('./products', productsRouter);
