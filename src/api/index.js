@@ -10,12 +10,3 @@ export async function getSomething() {
   }
 }
 
-export async function fetchAllProducts(){
-  try {
-      const products = await getAllProducts();
-      return products;
-
-  } catch (error) {
-      console.error("Error retriving products", error);
-  }
-}
