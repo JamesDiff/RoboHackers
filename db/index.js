@@ -6,5 +6,7 @@ const client = require("./client")
 // export
 module.exports = {
   client,
-  ...require('./product') // Products
+  ...require('./product'), // Products
+  ...require('./users'), // Users
+  ...require('./orders') // Orders
 }

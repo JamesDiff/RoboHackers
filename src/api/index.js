@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getAllProducts } from '../../db/product';
 
 // export async function getSomething() {
 //   try {
@@ -122,3 +123,4 @@ export const getUser = async (token) => {
       console.error(chalk.red("Trouble fetching user data!!!"), err);
   }
 }
+
