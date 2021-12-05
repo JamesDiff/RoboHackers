@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Register, Login, Logout, AllProducts } from '../components';
-import {
-  getSomething
-} from '../api';
+import { Register, Login, Logout, AllProducts, Title, NavBar } from '../components';
+
+// import {
+//   getSomething
+// } from '../api';
 
 const App = () => {
-  const [message, setMessage] = useState('');
+  // Need to figure out the whole message thing, but i don't even think we need to use it at all.
+  const [message, setMessage] = useState("");
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    getSomething()
-      .then(response => {
-        setMessage(response.message);
-      })
-      .catch(error => {
-        setMessage(error.message);
-      });
-  });
+  // useEffect(() => {
+  //   getSomething()
+  //     .then(response => {
+  //       setMessage(response.message);
+  //     })
+  //     .catch(error => {
+  //       setMessage(error.message);
+  //     });
+  // });
 
+  // As soon as page hits we will grab the current logged in users token and set it on state.
+  useEffect(() => {
+
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+        setToken(storedToken);
+        console.log("Token is set: ", token);
+    }
+}, []);
+
+  // We are returning our Title header and NavBar, which will show on every page the user goes to.
+  // All of our routes are laid out for our site.
   return (
       <>
+        <Title />
+        <br></br>
         <NavBar />
         
         <Router>
@@ -39,7 +55,9 @@ const App = () => {
         </Router>
 
         <div className="App">
-          <h1>Hello, World!</h1>
+          <h1>Welcome to GraceShopper!</h1>
+          <br></br>
+          <br></br>
           <h2>{ message }</h2>
         </div>
 

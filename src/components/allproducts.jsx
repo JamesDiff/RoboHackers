@@ -27,7 +27,7 @@ const AllProducts = ({token, setUser}) => {
     }, [token]);
 
     return (<div id="product-box" className="form-group">
-                <h1 className="post-title text-center">ALL PRODUCTS</h1>
+                <h1 className="post-title text-center">ALL PRODUCTS PAGE</h1>
                 <div id="product" className="container">
                     {products.map((product, index) => {
             
@@ -39,7 +39,7 @@ const AllProducts = ({token, setUser}) => {
                                 </div>
                                 <div className="form-group list-group-item-info">
                                     <Link to="/products/:productId" className="link">
-                                        ID: { product.id }
+                                        ID: { product.productId }
                                     </Link>
                                 </div>
                                 <div className="form-group list-group-item-info">
@@ -55,7 +55,7 @@ const AllProducts = ({token, setUser}) => {
                                     QTY On-Hand: {product.inventory_qty }
                                 </div>
                                 <div>
-                                    <Link to="/reviews/:productId" className="link">
+                                    <Link to="/reviews/:reviewId" className="link">
                                         PRODUCT REVIEWS
                                     </Link>
                                 </div>

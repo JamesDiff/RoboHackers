@@ -1,10 +1,10 @@
 const express = require('express');
 const productsRouter = express.Router();
-const requireUser = require('') //where do I require user from?
+// const requireUser = require('') //where do I require user from?
 
 
 
-import { createProduct, getAllProducts, getProductById } from '../../db/product';
+const { createProduct, getAllProducts, getProductById, getUser } = require('../db');
 //{ updateProduct, deleteProduct } 
 
 //get products
@@ -30,6 +30,9 @@ productsRouter.get('/products/:productId', async(req, res, next) => {
       next(error);
     }
 })
+
+
+module.exports = productsRouter;
 
 
 //post products

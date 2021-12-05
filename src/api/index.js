@@ -119,8 +119,28 @@ export const getUser = async (token) => {
       return result;
      
   }
-  catch (err) {
-      console.error(chalk.red("Trouble fetching user data!!!"), err);
+  catch (error) {
+      console.error("Trouble fetching current user data!!! 🤦‍♂️");
+      throw error;
+  }
+}
+
+export const getProductById = async (productId) => {
+
+  try {
+      const response = await fetch(`/api/products/${productId}`, {
+          headers: {
+            'Content-Type': 'application.json',
+          }
+      })
+      const result = await response.json();
+      console.log("Single product by productId is: ", result);
+      return result;
+  } 
+  
+  catch (error) {
+      console.error("ERROR getting product by productId!!! 🤦‍♂️");
+      throw error;
   }
 }
 
