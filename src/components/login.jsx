@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import { loginUser } from "../api";
 
+// This component takes us to the login page for a registered user.
+// On success a token will be given and stored in localStorage.
+// User must confirm their password in order to log in successfully.
 const Login = ({ setToken, match, history }) => {
 
     const [username, setUsername] = useState("");
@@ -73,6 +76,8 @@ const Login = ({ setToken, match, history }) => {
     )
 }
 
+// This component logs out a registered logged-in user and removes token from localStorage. 
+// Pushes user back to /login page.
 const Logout = ({ token, setToken, history }) => {
 
     return(

@@ -1,3 +1,5 @@
+// Import and export all components from the components folder
+
 import AllProducts from './allproducts';
 import { Login, Logout } from './login';
 import Register from './register';

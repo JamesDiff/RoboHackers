@@ -4,7 +4,7 @@ import { registerUser } from "../api";
 
 // The register component is a form where a new user can enter a username, password, and they must verify their password. 
 // All fields are required.
-// Once the fill out form and hit register button, their info will now be authorized and it will push them to the login page where they must login to the site.
+// Once the user fills out form and hits register button, their info will now be authorized and it will push them to the login page where they must login to the site.
 
 const Register = ({ setToken, history }) => {
 

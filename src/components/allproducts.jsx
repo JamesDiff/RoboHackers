@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 
-
+// This component renders the All Products page (maps out all the products in the database)
 const AllProducts = ({token, setUser}) => {
     
     const [products, setProducts] = useState([]);
@@ -55,6 +55,7 @@ const AllProducts = ({token, setUser}) => {
                                     QTY On-Hand: {product.inventory_qty }
                                 </div>
                                 <div>
+                                {/* This is a link to take us to the the review page to see an individual product's review page */}
                                     <Link to="/reviews/:reviewId" className="link">
                                         PRODUCT REVIEWS
                                     </Link>

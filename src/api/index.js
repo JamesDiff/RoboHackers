@@ -10,6 +10,7 @@ import { getAllProducts } from '../../db/product';
 //   }
 // }
 
+// This function registers a new user
 export const registerUser = async (setToken, username, password, verifyPassword, email, firstname, lastname, city, state, zipcode, phone) => {
 
   try {
@@ -52,6 +53,7 @@ export const registerUser = async (setToken, username, password, verifyPassword,
   }
 }
 
+// This function logs in a registered user
 export const loginUser = async (username, password, setToken) => {
 
   try {
@@ -83,6 +85,7 @@ export const loginUser = async (username, password, setToken) => {
   }
 }
 
+// This function will fetch all the products in the database from the BackEnd API
 export const getAllProducts = () => {
   try {
     const response = await fetch('/api/products', {
@@ -125,6 +128,7 @@ export const getUser = async (token) => {
   }
 }
 
+// This function fetches a single product from the database by it's productId.
 export const getProductById = async (productId) => {
 
   try {
