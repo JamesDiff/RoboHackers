@@ -10,121 +10,94 @@ import { getAllProducts } from '../../db/product';
 //   }
 // }
 
-// This function registers a new user
-export const registerUser = async (setToken, username, password, verifyPassword, email, firstname, lastname, city, state, zipcode, phone) => {
+
+// test call to grab users info (token and to see if logged in)
+export const getUser = async (token) => {
 
   try {
-    if (password !== verifyPassword) {
-      alert("Passwords DO NOT match!!! 🤦‍♂️");
-      return;
-    }
-
-    const response = await fetch('/api/users/register', {
-      method: "POST",
+    const { data } = await axios.get(`/api/users/me`, {
       headers: {
-        'Content-Type': 'application.json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
       },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-        email: email,
-        firstname: firstname,
-        lastname: lastname,
-        city: city,
-        state: state,
-        zipcode: zipcode,
-        phone: phone
-      })
     })
-    const result = await response.json();
-    console.log(result);
-    const user = result.user;
-    const token = result.token;
-    console.log("New registered user is: ", user);
-    setToken(token);
-    localStorage.setItem("token", token);
-    if (result.error) throw result.error;
-    
-  } 
-  
-  catch (error) {
-    console.error("ERROR registering new user!!! 🤦‍♂️");
-    throw error;
+    console.log("Current user: ", data);
+    return data;
+  } catch (error) {
+      console.error("ERROR fetching current user!!! 🤦‍♂️ FE-API getUser");
   }
+}
+
+// This function registers a new user
+export const registerUser = async (setToken, username, password, verifyPassword, email, firstname, lastname, street, city, state, zip, phone) => {
+
+    try {
+      if (password !== verifyPassword) {
+        alert("Passwords DO NOT match!!! 🤦‍♂️");
+        return;
+      }
+        const { data } = await axios.post('/api/register', {
+          username,
+          password,
+          email,
+          firstname,
+          lastname,
+          street,
+          city,
+          state,
+          zip,
+          phone,
+        })
+        console.log(data);
+        const user = data.user;
+        const token = data.token;
+        console.log("New registered user is: ", user);
+        setToken(token);
+        localStorage.setItem("token", token);
+        if (data.error) throw data.error;
+    } 
+    
+    catch (error) {
+        console.error('ERROR registering new user!!! 🤦‍♂️ - FE-API registerUser');
+        throw error;
+    }
 }
 
 // This function logs in a registered user
 export const loginUser = async (username, password, setToken) => {
 
   try {
-    const response = await fetch('/api/users/login', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application.json'
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
+    const { data } = await axios.post('/api/login', {
+      username,
+      password,
     })
 
-    const result = await response.json();
-    console.log(result);
-    console.log(result.token);
-    const token = result.token;
+    console.log(data);
+    const token = data.token;
     setToken(token);
     localStorage.setItem("token", token);
     localStorage.getItem("token");
-    if (result.error) throw result.error;
-    
+    if (data.error) throw data.error;
   } 
   
   catch (error) {
-    console.error("ERROR logging in user!!! 🤦‍♂️");
+    console.error("ERROR logging in user!!! 🤦‍♂️ - FE-API loginUser");
     throw error;
   }
 }
 
-// This function will fetch all the products in the database from the BackEnd API
-export const getAllProducts = () => {
+// This function will fetch all the products in the database.
+export const getAllProducts = async () => {
   try {
-    const response = await fetch('/api/products', {
-      headers: {
-        'Content-Type': 'application.json'
-      },
-    })
+    const { data } = await axios.get('/api/products');
+    console.log('All products: ', data);
 
-    const result = await response.json();
-
-    if (result.error) throw result.error;
-    console.log(result);
-    return result;
-    
+    return data;
   } 
   
   catch (error) {
-    console.error('ERROR fetching all products!!! 🤦‍♂️');
+    console.error('ERROR fetching all products!!! 🤦‍♂️ - FE-API getAllProducts');
     throw error;
-  }
-}
-
-// test call to grab users info (token and to see if logged in)
-export const getUser = async (token) => {
-  try {
-      const response = await fetch('/api/users/me', {
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + token
-          }
-      })
-      const result = await response.json();
-      console.log(chalk.cyan("Logged in user data: "), result);
-      return result;
-     
-  }
-  catch (error) {
-      console.error("Trouble fetching current user data!!! 🤦‍♂️");
-      throw error;
   }
 }
 
@@ -132,19 +105,96 @@ export const getUser = async (token) => {
 export const getProductById = async (productId) => {
 
   try {
-      const response = await fetch(`/api/products/${productId}`, {
-          headers: {
-            'Content-Type': 'application.json',
-          }
-      })
-      const result = await response.json();
-      console.log("Single product by productId is: ", result);
-      return result;
+    const { data } = await axios.get(`/api/products/${productId}`);
+    console.log('The product by id is: ', data);
+
+    return data;
   } 
   
   catch (error) {
-      console.error("ERROR getting product by productId!!! 🤦‍♂️");
-      throw error;
+    console.error("ERROR getting product by productId!!! 🤦‍♂️ - FE-API getProductById ");
+    throw error;
   }
 }
 
+
+// export const getUser = async (token) => {
+//   try {
+//       const response = await fetch('/api/users/me', {
+//           headers: {
+//               'Content-Type': 'application/json',
+//               'Authorization': 'Bearer ' + token
+//           }
+//       })
+//       const result = await response.json();
+//       console.log(chalk.cyan("Logged in user data: "), result);
+//       return result;
+     
+//   }
+//   catch (error) {
+//       console.error("Trouble fetching current user data!!! 🤦‍♂️");
+//       throw error;
+//   }
+// }
+
+
+// export const getProductById = async (productId) => {
+
+//   try {
+//       const response = await fetch(`/api/products/${productId}`, {
+//           headers: {
+//             'Content-Type': 'application.json',
+//           }
+//       })
+//       const result = await response.json();
+//       console.log("Single product by productId is: ", result);
+//       return result;
+//   } 
+  
+//   catch (error) {
+//       console.error("ERROR getting product by productId!!! 🤦‍♂️");
+//       throw error;
+//   }
+// }
+
+// export const registerUser = async (setToken, username, password, verifyPassword, email, firstname, lastname, city, state, zip, phone) => {
+
+//   try {
+    // if (password !== verifyPassword) {
+    //   alert("Passwords DO NOT match!!! 🤦‍♂️");
+    //   return;
+//     }
+
+//     const response = await fetch('/api/users/register', {
+//       method: "POST",
+//       headers: {
+//         'Content-Type': 'application.json'
+//       },
+//       body: JSON.stringify({
+//         username: username,
+//         password: password,
+//         email: email,
+//         firstname: firstname,
+//         lastname: lastname,
+//         city: city,
+//         state: state,
+//         zip: zip,
+//         phone: phone
+//       })
+//     })
+//     const result = await response.json();
+    // console.log(result);
+    // const user = result.user;
+    // const token = result.token;
+    // console.log("New registered user is: ", user);
+    // setToken(token);
+    // localStorage.setItem("token", token);
+    // if (result.error) throw result.error;
+    
+//   } 
+  
+//   catch (error) {
+//     console.error("ERROR registering new user!!! 🤦‍♂️");
+//     throw error;
+//   }
+// }
