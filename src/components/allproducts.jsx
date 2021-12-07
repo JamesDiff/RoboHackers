@@ -33,7 +33,7 @@ const AllProducts = ({token, setUser}) => {
             
                         return (
                             
-                            <div key={index} className="containter">
+                            <div key={index} className="container">
                                 <div className="form-group bg-success list-group-item-text">
                                     Image: { product.img_url }
                                 </div>
@@ -56,7 +56,7 @@ const AllProducts = ({token, setUser}) => {
                                 </div>
                                 <div>
                                 {/* This is a link to take us to the the review page to see an individual product's review page */}
-                                    <Link to="/reviews/:reviewId" className="link">
+                                    <Link to="/products/:productId/reviews/:reviewId" className="link">
                                         PRODUCT REVIEWS
                                     </Link>
                                 </div>

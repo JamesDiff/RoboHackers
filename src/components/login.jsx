@@ -89,7 +89,7 @@ const Logout = ({ token, setToken, history }) => {
                 if (storageToken) {
                     localStorage.removeItem("token");
                     setToken(null);
-                    alert('You are now logged out. Goodbye');
+                    alert('You are now logged out.');
                     history.push("/login");
                     }
             }} 

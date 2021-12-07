@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getAllProducts } from '../../db/product';
 
 // export async function getSomething() {
 //   try {
@@ -10,6 +9,7 @@ import { getAllProducts } from '../../db/product';
 //   }
 // }
 
+//******* GETUSER, REGISTER, & LOGIN API CALLS *******/
 
 // test call to grab users info (token and to see if logged in)
 export const getUser = async (token) => {
@@ -86,8 +86,11 @@ export const loginUser = async (username, password, setToken) => {
   }
 }
 
+//************ PRODUCT API CALLS ***************/
+
+
 // This function will fetch all the products in the database.
-export const getAllProducts = async () => {
+export const allProducts = async () => {
   try {
     const { data } = await axios.get('/api/products');
     console.log('All products: ', data);
@@ -96,7 +99,7 @@ export const getAllProducts = async () => {
   } 
   
   catch (error) {
-    console.error('ERROR fetching all products!!! 🤦‍♂️ - FE-API getAllProducts');
+    console.error('ERROR fetching all products!!! 🤦‍♂️ - FE-API allProducts');
     throw error;
   }
 }
@@ -112,89 +115,45 @@ export const getProductById = async (productId) => {
   } 
   
   catch (error) {
-    console.error("ERROR getting product by productId!!! 🤦‍♂️ - FE-API getProductById ");
+    console.error("ERROR getting product by productId!!! 🤦‍♂️ - FE-API getProductById");
     throw error;
   }
 }
 
+// This function deletes a single product by it's id
+export const deleteProductById = (productId) => {
 
-// export const getUser = async (token) => {
-//   try {
-//       const response = await fetch('/api/users/me', {
-//           headers: {
-//               'Content-Type': 'application/json',
-//               'Authorization': 'Bearer ' + token
-//           }
-//       })
-//       const result = await response.json();
-//       console.log(chalk.cyan("Logged in user data: "), result);
-//       return result;
-     
-//   }
-//   catch (error) {
-//       console.error("Trouble fetching current user data!!! 🤦‍♂️");
-//       throw error;
-//   }
-// }
+  try {
+    const { data } = await axios.delete(`/api/products/${productId}`);
+    console.log("Deleted product is: ", data)
 
-
-// export const getProductById = async (productId) => {
-
-//   try {
-//       const response = await fetch(`/api/products/${productId}`, {
-//           headers: {
-//             'Content-Type': 'application.json',
-//           }
-//       })
-//       const result = await response.json();
-//       console.log("Single product by productId is: ", result);
-//       return result;
-//   } 
+    return data;
+  } 
   
-//   catch (error) {
-//       console.error("ERROR getting product by productId!!! 🤦‍♂️");
-//       throw error;
-//   }
-// }
+  catch (error) {
+      console.error("ERROR deleting product by id!!! 🤦‍♂️ - FE-API deleteProductById");
+      throw error;
+  }
+}
 
-// export const registerUser = async (setToken, username, password, verifyPassword, email, firstname, lastname, city, state, zip, phone) => {
+// This function creates a new product
+export const createProduct = async (name, description, price, inventory_qty, img_url) => {
 
-//   try {
-    // if (password !== verifyPassword) {
-    //   alert("Passwords DO NOT match!!! 🤦‍♂️");
-    //   return;
-//     }
+  try {
+    const { data } = await axios.post('/api/products', {
+      name,
+      description,
+      price,
+      inventory_qty,
+      img_url
+    })
+    console.log("New product is: ", data);
 
-//     const response = await fetch('/api/users/register', {
-//       method: "POST",
-//       headers: {
-//         'Content-Type': 'application.json'
-//       },
-//       body: JSON.stringify({
-//         username: username,
-//         password: password,
-//         email: email,
-//         firstname: firstname,
-//         lastname: lastname,
-//         city: city,
-//         state: state,
-//         zip: zip,
-//         phone: phone
-//       })
-//     })
-//     const result = await response.json();
-    // console.log(result);
-    // const user = result.user;
-    // const token = result.token;
-    // console.log("New registered user is: ", user);
-    // setToken(token);
-    // localStorage.setItem("token", token);
-    // if (result.error) throw result.error;
-    
-//   } 
+    return data;
+  } 
   
-//   catch (error) {
-//     console.error("ERROR registering new user!!! 🤦‍♂️");
-//     throw error;
-//   }
-// }
+  catch (error) {
+      console.error("ERROR creating new product!!! 🤦‍♂️ - FE-API createProduct");
+      throw error;
+  }
+}

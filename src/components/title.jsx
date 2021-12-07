@@ -5,7 +5,7 @@ import React from 'react';
 const Title = () => {
     return  <div id="title" className="jumbotron text-center">
                 <h1 className="text-info">GraceShopper</h1>
-                <h5 className="text-warning">Developed by ROBOHACKERS</h5>
+                <h5 className="text-warning">Developed by Team ROBOHACKERS</h5>
                 
                 
             </div>

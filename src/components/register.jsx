@@ -2,13 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { registerUser } from "../api";
 
-// The register component is a form where a new user can enter a username, password, and they must verify their password. 
+// The register component is a form where a new user can enter a first and last name, password, and they must verify their password. 
 // All fields are required.
 // Once the user fills out form and hits register button, their info will now be authorized and it will push them to the login page where they must login to the site.
 
 const Register = ({ setToken, history }) => {
 
-    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -17,14 +16,14 @@ const Register = ({ setToken, history }) => {
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const [zipcode, setZipcode] = useState("");
+    const [zip, setZip] = useState("");
     const [phone, setPhone] = useState(null);
 
     return(
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
-                const response = await registerUser(setToken, username, password, verifyPassword, email, firstname, lastname, street, city, state, zipcode, phone);
+                const response = await registerUser(setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone);
                 history.push("/login")
             }
             catch (error) {
@@ -35,9 +34,16 @@ const Register = ({ setToken, history }) => {
                 <h3>Register</h3>
 
                 <div className="form-group">
-                    <label>Username</label>
+                    <label>First Name</label>
                     <br></br>
-                    <input onChange={(event) => setUsername(event.target.value)} type="text" className="form-control" placeholder="Username" required />
+                    <input onChange={(event) => setFirstname(event.target.value)} type="text" className="form-control" placeholder="First name" required />
+                    <br></br>
+                </div>
+
+                <div className="form-group">
+                    <label>Last Name</label>
+                    <br></br>
+                    <input onChange={(event) => setLastname(event.target.value)} type="text" className="form-control" placeholder="Last name" required />
                     <br></br>
                 </div>
 
@@ -59,20 +65,6 @@ const Register = ({ setToken, history }) => {
                     <label>Email address</label>
                     <br></br>
                     <input onChange={(event) => setEmail(event.target.value)} type="email" className="form-control" placeholder="Email address" required />
-                    <br></br>
-                </div>
-
-                <div className="form-group">
-                    <label>First Name</label>
-                    <br></br>
-                    <input onChange={(event) => setFirstname(event.target.value)} type="text" className="form-control" placeholder="First name" required />
-                    <br></br>
-                </div>
-
-                <div className="form-group">
-                    <label>Last Name</label>
-                    <br></br>
-                    <input onChange={(event) => setLastname(event.target.value)} type="text" className="form-control" placeholder="Last name" required />
                     <br></br>
                 </div>
 
@@ -100,7 +92,7 @@ const Register = ({ setToken, history }) => {
                 <div className="form-group">
                     <label>Zipcode</label>
                     <br></br>
-                    <input onChange={(event) => setZipcode(event.target.value)} type="text" className="form-control" placeholder="Zipcode" required />
+                    <input onChange={(event) => setZip(event.target.value)} type="text" className="form-control" placeholder="Zipcode" required />
                     <br></br>
                 </div>
 

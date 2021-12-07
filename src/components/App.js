@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Register, Login, Logout, AllProducts, Title, NavBar } from '../components';
 
 // import {
@@ -45,13 +45,15 @@ const App = () => {
           <Route path="/users/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           <Route path="/users/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
           <Route path="/users/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
-          <Route path="/users/:userId" render={(routeProps) => <SingleUser {...routeProps} token={token} user={user} />} />
+          <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} />
+          <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} />
+          <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} />
+          <Route path="/users/:userId/cart" render={(routeProps) => <UserCart {...routeProps} token={token} user={user} />} />
           <Route path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} setUser={setUser} />} />
           <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} />
-          <Route path="/orders" render={(routeProps) => <Orders {...routeProps} token={token} user={user} />} />
           <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} />
-          <Route path="/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} />
-          <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} />
+          <Route path="/products/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} />
+          <Route path="/products/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} />
         </Router>
 
         <div className="App">
