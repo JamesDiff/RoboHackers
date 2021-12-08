@@ -90,7 +90,7 @@ export const loginUser = async (username, password, setToken) => {
 
 
 // This function will fetch all the products in the database.
-export const allProducts = async () => {
+export const getAllProducts = async () => {
   try {
     const { data } = await axios.get('/api/products');
     console.log('All products: ', data);
@@ -121,7 +121,7 @@ export const getProductById = async (productId) => {
 }
 
 // This function deletes a single product by it's id
-export const deleteProductById = (productId) => {
+export const deleteProductById = async (productId) => {
 
   try {
     const { data } = await axios.delete(`/api/products/${productId}`);

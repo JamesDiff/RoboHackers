@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Register, Login, Logout, AllProducts, Title, NavBar } from '../components';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { 
+  // Register,
+  // Login, 
+  // Logout, 
+  AllProducts, 
+  Title, 
+  // NavBar,
+ } from '../components';
 
 // import {
 //   getSomething
@@ -8,9 +15,9 @@ import { Register, Login, Logout, AllProducts, Title, NavBar } from '../componen
 
 const App = () => {
   // Need to figure out the whole message thing, but i don't even think we need to use it at all.
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   // useEffect(() => {
   //   getSomething()
@@ -30,7 +37,7 @@ const App = () => {
         setToken(storedToken);
         console.log("Token is set: ", token);
     }
-}, []);
+}, [token]);
 
   // We are returning our Title header and NavBar, which will show on every page the user goes to.
   // All of our routes are laid out for our site.
@@ -38,29 +45,35 @@ const App = () => {
       <>
         <Title />
         <br></br>
-        <NavBar />
+        {/* <NavBar /> */}
         
         <Router>
-          <Route path="/home" render={(routeProps) => <Home />} />
-          <Route path="/users/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
-          <Route path="/users/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
-          <Route path="/users/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
-          <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} />
-          <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} />
-          <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} />
-          <Route path="/users/:userId/cart" render={(routeProps) => <UserCart {...routeProps} token={token} user={user} />} />
-          <Route path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} setUser={setUser} />} />
-          <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} />
-          <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} />
-          <Route path="/products/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} />
-          <Route path="/products/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} />
+          {/* <Route path="/home" render={(routeProps) => <Home />} /> */}
+          {/* <Route path="/users/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} /> */}
+          {/* <Route path="/users/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} /> */}
+          {/* <Route path="/users/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} /> */}
+          {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
+          {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/users/:userId/cart" render={(routeProps) => <UserCart {...routeProps} token={token} user={user} />} /> */}
+          <Route path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
+          {/* <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} /> */}
+          {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/products/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/products/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
+
+          <Link to="/products" className="link">
+          ALL PRODUCTS
+        </Link>
         </Router>
+
+        
 
         <div className="App">
           <h1>Welcome to GraceShopper!</h1>
           <br></br>
           <br></br>
-          <h2>{ message }</h2>
+          {/* <h2>{ message }</h2> */}
         </div>
 
       </>
