@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
 const { rebuildDB } = require('../db/init_db');
-const { getUserById, createUser, getUser, createOrder} = require('../db');
+const { getUserById, createUser, getUser, createOrder, createProduct, getAllProducts, getProductById} = require('../db');
 const client = require('../db/client');
 
 describe('Database', () => {
@@ -78,5 +78,47 @@ describe('Database', () => {
         expect(queriedOrder.userId).toBe(orderCredentials.userId);
       });
     })
+  })
+  describe('Products', () => {
+    let productToCreateAndUpdate, queriedProduct, allProducts, queriedAllProducts, productById, queriedProductById;
+    let productCredentials = {
+        name: "Community", 
+        description: "A rag tag bunch of communtiy college students try to figure out life, relationships and the crazy DEAN DEEE DEAN DEAN DEEEEAAAANNN", 
+        price: 19.99, 
+        inventory_qty: 50, 
+        img_url:'https://m.media-amazon.com/images/I/81Sh1743JeL._SY606_.jpg'
+      }
+    describe('getAllProducts()', () => {
+        beforeAll(async () => {
+            allProducts = await getAllProducts();
+            const {rows} = await client.query('SELECT * FROM products');
+            queriedAllProducts = rows;
+        })
+        it('Gets All Products', async () => {
+            expect(allProducts.length).toBe(queriedAllProducts.length);
+        })
+    })
+    describe('createProduct({ name, description, price, inventory_qty, img_url})', () => {
+      beforeAll(async () => {
+        productToCreateAndUpdate = await createProduct(productCredentials);
+        const {rows} = await client.query(`SELECT * FROM products WHERE name = $1`, [productCredentials.name]);
+        queriedProduct = rows[0];
+      })
+      it('Creates the Product', async () => {
+        expect(productToCreateAndUpdate.name).toBe(productCredentials.name);
+        expect(queriedProduct.name).toBe(productCredentials.name);
+      });
+    })
+    describe('getProductById(id)', () => {
+        beforeAll(async () => {
+            productById = await getProductById(productToCreateAndUpdate.id);
+            const {rows} = await client.query(`SELECT * FROM products WHERE id = $1`, [productToCreateAndUpdate.id]);
+            queriedProductById = rows[0];
+        })
+        it('Gets the Product by Id', async () => {
+          expect(productById.id).toBe(queriedProductById.id);
+          expect(productById.name).toBe(queriedProductById.name);
+        });
+      })
   })
 });
