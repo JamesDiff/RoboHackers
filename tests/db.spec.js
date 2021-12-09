@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
 const { rebuildDB } = require('../db/init_db');
-const { getUserById, createUser, getUser} = require('../db');
+const { getUserById, createUser, getUser, createOrder} = require('../db');
 const client = require('../db/client');
 
 describe('Database', () => {
@@ -58,6 +58,25 @@ describe('Database', () => {
         expect(user).toBeTruthy();
         expect(user.id).toBe(userToCreateAndUpdate.id);
       })
+    })
+  })
+  describe('Orders', () => {
+    let orderToCreateAndUpdate, queriedOrder;
+    let orderCredentials = {
+        userId: 1,
+        total_price: 0, 
+        order_status: "Open"
+    };
+    describe('createOrder({ "userId", total_price, order_status})', () => {
+      beforeAll(async () => {
+        orderToCreateAndUpdate = await createOrder(orderCredentials);
+        const {rows} = await client.query(`SELECT * FROM orders WHERE "userId" = $1`, [orderCredentials.userId]);
+        queriedOrder = rows[0];
+      })
+      it('Creates the order', async () => {
+        expect(orderToCreateAndUpdate.userId).toBe(orderCredentials.userId);
+        expect(queriedOrder.userId).toBe(orderCredentials.userId);
+      });
     })
   })
 });
