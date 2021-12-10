@@ -31,6 +31,9 @@ productsRouter.get('/:productId', async(req, res, next) => {
 })
 
 
+module.exports = productsRouter;
+
+
 //post products
  productsRouter.post('/', async (req, res, next) => {
      const creatorId = req.user.id;
