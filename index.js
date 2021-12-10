@@ -6,6 +6,9 @@ const server = express();
 const morgan = require('morgan');
 server.use(morgan('dev'));
 
+const cors = require('cors');
+server.use(cors());
+
 // handle application/json requests
 server.use(express.json());
 

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 const AllProducts = () => {
     
     const [products, setProducts] = useState([]);
+ 
     // const [cart, setCart] = useState([]);
     // const [cartItemCount, setCartItemCount] = useState(1);
     // const history = useHistory();
@@ -32,9 +33,12 @@ const AllProducts = () => {
         }
     }
 
+
+
     useEffect(() => {
         fetchAllProducts();
     }, []);
+
 
     // useEffect(async() => {
     //     const result = await getAllProducts();
@@ -62,7 +66,7 @@ const AllProducts = () => {
                                 </div>
                                 <div className="form-group list-group-item-info">
                                     <Link to="/products/:productId" className="link">
-                                        ID: { product.productId }
+                                        ID: { product.id }
                                     </Link>
                                 </div>
                                 <div className="form-group list-group-item-info">
