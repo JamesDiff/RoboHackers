@@ -1,14 +1,13 @@
 const client = require('./client');
 
-async function addProductToOrder(order, product, quantity){
-    console.log("Adding Product to Order", product.price, order, quantity)
+async function addProductToOrder(orderId, productId, productPrice, quantity){
     try{
         const {rows : [productToOrder]} = await client.query(`
             INSERT INTO order_products("orderId", "productId", priceAtTimeOfOrder, quantity)
             VALUES ($1, $2, $3, $4)
             ON CONFLICT ("orderId", "productId") DO NOTHING
             RETURNING *;
-        `, [order.id, product.id, product.price, quantity]);
+        `, [orderId, productId, productPrice, quantity]);
         return productToOrder;
     }catch(error){
         console.error("Error adding Product to Order", error);

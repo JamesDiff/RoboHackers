@@ -209,7 +209,7 @@ async function createInitialUsersOrders(users, products){
     const orders = await Promise.all(ordersToCreate.map(order => createOrder(order)));
     console.log('Orders Created: ', orders);
     
-    const productsAddedToOrders = await Promise.all(orders.map(order => addProductToOrder(order, products[0], 10)));
+    const productsAddedToOrders = await Promise.all(orders.map(order => addProductToOrder(order.id, products[0].id, products[0].price, 10)));
     console.log("Products Added to Orders", productsAddedToOrders)
 
     const ordersWithLineItems = await getAllOrders();
