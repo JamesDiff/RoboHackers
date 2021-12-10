@@ -1,16 +1,15 @@
 const express = require('express');
 const productsRouter = express.Router();
-// const requireUser = require('') //where do I require user from?
 
-
-
-const { createProduct, getAllProducts, getProductById, getUser } = require('../db');
+const { getAllProducts, getProductById, createProduct } = require('../db');
 //{ updateProduct, deleteProduct } 
 
 //get products
-productsRouter.get('/products', async(req, res, next) => {
+productsRouter.get('/', async(req, res, next) => {
+    console.log("you've hit get all products")
     try{
         const products = await getAllProducts();
+        console.log("got products")
         res.send(products)
 
     } catch(error) {
@@ -19,7 +18,7 @@ productsRouter.get('/products', async(req, res, next) => {
 })
 
 //get product by id
-productsRouter.get('/products/:productId', async(req, res, next) => {
+productsRouter.get('/:productId', async(req, res, next) => {
     const productId = req.params.productId;
 
     try{
@@ -36,21 +35,21 @@ module.exports = productsRouter;
 
 
 //post products
-// productsRouter.post('/products', requireUser, async (req, res, next) => {
-//     const creatorId = req.user.id;
-//     const { name, description, price, inventory_qty, img_url } = req.body;
+ productsRouter.post('/', async (req, res, next) => {
+     const creatorId = req.user.id;
+     const { name, description, price, inventory_qty, img_url } = req.body;
 
-//     const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
+     const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
 
-//     try {
-//       const newProduct = await createProduct(productToCreate);
-//       res.send(newProduct);
+     try {
+       const newProduct = await createProduct(productToCreate);
+       res.send(newProduct);
   
-//     } catch (error) {
-//       next(error);
-//     }
+     } catch (error) {
+       next(error);
+     }
     
-//   })
+   })
 
 //update/patch
 /*productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
@@ -93,3 +92,5 @@ module.exports = productsRouter;
       next(error);
     }
 })*/
+
+module.exports = productsRouter
