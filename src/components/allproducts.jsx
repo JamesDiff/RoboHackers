@@ -1,45 +1,68 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getAllProducts, getUser } from "../api";
+import { getAllProducts } from "../api";
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 
-
-const AllProducts = ({token, setUser}) => {
+// This component renders the All Products page (maps out all the products in the database)
+const AllProducts = () => {
     
     const [products, setProducts] = useState([]);
     // const [cart, setCart] = useState([]);
     // const [cartItemCount, setCartItemCount] = useState(1);
-    const history = useHistory();
+    // const history = useHistory();
 
-    useEffect(async() => {
-        const result = await getAllProducts();
-        console.log("ALL PRODUCTS: ", result);
-        setProducts(result); 
+    // useEffect(async() => {
+    //     const list = await getAllProducts();
+    //     console.log("ALL PRODUCTS: ", list);
+    //     setProducts(list); 
+    // }, []);
+
+    const fetchAllProducts = async () => {
+        try {
+            const list = await getAllProducts();
+            console.log("Product list is: ", list);
+            setProducts(list);
+        } 
+        
+        catch (error) {
+            console.error("ERROR fetching all products");
+            throw error;
+        }
+    }
+
+    useEffect(() => {
+        fetchAllProducts();
     }, []);
 
-    useEffect(async() => {
-        if(token) {
-            const user = await getUser(token, setUser);
-            console.log("User is: ", user);
-        }
-    }, [token]);
+    // useEffect(async() => {
+    //     const result = await getAllProducts();
+    //     console.log("ALL PRODUCTS: ", result);
+    //     setProducts(result); 
+    // }, []);
+
+    // useEffect(async() => {
+    //     if(token) {
+    //         const user = await getUser(token, setUser);
+    //         console.log("User is: ", user);
+    //     }
+    // }, [token]);
 
     return (<div id="product-box" className="form-group">
-                <h1 className="post-title text-center">ALL PRODUCTS</h1>
+                <h1 className="post-title text-center">ALL PRODUCTS PAGE</h1>
                 <div id="product" className="container">
                     {products.map((product, index) => {
             
                         return (
                             
-                            <div key={index} className="containter">
+                            <div key={index} className="container">
                                 <div className="form-group bg-success list-group-item-text">
                                     Image: { product.img_url }
                                 </div>
                                 <div className="form-group list-group-item-info">
                                     <Link to="/products/:productId" className="link">
-                                        ID: { product.id }
+                                        ID: { product.productId }
                                     </Link>
                                 </div>
                                 <div className="form-group list-group-item-info">
@@ -55,7 +78,8 @@ const AllProducts = ({token, setUser}) => {
                                     QTY On-Hand: {product.inventory_qty }
                                 </div>
                                 <div>
-                                    <Link to="/reviews/:productId" className="link">
+                                {/* This is a link to take us to the the review page to see an individual product's review page */}
+                                    <Link to="/products/:productId/reviews/:reviewId" className="link">
                                         PRODUCT REVIEWS
                                     </Link>
                                 </div>

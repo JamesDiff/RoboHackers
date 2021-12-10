@@ -17,10 +17,10 @@ const SingleProductView = ({productId}) => {
 
 
     useEffect(async () => {
-        const result = await getProductById();
-        console.log(result);
-        // setProduct(result)
-    })
+        const result = await getProductById(productId);
+        console.log("Product is: ", result);
+        setProduct(result);
+    }, [productId])
 
 
     //returns a single product card view, displaying that product's details//

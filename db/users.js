@@ -5,7 +5,6 @@ async function createUser({ firstname, lastname, password, email, street, city, 
     try {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(password, salt);
-
         const {rows: [user]} = await client.query(`
             INSERT INTO users(firstname, lastname, password, email, street, city, state, zip, phone)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -16,7 +15,6 @@ async function createUser({ firstname, lastname, password, email, street, city, 
             return null;
         }
         delete user.password;
-        
         return user;
     } catch (error) {
         console.error("Error creating User", error);
@@ -24,8 +22,8 @@ async function createUser({ firstname, lastname, password, email, street, city, 
     }
 }
 
-async function getUser({ username, password}) {
-    const user = await getUserByUsername(username);
+async function getUser({ email, password}) {
+    const user = await getUserByEmail(email);
     try{
         const passwordEqual = await bcrypt.compare(password, user.password);
         if(passwordEqual){
@@ -61,19 +59,19 @@ async function getUserById(id) {
     }
 }
 
-async function getUserByUsername(username) {
+async function getUserByEmail(email) {
     try {
         const {rows: [user]} = await client.query(`
             SELECT *
             FROM users
-            WHERE username=$1;
-        `, [username]);
+            WHERE email=$1;
+        `, [email]);
         if(!user){
             return null;
         }
         return user;
     }catch(error){
-        console.error("Error geting User by Username");
+        console.error("Error geting User by Email");
         throw error;
     }
 }
@@ -82,5 +80,5 @@ module.exports = {
     createUser, 
     getUser, 
     getUserById, 
-    getUserByUsername
+    getUserByEmail
 }

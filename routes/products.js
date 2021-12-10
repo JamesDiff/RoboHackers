@@ -1,9 +1,8 @@
 const express = require('express');
 const productsRouter = express.Router();
-//const requireUser = require('') //where do I require user from?
 
-const { getAllProducts, getProductById } = require('../db');
-//{ createProduct, updateProduct, deleteProduct } 
+const { getAllProducts, getProductById, createProduct } = require('../db');
+//{ updateProduct, deleteProduct } 
 
 //get products
 productsRouter.get('/', async(req, res, next) => {
@@ -32,22 +31,25 @@ productsRouter.get('/:productId', async(req, res, next) => {
 })
 
 
+module.exports = productsRouter;
+
+
 //post products
-// productsRouter.post('/products', requireUser, async (req, res, next) => {
-//     const creatorId = req.user.id;
-//     const { name, description, price, inventory_qty, img_url } = req.body;
+ productsRouter.post('/', async (req, res, next) => {
+     const creatorId = req.user.id;
+     const { name, description, price, inventory_qty, img_url } = req.body;
 
-//     const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
+     const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
 
-//     try {
-//       const newProduct = await createProduct(productToCreate);
-//       res.send(newProduct);
+     try {
+       const newProduct = await createProduct(productToCreate);
+       res.send(newProduct);
   
-//     } catch (error) {
-//       next(error);
-//     }
+     } catch (error) {
+       next(error);
+     }
     
-//   })
+   })
 
 //update/patch
 /*productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {

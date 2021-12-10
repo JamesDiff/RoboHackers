@@ -17,7 +17,7 @@ async function dropTables() {
     `);
     console.log("Finished dropping tables")
   } catch(error) {
-    console.log("Error dropping tables!")
+    console.log("Error dropping tables!", error)
     throw error;
   }
 }
@@ -65,7 +65,7 @@ async function createTables() {
 async function buildTables() {
   try {
     client.connect();
-
+    console.log("Client", client)
     // drop tables in correct order
     await dropTables();
 
@@ -211,7 +211,13 @@ async function populateInitialData() {
   }
 }
 
-buildTables()
-  .then(populateInitialData)
-  .catch(console.error)
-  .finally(() => client.end());
+async function rebuildDB(){
+  try{
+    await buildTables();
+    await populateInitialData();
+  }catch(error){
+    throw error;
+  }
+}
+
+module.exports = {rebuildDB};
