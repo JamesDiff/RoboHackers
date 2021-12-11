@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 
 // This component renders the All Products page (maps out all the products in the database)
-const AllProducts = () => {
-    
+const AllProducts = (props) => {
+    const token = props.token;
     const [products, setProducts] = useState([]);
     // const [cart, setCart] = useState([]);
     // const [cartItemCount, setCartItemCount] = useState(1);
@@ -23,9 +23,9 @@ const AllProducts = () => {
         try {
             const list = await getAllProducts();
             console.log("Product list is: ", list);
-            setProducts(list);
+            setProducts(list.data);
+            // return list;
         } 
-        
         catch (error) {
             console.error("ERROR fetching all products");
             throw error;
@@ -62,7 +62,7 @@ const AllProducts = () => {
                                 </div>
                                 <div className="form-group list-group-item-info">
                                     <Link to="/products/:productId" className="link">
-                                        ID: { product.productId }
+                                        ID: { product.id }
                                     </Link>
                                 </div>
                                 <div className="form-group list-group-item-info">
