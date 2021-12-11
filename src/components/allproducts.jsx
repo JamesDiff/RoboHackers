@@ -13,18 +13,11 @@ const AllProducts = (props) => {
     // const [cartItemCount, setCartItemCount] = useState(1);
     // const history = useHistory();
 
-    // useEffect(async() => {
-    //     const list = await getAllProducts();
-    //     console.log("ALL PRODUCTS: ", list);
-    //     setProducts(list); 
-    // }, []);
-
     const fetchAllProducts = async () => {
         try {
             const list = await getAllProducts();
             console.log("Product list is: ", list);
             setProducts(list.data);
-            // return list;
         } 
         catch (error) {
             console.error("ERROR fetching all products");
@@ -35,19 +28,6 @@ const AllProducts = (props) => {
     useEffect(() => {
         fetchAllProducts();
     }, []);
-
-    // useEffect(async() => {
-    //     const result = await getAllProducts();
-    //     console.log("ALL PRODUCTS: ", result);
-    //     setProducts(result); 
-    // }, []);
-
-    // useEffect(async() => {
-    //     if(token) {
-    //         const user = await getUser(token, setUser);
-    //         console.log("User is: ", user);
-    //     }
-    // }, [token]);
 
     return (<div id="product-box" className="form-group">
                 <h1 className="post-title text-center">ALL PRODUCTS PAGE</h1>
