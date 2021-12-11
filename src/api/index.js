@@ -33,19 +33,18 @@ export const getUser = async (token) => {
 }
 
 // This function registers a new user
-export const registerUser = async (setToken, username, password, verifyPassword, email, firstname, lastname, street, city, state, zip, phone) => {
+export const registerUser = async (setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
 
     try {
       if (password !== verifyPassword) {
         alert("Passwords DO NOT match!!! 🤦‍♂️");
         return;
       }
-        const { data } = await axios.post('/api/register', {
-          username,
-          password,
-          email,
+        const data = await axios.post('/api/register', {
           firstname,
           lastname,
+          password,
+          email,
           street,
           city,
           state,

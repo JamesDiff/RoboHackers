@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { 
-  // Register,
+  Register,
   // Login, 
   // Logout, 
   AllProducts, 
@@ -55,7 +55,7 @@ const App = () => {
         
         <Router>
           {/* <Route path="/home" render={(routeProps) => <Home />} /> */}
-          {/* <Route path="/users/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} /> */}
+          <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           {/* <Route path="/users/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} /> */}
           {/* <Route path="/users/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} /> */}
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
@@ -70,7 +70,11 @@ const App = () => {
 
           <Link to="/products" className="link">
           ALL PRODUCTS
-        </Link>
+          </Link>
+
+          <Link to="/register" className="link">
+          REGISTER
+          </Link>
         </Router>
 
         
