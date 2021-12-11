@@ -3,21 +3,25 @@ const {
   client,
   createProduct, 
   createUser, 
-  createOrder
+  createOrder, 
+  getAllOrders,
+  getOrdersByUserEmail
 } = require('./index');
+const { addProductToOrder } = require('./order_products');
 
 async function dropTables() {
   console.log("Starting to drop tables...");
 
   try{
     await client.query(`
+      DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS users;
       DROP TABLE IF EXISTS products;
     `);
     console.log("Finished dropping tables")
   } catch(error) {
-    console.log("Error dropping tables!")
+    console.log("Error dropping tables!", error)
     throw error;
   }
 }
@@ -45,13 +49,22 @@ async function createTables() {
           city VARCHAR(255) NOT NULL,
           state VARCHAR(255) NOT NULL, 
           zip VARCHAR(255) NOT NULL,
-          phone VARCHAR(255) NOT NULL
+          phone VARCHAR(255) NOT NULL, 
+          is_admin BOOLEAN DEFAULT false
         );
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id), 
           total_price FLOAT NOT NULL,
           order_status VARCHAR(255) NOT NULL
+        );
+        CREATE TABLE order_products(
+          id SERIAL PRIMARY KEY, 
+          "orderId" INTEGER REFERENCES orders(id), 
+          "productId" INTEGER REFERENCES products(id), 
+          priceAtTimeOfOrder FLOAT NOT NULL, 
+          quantity INTEGER NOT NULL,
+          UNIQUE("orderId", "productId")
         );
     `);
 
@@ -65,7 +78,7 @@ async function createTables() {
 async function buildTables() {
   try {
     client.connect();
-
+    console.log("Client", client)
     // drop tables in correct order
     await dropTables();
 
@@ -106,6 +119,8 @@ async function createInitialProducts() {
     const products = await Promise.all(productsToCreate.map(product => createProduct(product)));
     console.log('Products Created: ', products)
     console.log('Finished creating products.')
+
+    return products;
   } catch (error) {
     console.error("Error creating initial products!")
     throw error;
@@ -170,7 +185,7 @@ async function createInitialUsers(){
   }
 }
 
-async function createInitialUsersOrders(users){
+async function createInitialUsersOrders(users, products){
   try{
     console.log("starting to create orders...")
     //Create an order for each new user
@@ -193,25 +208,40 @@ async function createInitialUsersOrders(users){
 
     const orders = await Promise.all(ordersToCreate.map(order => createOrder(order)));
     console.log('Orders Created: ', orders);
+    
+    const productsAddedToOrders = await Promise.all(orders.map(order => addProductToOrder(order.id, products[0].id, products[0].price, 10)));
+    console.log("Products Added to Orders", productsAddedToOrders)
+
+    const ordersWithLineItems = await getAllOrders();
+    const orderForUser0 = await getOrdersByUserEmail(ordersWithLineItems[1].creatorEmail);
+    console.log("Order for User", ordersWithLineItems[1].creatorEmail, orderForUser0)
+    console.log("All Orders with Line Items", ordersWithLineItems);
+
     console.log('Finished creating Orders.');
     return users;
   } catch (error) {
-    console.error("Error creating initial Orders!")
+    console.error("Error creating initial Orders!", error)
   }
 }
 
 async function populateInitialData() {
   try {
     // create useful starting data
-    await createInitialProducts();
+    const products = await createInitialProducts();
     const users = await createInitialUsers();
-    await createInitialUsersOrders(users);
+    await createInitialUsersOrders(users, products);
   } catch (error) {
     throw error;
   }
 }
 
-buildTables()
-  .then(populateInitialData)
-  .catch(console.error)
-  .finally(() => client.end());
+async function rebuildDB(){
+  try{
+    await buildTables();
+    await populateInitialData();
+  }catch(error){
+    throw error;
+  }
+}
+
+module.exports = {rebuildDB};

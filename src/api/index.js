@@ -1,4 +1,8 @@
+// import {BASE_URL} from '../constants';
+
+
 import axios from 'axios';
+//import { getAllProducts } from '../../db/product';
 
 // export async function getSomething() {
 //   try {
@@ -105,20 +109,19 @@ export const getAllProducts = async () => {
 }
 
 // This function fetches a single product from the database by it's productId.
-export const getProductById = async (productId) => {
+  export const getProductById = async (productId) => {
 
-  try {
-    const { data } = await axios.get(`/api/products/${productId}`);
-    console.log('The product by id is: ', data);
-
-    return data;
-  } 
+    try {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      console.log('The product by id is: ', data);
+      return data;
+    } 
   
-  catch (error) {
-    console.error("ERROR getting product by productId!!! 🤦‍♂️ - FE-API getProductById");
-    throw error;
+    catch (error) {
+      console.error("ERROR getting product by productId!!! 🤦‍♂️ - FE-API getProductById");
+      throw error;
+    }
   }
-}
 
 // This function deletes a single product by it's id
 export const deleteProductById = async (productId) => {

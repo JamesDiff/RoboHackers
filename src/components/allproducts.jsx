@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 const AllProducts = (props) => {
     const token = props.token;
     const [products, setProducts] = useState([]);
+ 
     // const [cart, setCart] = useState([]);
     // const [cartItemCount, setCartItemCount] = useState(1);
     // const history = useHistory();
@@ -24,6 +25,8 @@ const AllProducts = (props) => {
             throw error;
         }
     }
+
+
 
     useEffect(() => {
         fetchAllProducts();
