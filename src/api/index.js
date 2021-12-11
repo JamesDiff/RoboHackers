@@ -96,7 +96,7 @@ export const loginUser = async (username, password, setToken) => {
 // This function will fetch all the products in the database.
 export const getAllProducts = async () => {
   try {
-    const { data } = await axios.get('/api/products');
+    const data = await axios.get('/api/products');
     console.log('All products: ', data);
 
     return data;
