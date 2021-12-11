@@ -5,7 +5,7 @@ table: products
 id ID
 title VARCHAR(255)
 description VARCHAR(255)
-price INTEGER 
+price FLOAT 
 inventory_qty INTEGER
 "category_id" FK -> categories table 
 img_url VARCHAR(255)
@@ -36,7 +36,7 @@ table: orders
 id ID
 "userId" FK users
 "line
-total_price INTEGER
+total_price FLOAT
 orderStatus VARCHAR
 
 
@@ -44,7 +44,8 @@ orders_product
 id ID
 "orderId" FK orders
 "productId" FK products
-priceAtTime Integer
+priceAtTimeOfOrder FLOAT
+quantity INTEGER
 
 REVIEWS
 All reviews must belong to a product All reviews must belong to a user All reviews must be at least X characters

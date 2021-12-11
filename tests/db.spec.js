@@ -5,8 +5,10 @@ const SALT_COUNT = 10;
 const { rebuildDB } = require('../db/init_db');
 const { getUserById, createUser, getUser, createOrder, createProduct, getAllProducts, getProductById} = require('../db');
 const client = require('../db/client');
+const { addProductToOrder } = require('../db/order_products');
 
 describe('Database', () => {
+    let queriedOrder, queriedProduct;
   beforeAll(async() => {
     await rebuildDB();
   })
@@ -61,7 +63,7 @@ describe('Database', () => {
     })
   })
   describe('Orders', () => {
-    let orderToCreateAndUpdate, queriedOrder;
+    let orderToCreateAndUpdate;
     let orderCredentials = {
         userId: 1,
         total_price: 0, 
@@ -80,7 +82,7 @@ describe('Database', () => {
     })
   })
   describe('Products', () => {
-    let productToCreateAndUpdate, queriedProduct, allProducts, queriedAllProducts, productById, queriedProductById;
+    let productToCreateAndUpdate, allProducts, queriedAllProducts, productById, queriedProductById;
     let productCredentials = {
         name: "Community", 
         description: "A rag tag bunch of communtiy college students try to figure out life, relationships and the crazy DEAN DEEE DEAN DEAN DEEEEAAAANNN", 
@@ -120,5 +122,26 @@ describe('Database', () => {
           expect(productById.name).toBe(queriedProductById.name);
         });
       })
+  })
+  describe('Add Products to Orders', () => {
+    let lineItemToBeCreated, queriedLineItem;
+    let lineItemCredentials = {
+        orderId: 1, 
+        productId:2,
+        price: 10, 
+        quantity: 10
+    };
+    describe('addProductToOrder(orderId, productId, price, quanityt)', () => {
+      beforeAll(async () => {
+        lineItemToBeCreated = await addProductToOrder(lineItemCredentials.orderId, lineItemCredentials.productId, lineItemCredentials.price, lineItemCredentials.quantity);
+        console.log("line item created" , lineItemToBeCreated);
+        const {rows} = await client.query(`SELECT * FROM order_products WHERE id = $1`, [lineItemToBeCreated.id]);
+        queriedLineItem = rows[0];
+      })
+      it('Creates the order', async () => {
+        expect(lineItemToBeCreated.orderId).toBe(lineItemCredentials.orderId);
+        expect(queriedLineItem.orderId).toBe(lineItemCredentials.orderId);
+      });
+    })
   })
 });

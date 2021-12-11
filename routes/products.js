@@ -6,7 +6,6 @@ const { getAllProducts, getProductById, createProduct } = require('../db');
 
 //get products
 productsRouter.get('/', async(req, res, next) => {
-    console.log("you've hit get all products")
     try{
         const products = await getAllProducts();
         console.log("got products")
