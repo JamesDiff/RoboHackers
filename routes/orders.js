@@ -2,7 +2,21 @@ const { urlencoded } = require('express');
 const express = require('express');
 const ordersRouter = express.Router();
 
-const { createOrder } = require('../db');
+const { createOrder, getOrderById } = require('../db');
+
+
+//get order by id
+ordersRouter.get('/:orderId', async(req, res, next) => {
+    const orderId = req.params.orderId;
+
+    try{
+        const orderToGet = await getOrderById(orderId); 
+        res.send(orderToGet);
+
+    } catch(error) {
+      next(error);
+    }
+})
 
 
 //create order
@@ -23,16 +37,3 @@ ordersRouter.post('/', async (req, res, next) => {
   })
 
   module.exports = ordersRouter
-
-
-
-
-  //addProductToOrder
-
-  //post to /api/orders/:orderId/products/:productId
-
- // all you have to send in in body is quantity
-
- //call get product by Id to get rest of info, and then call stuff waiting in spencers pull request- addProductToOrder-- takes in order id, product id, quantity, price at time of sale
-
- //prudct id from urlencoded, order from url  load with get product by Id-- get the price of that-- call that function
