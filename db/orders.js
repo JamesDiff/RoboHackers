@@ -59,6 +59,22 @@ async function getOrdersByUserEmail(email){
         return userOrders;
     }catch(error){
         console.error("Error getting All Orders by Email");
+    }
+}
+
+async function getOrderById(id){
+    try{
+        const {rows : [order]} = await client.query(`
+            SELECT *
+            FROM orders
+            WHERE id=${ id };
+        `, [id]);
+        if(!order){
+            return null;
+        };
+        return order;
+    }catch (error){
+        console.error("Error getting Order by Id", error);
         throw error;
     }
 }
@@ -66,5 +82,6 @@ async function getOrdersByUserEmail(email){
 module.exports = {
     createOrder,
     getAllOrders,
-    getOrdersByUserEmail
+    getOrdersByUserEmail,
+    getOrderById
 }

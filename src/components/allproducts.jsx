@@ -6,48 +6,31 @@ import { Link } from 'react-router-dom';
 
 
 // This component renders the All Products page (maps out all the products in the database)
-const AllProducts = () => {
-    
+const AllProducts = (props) => {
+    const token = props.token;
     const [products, setProducts] = useState([]);
+ 
     // const [cart, setCart] = useState([]);
     // const [cartItemCount, setCartItemCount] = useState(1);
     // const history = useHistory();
-
-    // useEffect(async() => {
-    //     const list = await getAllProducts();
-    //     console.log("ALL PRODUCTS: ", list);
-    //     setProducts(list); 
-    // }, []);
 
     const fetchAllProducts = async () => {
         try {
             const list = await getAllProducts();
             console.log("Product list is: ", list);
-            setProducts(list);
+            setProducts(list.data);
         } 
-        
         catch (error) {
             console.error("ERROR fetching all products");
             throw error;
         }
     }
 
+
+
     useEffect(() => {
         fetchAllProducts();
     }, []);
-
-    // useEffect(async() => {
-    //     const result = await getAllProducts();
-    //     console.log("ALL PRODUCTS: ", result);
-    //     setProducts(result); 
-    // }, []);
-
-    // useEffect(async() => {
-    //     if(token) {
-    //         const user = await getUser(token, setUser);
-    //         console.log("User is: ", user);
-    //     }
-    // }, [token]);
 
     return (<div id="product-box" className="form-group">
                 <h1 className="post-title text-center">ALL PRODUCTS PAGE</h1>
@@ -62,7 +45,7 @@ const AllProducts = () => {
                                 </div>
                                 <div className="form-group list-group-item-info">
                                     <Link to="/products/:productId" className="link">
-                                        ID: { product.productId }
+                                        ID: { product.id }
                                     </Link>
                                 </div>
                                 <div className="form-group list-group-item-info">
