@@ -6,21 +6,31 @@ import { getProductById } from '../api'
 /*As a user, I want to be able to click a product from the all products page 
 and get a detailed product page with more information about the product on it.*/
 
+async function fetchSingleProduct(productId, setSingleProduct) {
+    try {
+        const result = await getProductById(productId, setSingleProduct)
+        console.log("SINGLE PRODUCT RESULT", result)
+        setSingleProduct(result)
+        return result;
+    } catch (error) {
+        throw error
+    }
+}
 
 
-/*PRODUCTS Must have name, description, price, and inventory quantity*/
-
-const SingleProductView = ({productId}) => {
-
-    const [product, setProduct] = useState([]);
+const SingleProductView = ({match}) => {
+    const productId = match.params.productId;
+    const [singleProduct, setSingleProduct] = useState('');
     // const [cart, setCart] = useState([]);
 
 
-    useEffect(async () => {
-        const result = await getProductById(productId);
-        console.log("Product is: ", result);
-        setProduct(result);
-    }, [productId])
+
+    useEffect(() => {
+            fetchSingleProduct(productId, setSingleProduct)
+    }, [productId, setSingleProduct])
+       
+
+  
 
 
     //returns a single product card view, displaying that product's details//
@@ -31,12 +41,13 @@ const SingleProductView = ({productId}) => {
 
     return (
         <div className="singleProductView"> 
-            <span className="productName"> {product.name} </span>
-                <ul className="productDetails">
-                        <li>{product.description}</li>
-                        <li>{product.price}</li>
-                        <li>{product.inventoryQuantity}</li>
-                </ul>
+        <h3>SINGLE PRODUCT INFO HERE</h3>
+            <span className="productName"> {singleProduct.name} </span>
+                {/* <ul className="productDetails">
+                        <li>{singleProduct.description}</li>
+                        <li>{singleProduct.price}</li>
+                        <li>{singleProduct.inventoryQuantity}</li>
+                </ul> */}
 
                     <div>
                         <Link to="/AllProducts">

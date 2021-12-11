@@ -5,19 +5,21 @@ import {
   // Login, 
   // Logout, 
   AllProducts, 
-  Title, 
+  Title,
+  SingleProductView 
   // NavBar,
  } from '../components';
 
-// import {
-//   getSomething
-// } from '../api';
+
+
+
 
 const App = () => {
   // Need to figure out the whole message thing, but i don't even think we need to use it at all.
   // const [message, setMessage] = useState("");
   const [token, setToken] = useState(null);
   // const [user, setUser] = useState(null);
+
 
   // useEffect(() => {
   //   getSomething()
@@ -29,6 +31,8 @@ const App = () => {
   //     });
   // });
 
+
+
   // As soon as page hits we will grab the current logged in users token and set it on state.
   useEffect(() => {
 
@@ -38,6 +42,8 @@ const App = () => {
         console.log("Token is set: ", token);
     }
 }, [token]);
+
+
 
   // We are returning our Title header and NavBar, which will show on every page the user goes to.
   // All of our routes are laid out for our site.
@@ -57,7 +63,7 @@ const App = () => {
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/cart" render={(routeProps) => <UserCart {...routeProps} token={token} user={user} />} /> */}
           <Route path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
-          {/* <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} /> */}
+          <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} />
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/products/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/products/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
