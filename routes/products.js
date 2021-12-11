@@ -8,7 +8,7 @@ const { createProduct, getAllProducts, getProductById, getUser } = require('../d
 //{ updateProduct, deleteProduct } 
 
 //get products
-productsRouter.get('/products', async(req, res, next) => {
+productsRouter.get('/', async(req, res, next) => {
     try{
         const products = await getAllProducts();
         res.send(products)
@@ -19,7 +19,7 @@ productsRouter.get('/products', async(req, res, next) => {
 })
 
 //get product by id
-productsRouter.get('/products/:productId', async(req, res, next) => {
+productsRouter.get('/:productId', async(req, res, next) => {
     const productId = req.params.productId;
 
     try{

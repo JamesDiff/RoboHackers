@@ -6,6 +6,9 @@ const server = express();
 const morgan = require('morgan');
 server.use(morgan('dev'));
 
+const cors = require('cors');
+server.use(cors());
+
 // handle application/json requests
 server.use(express.json());
 
@@ -25,7 +28,7 @@ server.use((req, res, next) => {
 const { client } = require('./db');
 
 // connect to the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 1000;
 server.listen(PORT, async () => {
   console.log(`Server is running on ${ PORT }!`);
 
