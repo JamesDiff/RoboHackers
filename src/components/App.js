@@ -71,7 +71,7 @@ const App = () => {
           <Link to="/products" className="link">
           ALL PRODUCTS
           </Link>
-
+          <br />
           <Link to="/register" className="link">
           REGISTER
           </Link>

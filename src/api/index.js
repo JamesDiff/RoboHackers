@@ -40,7 +40,7 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
         alert("Passwords DO NOT match!!! 🤦‍♂️");
         return;
       }
-        const data = await axios.post('/api/register', {
+        const { data } = await axios.post('/api/register', {
           firstname,
           lastname,
           password,
@@ -52,7 +52,7 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
           phone,
         })
         console.log(data);
-        const user = data.user;
+        const user = data.data.user;
         const token = data.token;
         console.log("New registered user is: ", user);
         setToken(token);
