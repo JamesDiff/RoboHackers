@@ -68,20 +68,20 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
 }
 
 // This function logs in a registered user
-export const loginUser = async (username, password, setToken) => {
+export const loginUser = async (email, password, setToken) => {
 
   try {
-    const { data } = await axios.post('/api/users/login', {
-      username,
+    const result = await axios.post('/api/users/login', {
+      email,
       password,
     })
 
-    console.log(data);
-    const token = data.token;
+    console.log(result);
+    const token = result.token;
     setToken(token);
     localStorage.setItem("token", token);
     localStorage.getItem("token");
-    if (data.error) throw data.error;
+    if (result.error) throw result.error;
   } 
   
   catch (error) {
