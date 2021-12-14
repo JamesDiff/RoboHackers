@@ -17,7 +17,6 @@ const AllProducts = (props) => {
     const fetchAllProducts = async () => {
         try {
             const list = await getAllProducts();
-            console.log("Product list is: ", list);
             setProducts(list.data);
         } 
         catch (error) {

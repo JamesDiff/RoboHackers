@@ -39,7 +39,6 @@ const App = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
         setToken(storedToken);
-        console.log("Token is set: ", token);
     }
 }, [token]);
 
