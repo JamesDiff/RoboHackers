@@ -2,7 +2,7 @@ const { urlencoded } = require('express');
 const express = require('express');
 const ordersRouter = express.Router();
 
-const { createOrder, getOrderById } = require('../db');
+const { createOrder, getOrderById, getProductById, addProductToOrder } = require('../db');
 
 
 //get order by id
@@ -36,4 +36,23 @@ ordersRouter.post('/', async (req, res, next) => {
    
   })
 
-  module.exports = ordersRouter
+//addProductToOrder
+ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
+// make a POST to /api/orders/:orderID/products/:productID
+    
+    try{
+        const { productPrice, quantity } = req.body; 
+        const { orderId, productId } = req.params;
+            
+        const newOrderProduct = await addProductToOrder({ orderId, productId, productPrice, quantity});
+            res.send(newOrderProduct)
+        }
+            
+    catch(error) {
+        console.log(error);
+        next(error);
+    }
+})
+    
+
+module.exports = ordersRouter

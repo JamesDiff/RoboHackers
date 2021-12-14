@@ -8,5 +8,6 @@ module.exports = {
   client,
   ...require('./product'), // Products
   ...require('./users'), // Users
-  ...require('./orders') // Orders
+  ...require('./orders'), // Orders
+  ...require('./order_products')
 }
