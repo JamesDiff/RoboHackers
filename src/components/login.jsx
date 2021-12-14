@@ -16,7 +16,8 @@ const Login = ({ setToken, history }) => {
                 event.preventDefault();
                     console.log(email, password);
                     loginUser(email, password, setToken);
-                    history.push("/products")
+                    alert('You are now logged in!');
+                    history.push("/products");
             }
         }>
             <div className="form-group">
