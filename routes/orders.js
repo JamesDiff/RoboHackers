@@ -43,8 +43,9 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
     try{
         const { productPrice, quantity } = req.body; 
         const { orderId, productId } = req.params;
+        console.log("*&% !!!! product Id ", productId, " order id ", orderId, " quantity ", quantity, " product price ", productPrice, " req body ", req.body);
             
-        const newOrderProduct = await addProductToOrder({ orderId, productId, productPrice, quantity});
+        const newOrderProduct = await addProductToOrder( orderId, productId, productPrice, quantity);
             res.send(newOrderProduct)
         }
             
@@ -53,6 +54,17 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
         next(error);
     }
 })
-    
+
+/*ordersRouter.get('/', async(req, res, next) => {
+  try{
+      const orders = await getAllOrders();
+      console.log("got orders")
+      res.send(orders)
+
+  } catch(error) {
+      next(error);
+}
+})
+    */
 
 module.exports = ordersRouter
