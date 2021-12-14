@@ -71,7 +71,7 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
 export const loginUser = async (username, password, setToken) => {
 
   try {
-    const { data } = await axios.post('/api/login', {
+    const { data } = await axios.post('/api/users/login', {
       username,
       password,
     })
