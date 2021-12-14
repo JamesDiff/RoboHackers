@@ -53,7 +53,7 @@ const App = () => {
         {/* <NavBar /> */}
         
         <Router>
-          {/* <Route path="/home" render={(routeProps) => <Home />} /> */}
+          {/* <Route path="/" render={(routeProps) => <App />} /> */}
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
           <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
@@ -64,8 +64,8 @@ const App = () => {
           <Route path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
           <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} />
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
-          {/* <Route path="/products/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
-          {/* <Route path="/products/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
 
           <Link to="/products" className="link">
           ALL PRODUCTS
