@@ -72,17 +72,17 @@ const App = () => {
           ALL PRODUCTS
           </Link>
           <br />
-          <Link to="/register" className="link">
+          {!token ? <Link to="/register" className="link">
           REGISTER
-          </Link>
+          </Link> : null}
           <br />
-          <Link to="/login" className="link">
+          {!token ? <Link to="/login" className="link">
           LOGIN
-          </Link>
+          </Link> : null}
           <br />
-          <Link to="/logout" className="link">
+          {token ? <Link to="/logout" className="link">
           LOGOUT
-          </Link>
+          </Link> : null}
         </Router>
 
         
