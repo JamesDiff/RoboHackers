@@ -40,7 +40,7 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
         alert("Passwords DO NOT match!!! 🤦‍♂️");
         return;
       }
-        const { data } = await axios.post('/api/register', {
+        const result = await axios.post('/api/users/register', {
           firstname,
           lastname,
           password,
@@ -51,13 +51,14 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
           zip,
           phone,
         })
-        console.log(data);
-        const user = data.data.user;
-        const token = data.token;
+        console.log(result);
+        const user = result.data.user;
+        const token = result.data.token;
         console.log("New registered user is: ", user);
+        console.log("Token is: ", token)
         setToken(token);
         localStorage.setItem("token", token);
-        if (data.error) throw data.error;
+        if (result.error) throw result.error;
     } 
     
     catch (error) {

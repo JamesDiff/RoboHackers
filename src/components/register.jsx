@@ -97,7 +97,7 @@ const Register = ({ setToken, history }) => {
                 </div>
 
                 <div className="form-group">
-                    <label for="phone" >Phone Number</label>
+                    <label htmlFor="phone" >Phone Number</label>
                     <br></br>
                     <input onChange={(event) => setPhone(event.target.value)} type="tel" id="phone" name="phone" className="form-control" placeholder="555-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
                     <br></br>
