@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 // This component renders the All Products page (maps out all the products in the database)
 const AllProducts = (props) => {
-    const token = props.token;
+    // const token = props.token;
     const [products, setProducts] = useState([]);
  
     // const [cart, setCart] = useState([]);

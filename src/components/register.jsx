@@ -23,7 +23,7 @@ const Register = ({ setToken, history }) => {
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
-                const response = await registerUser(setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone);
+                await registerUser(setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone);
                 history.push("/products")
             }
             catch (error) {
