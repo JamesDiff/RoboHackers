@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { 
   Register,
-  // Login, 
-  // Logout, 
+  Login, 
+  Logout, 
   AllProducts, 
   Title,
   SingleProductView 
@@ -56,8 +56,8 @@ const App = () => {
         <Router>
           {/* <Route path="/home" render={(routeProps) => <Home />} /> */}
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
-          {/* <Route path="/users/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} /> */}
-          {/* <Route path="/users/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} /> */}
+          <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
+          <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}
@@ -74,6 +74,14 @@ const App = () => {
           <br />
           <Link to="/register" className="link">
           REGISTER
+          </Link>
+          <br />
+          <Link to="/login" className="link">
+          LOGIN
+          </Link>
+          <br />
+          <Link to="/logout" className="link">
+          LOGOUT
           </Link>
         </Router>
 
