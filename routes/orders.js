@@ -10,8 +10,16 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
     const orderId = req.params.orderId;
 
     try{
-        const orderToGet = await getOrderById(orderId); 
-        res.send(orderToGet);
+
+      if(!orderId){
+        throw Error({
+            name: 'NoOrder', 
+            message: "This order doesn't exist"
+        });
+      }
+
+      const orderToGet = await getOrderById(orderId); 
+      res.send(orderToGet);
 
     } catch(error) {
       next(error);
@@ -23,10 +31,18 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
 ordersRouter.post('/', async (req, res, next) => {
     const userId = req.user.id;
     const { total_price, order_status } = req.body;
-
+//authorization for the user is the problem; see note in index.js
     const orderToCreate = { userId, total_price, order_status}
 
     try {
+
+      if(!userId){
+        throw Error({
+            name: 'NotAUser', 
+            message: "You must be logged in to place an order"
+        });
+      }
+
       const newOrder = await createOrder(orderToCreate);
       res.send(newOrder);
  
@@ -43,9 +59,22 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
     try{
         const { productPrice, quantity } = req.body; 
         const { orderId, productId } = req.params;
-        console.log("*&% !!!! product Id ", productId, " order id ", orderId, " quantity ", quantity, " product price ", productPrice, " req body ", req.body);
+
+        if(!orderId){
+          throw Error({
+              name: 'NoOrder', 
+              message: "This order does not exist"
+          });
+        }
+
+        if(!productId){
+          throw Error({
+              name: 'NoProduct', 
+              message: "This product does not exist"
+          });
+        }
             
-        const newOrderProduct = await addProductToOrder( orderId, productId, productPrice, quantity);
+        const newOrderProduct = await addProductToOrder( orderId, productId, productPrice, quantity );
             res.send(newOrderProduct)
         }
             
@@ -55,16 +84,44 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
     }
 })
 
-/*ordersRouter.get('/', async(req, res, next) => {
-  try{
-      const orders = await getAllOrders();
-      console.log("got orders")
-      res.send(orders)
+//update order
+ordersRouter.patch ('/orders/:orderId', async(req, res, next) => {
+  const orderId = req.params.orderId;
+  const userEmail= req.user.email;
+  const { total_price, order_status } = req.body
 
-  } catch(error) {
-      next(error);
-}
+  try{
+    const orderToUpdate = await getOrderById(orderId); 
+
+    if (orderToUpdate.creatorId === userEmail) { 
+      const updatedProduct = await updateProduct(orderId, total_price, order_status);
+      res.send(updatedProduct)
+      } else {
+        throw new Error("You are not authorized to update this product")   
+      }
+   } catch(error) {
+     next(error);
+   }
 })
-    */
+
+//delete order
+/*ordersRouter.delete('/orders/:orderId', async (req, res, next) => { 
+  const orderId = req.params.orderId;
+  const userId = req.user.id;
+
+  try{
+      const orderToDelete = await getOrderById(orderId);
+
+    if (orderToDelete.creatorId === userId) {
+      const deletedOrder = await deleteOrder(orderId);
+      res.send(deletedOrder);
+    } else {
+      throw new Error("You are not authorized to delete this product")
+    }
+  } catch(error) {
+    next(error);
+  }
+})*/
+
 
 module.exports = ordersRouter
