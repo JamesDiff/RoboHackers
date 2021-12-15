@@ -10,6 +10,7 @@
     "server:dev": "nodemon index.js",
     "db:build": "node ./db/seed.js",
     "start": "node index.js",
+    "start:dev": "nodemon index.js",
     "test": "jest --runInBand",
     "test:watch": "jest --watchAll --runInBand"
   },

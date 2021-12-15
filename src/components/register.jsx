@@ -20,7 +20,9 @@ const Register = ({ setToken, history }) => {
     const [phone, setPhone] = useState(null);
 
     return(
-        <form onSubmit={async (event) => {
+        <form
+            className="centered m-3 w-50" 
+            onSubmit={async (event) => {
             event.preventDefault();
             try {
                 await registerUser(setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone);
@@ -33,70 +35,70 @@ const Register = ({ setToken, history }) => {
         }}>
                 <h3>Register</h3>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>First Name</label>
                     <br></br>
                     <input onChange={(event) => setFirstname(event.target.value)} type="text" className="form-control" placeholder="First name" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>Last Name</label>
                     <br></br>
                     <input onChange={(event) => setLastname(event.target.value)} type="text" className="form-control" placeholder="Last name" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>Password</label>
                     <br></br>
                     <input onChange={(event) => setPassword(event.target.value)} type="password" className="form-control" placeholder="Enter password" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>Verify Password</label>
                     <br></br>
                     <input onChange={(event) => setVerifyPassword(event.target.value)} type="password" className="form-control" placeholder="Verify password" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>Email address</label>
                     <br></br>
                     <input onChange={(event) => setEmail(event.target.value)} type="email" className="form-control" placeholder="Email address" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>Street address</label>
                     <br></br>
                     <input onChange={(event) => setStreet(event.target.value)} type="text" className="form-control" placeholder="Street address" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>City</label>
                     <br></br>
                     <input onChange={(event) => setCity(event.target.value)} type="text" className="form-control" placeholder="City" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>State</label>
                     <br></br>
                     <input onChange={(event) => setState(event.target.value)} type="text" className="form-control" placeholder="State" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label>Zipcode</label>
                     <br></br>
                     <input onChange={(event) => setZip(event.target.value)} type="text" className="form-control" placeholder="Zipcode" required />
                     <br></br>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group w-75">
                     <label htmlFor="phone" >Phone Number</label>
                     <br></br>
                     <input onChange={(event) => setPhone(event.target.value)} type="tel" id="phone" name="phone" className="form-control" placeholder="555-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
@@ -105,7 +107,7 @@ const Register = ({ setToken, history }) => {
                     <br></br>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-dark btn-lg btn-block">
+                <button type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">
                     Register
                 </button>
                 
