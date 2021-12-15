@@ -127,10 +127,10 @@ export const getAllProducts = async () => {
 export const deleteProductById = async (productId) => {
 
   try {
-    const { data } = await axios.delete(`/api/products/${productId}`);
-    console.log("Deleted product is: ", data)
+    const result = await axios.delete(`/api/products/${productId}`);
+    console.log("Deleted product is: ", result)
 
-    return data;
+    return result;
   } 
   
   catch (error) {
@@ -143,16 +143,16 @@ export const deleteProductById = async (productId) => {
 export const createProduct = async (name, description, price, inventory_qty, img_url) => {
 
   try {
-    const { data } = await axios.post('/api/products', {
+    const result = await axios.post('/api/products', {
       name,
       description,
       price,
       inventory_qty,
       img_url
     })
-    console.log("New product is: ", data);
+    console.log("New product is: ", result);
 
-    return data;
+    return result;
   } 
   
   catch (error) {
