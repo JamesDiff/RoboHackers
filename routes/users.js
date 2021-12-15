@@ -73,7 +73,10 @@ usersRouter.post('/login', async (request, response, next) => {
         const user = await getUser({email: email, password: password});
         if(user){
             const token = jwt.sign(user, JWT_SECRET);
-            response.send({token: token});
+            response.send({
+                message: "User logged in successfully!",
+                user: user,
+                token: token});
         } else {
             throw Error({
                 name: 'IncorrectCredentialsError', 
