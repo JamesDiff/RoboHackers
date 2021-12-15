@@ -33,32 +33,32 @@ export const getUser = async (token) => {
 }
 
 // This function registers a new user
-export const registerUser = async (setToken, username, password, verifyPassword, email, firstname, lastname, street, city, state, zip, phone) => {
+export const registerUser = async (setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
 
     try {
       if (password !== verifyPassword) {
         alert("Passwords DO NOT match!!! 🤦‍♂️");
         return;
       }
-        const { data } = await axios.post('/api/register', {
-          username,
-          password,
-          email,
+        const result = await axios.post('/api/users/register', {
           firstname,
           lastname,
+          password,
+          email,
           street,
           city,
           state,
           zip,
           phone,
         })
-        console.log(data);
-        const user = data.user;
-        const token = data.token;
+        console.log(result);
+        const user = result.data.user;
+        const token = result.data.token;
         console.log("New registered user is: ", user);
+        console.log("Token is: ", token)
         setToken(token);
         localStorage.setItem("token", token);
-        if (data.error) throw data.error;
+        if (result.error) throw result.error;
     } 
     
     catch (error) {
@@ -68,20 +68,20 @@ export const registerUser = async (setToken, username, password, verifyPassword,
 }
 
 // This function logs in a registered user
-export const loginUser = async (username, password, setToken) => {
+export const loginUser = async (email, password, setToken) => {
 
   try {
-    const { data } = await axios.post('/api/login', {
-      username,
+    const result = await axios.post('/api/users/login', {
+      email,
       password,
     })
 
-    console.log(data);
-    const token = data.token;
+    console.log(result);
+    const token = result.data.token;
     setToken(token);
     localStorage.setItem("token", token);
     localStorage.getItem("token");
-    if (data.error) throw data.error;
+    if (result.error) throw result.error;
   } 
   
   catch (error) {

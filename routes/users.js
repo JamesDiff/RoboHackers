@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 
 const jwt = require('jsonwebtoken');
 const { getPublicRoutinesByUser } = require("../db");
@@ -7,6 +8,7 @@ const { JWT_SECRET } = process.env;
 const usersRouter = express.Router();
 
 const { createUser, getUserByEmail, getUser } = require("../db/users");
+
 
 usersRouter.post('/register', async (request, response, next) => {
     const { firstname, lastname, password, email, street, city, state, zip, phone } = request.body;
@@ -32,9 +34,28 @@ usersRouter.post('/register', async (request, response, next) => {
         console.log("Creating User", newUser)
         const user = await createUser(newUser)
         console.log("Created User", user);
-        response.send({
-            user: user
-        })
+
+        if (!user) {
+            throw Error(`Error creating user.`);
+          } else {
+            const token = jwt.sign(
+                {
+                  id: user.id,
+                  user,
+                },
+                JWT_SECRET,
+                {
+                  expiresIn: "1w",
+                }
+              );
+            response.send({
+                message: "You have successfully registered!!",
+                user: user,
+                token: token,
+            })
+          }
+
+        
     } catch (error) {
         next(error);
     }
@@ -52,7 +73,10 @@ usersRouter.post('/login', async (request, response, next) => {
         const user = await getUser({email: email, password: password});
         if(user){
             const token = jwt.sign(user, JWT_SECRET);
-            response.send({token: token});
+            response.send({
+                message: "User logged in successfully!",
+                user: user,
+                token: token});
         } else {
             throw Error({
                 name: 'IncorrectCredentialsError', 
