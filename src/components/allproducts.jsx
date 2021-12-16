@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getAllProducts } from "../api";
+import { deleteProductById, getAllProducts } from "../api";
 import { Link } from 'react-router-dom';
 // import { useHistory } from 'react-router-dom';
 
 
 // This component renders the All Products page (maps out all the products in the database)
-const AllProducts = (props) => {
+const AllProducts = ({ history }) => {
     // const token = props.token;
     const [products, setProducts] = useState([]);
  
@@ -59,6 +59,25 @@ const AllProducts = (props) => {
                                         <div className="form-group list-group-item-text text-danger">
                                             QTY On-Hand: {product.inventory_qty }
                                         </div>
+                                        {/* <div className="form-group">
+                                            <button 
+                                                onClick={async (event) => {
+                                                    
+                                                try {
+                                            
+                                                    const response = await deleteProductById(product.id);
+                                                    console.log(response)
+                                                    fetchAllProducts(products);
+                                                    history.push("/products")
+                                            
+                                                }
+                                                catch (err) {
+                                                    console.error("trouble deleting product", err)
+                                                }
+                                                }} 
+                                    
+                                                type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">Delete Product</button>
+                                        </div> */}
                                     </div>
                                 </div>
                                 {/* <div>
