@@ -31,39 +31,35 @@ const AllProducts = (props) => {
         fetchAllProducts();
     }, []);
 
-    return (<div id="product-box" className="form-group">
-                <h1 className="post-title text-center">ALL PRODUCTS PAGE</h1>
+    return (<div id="product-box" className="form-group centered w-75">
                 <div id="product" className="container">
                     {products.map((product, index) => {
             
                         return (
                             
-                            <div key={index} className="container">
-                                <div className="form-group bg-success list-group-item-text">
-                                    Image: { product.img_url }
+                            <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
+                                <div className="form-group list-group-item-info card-title centered">
+                                    <h3 className="card-title">
+                                        <Link to={"/products/" + product.id} className="link">
+                                            { product.name} 
+                                        </Link>
+                                    </h3>
                                 </div>
-                                <div className="form-group list-group-item-info">
-                                    <Link to="/products/:productId" className="link">
-                                        ID: { product.id }
-                                    </Link>
-                                </div>
-                                <div className="form-group list-group-item-info">
-                                    Name: { product.name}
-                                </div>
-                                <div className="form-group bg-success">
-                                    Description: {product.description }
-                                </div>
-                                <div className="form-group bg-success list-group-item-text">
-                                    Price: { product.price }
-                                </div>
-                                <div className="form-group list-group-item-text bg-success text-danger">
-                                    QTY On-Hand: {product.inventory_qty }
-                                </div>
-                                <div>
-                                {/* This is a link to take us to the the review page to see an individual product's review page */}
-                                    <Link to="/products/:productId/reviews/:reviewId" className="link">
-                                        PRODUCT REVIEWS
-                                    </Link>
+                                <div className="horizGroup">
+                                    <div className="m-3">
+                                        <img src= { product.img_url } alt="Product Cover"/>
+                                    </div>
+                                    <div className="w-75">
+                                        <div className="form-group">
+                                            Description: {product.description }
+                                        </div>
+                                        <div className="form-group list-group-item-text">
+                                            Price: { product.price }
+                                        </div>
+                                        <div className="form-group list-group-item-text text-danger">
+                                            QTY On-Hand: {product.inventory_qty }
+                                        </div>
+                                    </div>
                                 </div>
                                 {/* <div>
                                     <Link to="/user/:id/cart" className="link">
