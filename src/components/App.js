@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { 
   Register,
   Login, 
@@ -9,6 +9,7 @@ import {
   SingleProductView,
   NavBar,
  } from '../components';
+import CreateForm from './createProduct';
 
 
 
@@ -66,6 +67,10 @@ const App = () => {
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
+
+          <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
+
+          <Link to="/create" className="link">CREATE PRODUCT</Link>
 
         </Router>
       </>

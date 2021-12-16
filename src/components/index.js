@@ -5,6 +5,7 @@ import { Login, Logout } from './login';
 import Register from './register';
 import Title from './title';
 import NavBar from './NavBar';
+import CreateForm from './createProduct';
 
 export { default as App } from './App';
 export { default as SingleProductView } from './SingleProductView';
@@ -15,4 +16,5 @@ export { AllProducts,
         Register,
         Title,
         NavBar,
+        CreateForm,
 }

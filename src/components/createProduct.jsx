@@ -4,7 +4,7 @@ import { createProduct } from '../api';
 
 
 
-const CreateForm = () => {
+const CreateForm = ({ history }) => {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");

@@ -30,15 +30,21 @@ productsRouter.get('/:productId', async(req, res, next) => {
 })
 
 
-module.exports = productsRouter;
+// module.exports = productsRouter;
 
 
 //post products
  productsRouter.post('/', async (req, res, next) => {
-     const creatorId = req.user.id;
+    //  const creatorId = req.user.id;
      const { name, description, price, inventory_qty, img_url } = req.body;
 
-     const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
+     const productToCreate = { 
+      // creatorId,
+      name,
+      description,
+      price, 
+      inventory_qty, 
+      img_url }
 
      try {
        const newProduct = await createProduct(productToCreate);
