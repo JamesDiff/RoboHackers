@@ -25,7 +25,7 @@ const CreateForm = () => {
                     history.push("/products")
                 }
                 catch (error) {
-                    console.error('ERROR with submission for registering a new user!!! 🤦‍♂️');
+                    console.error('ERROR with submission for creating a new product!!! 🤦‍♂️');
                     throw error;
                 }
             }}>
