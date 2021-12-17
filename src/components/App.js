@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { 
-  // Register,
-  // Login, 
-  // Logout, 
+  Register,
+  Login, 
+  Logout, 
   AllProducts, 
   Title,
-  SingleProductView 
-  // NavBar,
+  SingleProductView,
+  NavBar,
  } from '../components';
 
 
@@ -39,7 +39,6 @@ const App = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
         setToken(storedToken);
-        console.log("Token is set: ", token);
     }
 }, [token]);
 
@@ -51,37 +50,24 @@ const App = () => {
       <>
         <Title />
         <br></br>
-        {/* <NavBar /> */}
-        
+          
         <Router>
-          {/* <Route path="/home" render={(routeProps) => <Home />} /> */}
-          {/* <Route path="/users/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} /> */}
-          {/* <Route path="/users/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} /> */}
-          {/* <Route path="/users/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} /> */}
+          <NavBar token={token} setToken={setToken}/>
+          {/* <Route path="/" render={(routeProps) => <App />} /> */}
+          <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
+          <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
+          <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/cart" render={(routeProps) => <UserCart {...routeProps} token={token} user={user} />} /> */}
-          <Route path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
-          <Route path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} />
+          <Route exact path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
+          <Route exact path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} />} />
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
-          {/* <Route path="/products/reviews" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
-          {/* <Route path="/products/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
+          {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
 
-          <Link to="/products" className="link">
-          ALL PRODUCTS
-        </Link>
         </Router>
-
-        
-
-        <div className="App">
-          <h1>Welcome to GraceShopper!</h1>
-          <br></br>
-          <br></br>
-          {/* <h2>{ message }</h2> */}
-        </div>
-
       </>
     
   );

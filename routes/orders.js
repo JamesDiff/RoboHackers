@@ -29,7 +29,7 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
 
 //create order
 ordersRouter.post('/', async (req, res, next) => {
-    const userId = req.user.id;
+    const isAdmin = req.user.is_admin;
     const { total_price, order_status } = req.body;
 //authorization for the user is the problem; see note in index.js
     const orderToCreate = { userId, total_price, order_status}
@@ -104,24 +104,21 @@ ordersRouter.patch ('/orders/:orderId', async(req, res, next) => {
    }
 })
 
-//delete order
-/*ordersRouter.delete('/orders/:orderId', async (req, res, next) => { 
-  const orderId = req.params.orderId;
-  const userId = req.user.id;
+ordersRouter.delete('/:orderId', async (req, res, next) => { 
+  const productId = req.params.orderId;
+  const isAdmin = req.user.is_Admin;
 
   try{
-      const orderToDelete = await getOrderById(orderId);
 
-    if (orderToDelete.creatorId === userId) {
-      const deletedOrder = await deleteOrder(orderId);
-      res.send(deletedOrder);
+    if (isAdmin) {
+      const deletedProduct = await deleteProduct(productId);
+      res.send(deletedProduct);
     } else {
       throw new Error("You are not authorized to delete this product")
     }
   } catch(error) {
     next(error);
   }
-})*/
-
+})
 
 module.exports = ordersRouter

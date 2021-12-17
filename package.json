@@ -10,6 +10,7 @@
     "server:dev": "nodemon index.js",
     "db:build": "node ./db/seed.js",
     "start": "node index.js",
+    "start:dev": "nodemon index.js",
     "test": "jest --runInBand",
     "test:watch": "jest --watchAll --runInBand"
   },
@@ -22,6 +23,7 @@
     "chalk": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
     "react": "^16.14.0",

@@ -1,0 +1,40 @@
+#errorMessage {
+    color : red;
+}
+
+.centered{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.horizGroup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.vertGroup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.pos-fix{
+    position: sticky!important;
+    z-index: 999;
+    top: 0;
+    right: 0;
+}
+
+img {
+    height: 10rem;
+    width: 7rem;
+}
+
+.link {
+    text-decoration: none;
+}
