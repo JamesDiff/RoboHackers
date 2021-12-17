@@ -57,7 +57,6 @@ async function createTables() {
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id), 
-          total_price FLOAT NOT NULL,
           order_status VARCHAR(255) NOT NULL
         );
         CREATE TABLE order_products(
@@ -206,7 +205,6 @@ async function createInitialUsersOrders(users, products){
     users.forEach((user) => {
       const newOrder = {
         userId: user.id,
-        total_price: 0, 
         order_status: "Open"
       }
       ordersToCreate.push(newOrder)
@@ -214,7 +212,6 @@ async function createInitialUsersOrders(users, products){
 
     //Create a guest order
     ordersToCreate.push({
-      total_price: 0, 
       order_status: "Open"
     })
 

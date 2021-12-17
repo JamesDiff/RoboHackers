@@ -29,10 +29,9 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
 
 //create order
 ordersRouter.post('/', async (req, res, next) => {
-    const isAdmin = req.user.is_admin;
-    const { total_price, order_status } = req.body;
-//authorization for the user is the problem; see note in index.js
-    const orderToCreate = { userId, total_price, order_status}
+    const userId = req.user.id;
+    order_status = "Open" // Default to Open because it's a new order
+    const orderToCreate = { userId, order_status}
 
     try {
 
