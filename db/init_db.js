@@ -140,7 +140,8 @@ async function createInitialUsers(){
         city: "Firestone", 
         state: "CO",
         zip: "80504",
-        phone: "720-937-5883"
+        phone: "720-937-5883", 
+        isAdmin: true
       }, 
       {
         firstname: "Claire", 
@@ -151,7 +152,8 @@ async function createInitialUsers(){
         city: "Austin", 
         state: "TX",
         zip: "78721",
-        phone: "214-641-7307"
+        phone: "214-641-7307", 
+        isAdmin: true
       }, 
       {
         firstname: "Derek", 
@@ -162,7 +164,8 @@ async function createInitialUsers(){
         city: "Fort Collins", 
         state: "CO",
         zip: "80525",
-        phone: "702-326-4944"
+        phone: "702-326-4944", 
+        isAdmin: true
       }, 
       {
         firstname: "James", 
@@ -173,7 +176,8 @@ async function createInitialUsers(){
         city: "Boulder", 
         state: "CO",
         zip: "80305",
-        phone: "720-512-0024"
+        phone: "720-512-0024", 
+        isAdmin: true
       }
     ]
     const users = await Promise.all(usersToCreate.map(user => createUser(user)));
