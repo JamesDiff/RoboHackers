@@ -62,7 +62,7 @@ productsRouter.post('/', async (req, res, next) => {
 })
 
 //update/patch
-productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
+productsRouter.patch ('/products/:productId', async(req, res, next) => {
    const id = req.params.productId;
    const isAdmin = req.user.is_Admin;
 
