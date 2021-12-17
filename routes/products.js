@@ -42,18 +42,17 @@ productsRouter.get('/:productId', async(req, res, next) => {
 
 //post products
  productsRouter.post('/', async (req, res, next) => {
-  const creatorId = req.user.id;
+   
   const { name, description, price, inventory_qty, img_url } = req.body;
   
-  const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
+  const productToCreate = {  
+    name, 
+    description, 
+    price, 
+    inventory_qty, 
+    img_url }
   
   try {
-    if(!creatorId){
-      throw Error({
-          name: 'NotACreator', 
-          message: "You are not authorized to post a product"
-      });
-    }
 
     const newProduct = await createProduct(productToCreate);
     res.send(newProduct);
