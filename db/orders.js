@@ -79,9 +79,26 @@ async function getOrderById(id){
     }
 }
 
+async function deleteOrder(id) {
+   
+    try {
+        const { rows: [order] } = await client.query(`
+            DELETE FROM orders
+            WHERE id = $1
+            RETURNING *;
+        `, [id]); 
+    
+    return order;
+    } catch (error) {
+        console.error("Error deleting order")
+        throw error;
+    }
+}
+
 module.exports = {
     createOrder,
     getAllOrders,
     getOrdersByUserEmail,
-    getOrderById
+    getOrderById,
+    deleteOrder
 }
