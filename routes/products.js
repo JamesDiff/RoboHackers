@@ -16,38 +16,52 @@ productsRouter.get('/', async(req, res, next) => {
   }
 })
 
-//get product by id
+
+//get product
 productsRouter.get('/:productId', async(req, res, next) => {
-    const productId = req.params.productId;
+  const productId = req.params.productId;
 
-    try{
-        const productToGet = await getProductById(productId); 
-        res.send(productToGet);
+  try{
 
-    } catch(error) {
-      next(error);
+    if(!productId){
+      throw Error({
+        name: 'ProductDoesNotExistError', 
+        message: "This product does not exist!"
+      });
     }
+
+      const productToGet = await getProductById(productId); 
+      res.send(productToGet);
+  } catch(error) {
+    next(error);
+  }
 })
 
-
-//post products
- productsRouter.post('/', async (req, res, next) => {
-     const creatorId = req.user.id;
-     const { name, description, price, inventory_qty, img_url } = req.body;
-
-     const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
-
-     try {
-       const newProduct = await createProduct(productToCreate);
-       res.send(newProduct);
+//create product
+productsRouter.post('/', async (req, res, next) => {
+  const creatorId = req.user.id;
+  const { name, description, price, inventory_qty, img_url } = req.body;
   
-     } catch (error) {
-       next(error);
-     }
-    
-   })
+  const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
+  
+  try {
+    if(!creatorId){
+      throw Error({
+          name: 'NotACreator', 
+          message: "You are not authorized to post a product"
+      });
+    }
 
-//update/
+    const newProduct = await createProduct(productToCreate);
+    res.send(newProduct);
+    
+    } catch (error) {
+      next(error);
+    }
+      
+})
+
+//update/patch
 productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
    const id = req.params.productId;
    const isAdmin = req.user.is_Admin;
@@ -72,6 +86,7 @@ productsRouter.patch ('/products/:productId', requireUser, async(req, res, next)
 
 //delete product
 productsRouter.delete('/:productId', async (req, res, next) => { 
+
     const productId = req.params.productId;
     const isAdmin = req.user.is_Admin;
 

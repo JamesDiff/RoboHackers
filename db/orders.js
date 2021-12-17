@@ -68,7 +68,7 @@ async function getOrderById(id){
             SELECT *
             FROM orders
             WHERE id=${ id };
-        `, [id]);
+        `); //got rid of array
         if(!order){
             return null;
         };
