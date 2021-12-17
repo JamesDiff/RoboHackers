@@ -3,14 +3,14 @@ const client = require('./client');
 
 const { getOrderProductsByOrder } = require("./order_products")
 
-async function createOrder({userId, total_price, order_status}){
-    console.log("Create Order", userId, total_price, order_status)
+async function createOrder({userId, order_status}){
+    console.log("Create Order", userId, order_status)
     try {
         const {rows: [order]} = await client.query(`
-            INSERT INTO orders("userId", total_price, order_status)
-            VALUES ($1, $2, $3)
+            INSERT INTO orders("userId", order_status)
+            VALUES ($1, $2)
             RETURNING *;
-        `, [userId, total_price, order_status]);
+        `, [userId, order_status]);
         if(!order){
             return null;
         }
