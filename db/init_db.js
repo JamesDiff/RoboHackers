@@ -5,7 +5,8 @@ const {
   createUser, 
   createOrder, 
   getAllOrders,
-  getOrdersByUserEmail
+  getOrdersByUserEmail, 
+  createReviewForProduct
 } = require('./index');
 const { addProductToOrder } = require('./order_products');
 
@@ -14,6 +15,7 @@ async function dropTables() {
 
   try{
     await client.query(`
+      DROP TABLE IF EXISTS reviews;
       DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS users;
@@ -55,7 +57,6 @@ async function createTables() {
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id), 
-          total_price FLOAT NOT NULL,
           order_status VARCHAR(255) NOT NULL
         );
         CREATE TABLE order_products(
@@ -65,6 +66,12 @@ async function createTables() {
           priceAtTimeOfOrder FLOAT NOT NULL, 
           quantity INTEGER NOT NULL,
           UNIQUE("orderId", "productId")
+        );
+        CREATE TABLE reviews(
+          "productId" INTEGER REFERENCES products(id), 
+          "userId" INTEGER REFERENCES users(id), 
+          title VARCHAR(255) NOT NULL,
+          description VARCHAR(255) NOT NULL
         );
     `);
 
@@ -198,7 +205,6 @@ async function createInitialUsersOrders(users, products){
     users.forEach((user) => {
       const newOrder = {
         userId: user.id,
-        total_price: 0, 
         order_status: "Open"
       }
       ordersToCreate.push(newOrder)
@@ -206,7 +212,6 @@ async function createInitialUsersOrders(users, products){
 
     //Create a guest order
     ordersToCreate.push({
-      total_price: 0, 
       order_status: "Open"
     })
 
@@ -220,11 +225,28 @@ async function createInitialUsersOrders(users, products){
     const orderForUser0 = await getOrdersByUserEmail(ordersWithLineItems[1].creatorEmail);
     console.log("Order for User", ordersWithLineItems[1].creatorEmail, orderForUser0)
     console.log("All Orders with Line Items", ordersWithLineItems);
-
+    
     console.log('Finished creating Orders.');
     return users;
   } catch (error) {
     console.error("Error creating initial Orders!", error)
+  }
+}
+
+async function createInitialReviews(users, products){
+  try{
+      //Create review
+      const reviewsToCreate = {
+          userId: users[0].id, 
+          productId: products[0].id, 
+          title: "This is a great show", 
+          description: "This show is very funny and I would watch it any day of the week!"
+        }
+
+      const reviewCreated = await createReviewForProduct(reviewsToCreate);
+      console.log("Review Created", reviewCreated);
+  }catch (error){
+    throw error;
   }
 }
 
@@ -234,6 +256,7 @@ async function populateInitialData() {
     const products = await createInitialProducts();
     const users = await createInitialUsers();
     await createInitialUsersOrders(users, products);
+    await createInitialReviews(users,products)
   } catch (error) {
     throw error;
   }
