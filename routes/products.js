@@ -1,8 +1,8 @@
 const express = require('express');
 const productsRouter = express.Router();
 
-const { getAllProducts, getProductById, createProduct } = require('../db');
-//{ updateProduct, deleteProduct } 
+const { getAllProducts, getProductById, createProduct,  deleteProduct } = require('../db');
+//{ deleteProduct } 
 
 //get products
 productsRouter.get('/', async(req, res, next) => {
@@ -18,7 +18,7 @@ productsRouter.get('/', async(req, res, next) => {
 
 //get product by id
 productsRouter.get('/:productId', async(req, res, next) => {
-    const productId = req.params.productId;
+    const productId = req.params.product.id;
 
     try{
         const productToGet = await getProductById(productId); 
@@ -28,9 +28,6 @@ productsRouter.get('/:productId', async(req, res, next) => {
       next(error);
     }
 })
-
-
-module.exports = productsRouter;
 
 
 //post products
@@ -50,18 +47,18 @@ module.exports = productsRouter;
     
    })
 
-//update/patch
-/*productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
-   const id = req.params.productId;
-   const userId = req.user.id;
+//update/
+productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
+   const id = req.params.product.id;
+   const isAdmin = req.user.is_Admin;
+
    const {name, description, price, inventory_qty, img_url} = req.body
 
    const updateFields = {id, name, description, price, inventory_qty, img_url};
 
     try{
-        const productToUpdate = await getProductById(id); 
-
-        if (productToUpdate.creatorId === userId) {
+        
+        if (isAdmin) {
             const updatedProduct = await updateProduct(updateFields);
             res.send(updatedProduct)
         } else {
@@ -70,18 +67,17 @@ module.exports = productsRouter;
     }catch(error) {
       next(error);
     }
-}) */
+}) 
 
 
 //delete product
-/*productsRouter.delete('/products/:productId', requireUser, async (req, res, next) => { 
-    const productId = req.params.productId;
-    const userId = req.user.id;
+productsRouter.delete('/:productId', async (req, res, next) => { 
+    const productId = req.params.product.id;
+    const isAdmin = req.user.is_Admin;
 
     try{
-        const productToDelete = await getProductById(productId);
-  
-      if (productToDelete.creatorId === userId) {
+
+      if (isAdmin) {
         const deletedProduct = await deleteProduct(productId);
         res.send(deletedProduct);
       } else {
@@ -90,6 +86,6 @@ module.exports = productsRouter;
     } catch(error) {
       next(error);
     }
-})*/
+})
 
 module.exports = productsRouter
