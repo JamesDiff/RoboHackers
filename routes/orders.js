@@ -7,7 +7,7 @@ const { createOrder, getOrderById, getProductById, addProductToOrder } = require
 
 //get order by id
 ordersRouter.get('/:orderId', async(req, res, next) => {
-    const orderId = req.params.order.id;
+    const orderId = req.params.orderId;
 
     try{
         const orderToGet = await getOrderById(orderId); 
@@ -52,6 +52,23 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
         console.log(error);
         next(error);
     }
+})
+
+ordersRouter.delete('/:orderId', async (req, res, next) => { 
+  const productId = req.params.orderId;
+  const isAdmin = req.user.is_Admin;
+
+  try{
+
+    if (isAdmin) {
+      const deletedProduct = await deleteProduct(productId);
+      res.send(deletedProduct);
+    } else {
+      throw new Error("You are not authorized to delete this product")
+    }
+  } catch(error) {
+    next(error);
+  }
 })
 
 

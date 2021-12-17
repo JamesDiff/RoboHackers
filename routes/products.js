@@ -18,7 +18,7 @@ productsRouter.get('/', async(req, res, next) => {
 
 //get product by id
 productsRouter.get('/:productId', async(req, res, next) => {
-    const productId = req.params.product.id;
+    const productId = req.params.productId;
 
     try{
         const productToGet = await getProductById(productId); 
@@ -49,7 +49,7 @@ productsRouter.get('/:productId', async(req, res, next) => {
 
 //update/
 productsRouter.patch ('/products/:productId', requireUser, async(req, res, next) => {
-   const id = req.params.product.id;
+   const id = req.params.productId;
    const isAdmin = req.user.is_Admin;
 
    const {name, description, price, inventory_qty, img_url} = req.body
@@ -72,7 +72,7 @@ productsRouter.patch ('/products/:productId', requireUser, async(req, res, next)
 
 //delete product
 productsRouter.delete('/:productId', async (req, res, next) => { 
-    const productId = req.params.product.id;
+    const productId = req.params.productId;
     const isAdmin = req.user.is_Admin;
 
     try{
