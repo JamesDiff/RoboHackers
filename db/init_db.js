@@ -5,7 +5,8 @@ const {
   createUser, 
   createOrder, 
   getAllOrders,
-  getOrdersByUserEmail
+  getOrdersByUserEmail, 
+  createReviewForProduct
 } = require('./index');
 const { addProductToOrder } = require('./order_products');
 
@@ -14,6 +15,7 @@ async function dropTables() {
 
   try{
     await client.query(`
+      DROP TABLE IF EXISTS reviews;
       DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS users;
@@ -64,6 +66,12 @@ async function createTables() {
           priceAtTimeOfOrder FLOAT NOT NULL, 
           quantity INTEGER NOT NULL,
           UNIQUE("orderId", "productId")
+        );
+        CREATE TABLE reviews(
+          "productId" INTEGER REFERENCES products(id), 
+          "userId" INTEGER REFERENCES users(id), 
+          title VARCHAR(255) NOT NULL,
+          description VARCHAR(255) NOT NULL
         );
     `);
 
@@ -139,7 +147,8 @@ async function createInitialUsers(){
         city: "Firestone", 
         state: "CO",
         zip: "80504",
-        phone: "720-937-5883"
+        phone: "720-937-5883", 
+        isAdmin: true
       }, 
       {
         firstname: "Claire", 
@@ -150,7 +159,8 @@ async function createInitialUsers(){
         city: "Austin", 
         state: "TX",
         zip: "78721",
-        phone: "214-641-7307"
+        phone: "214-641-7307", 
+        isAdmin: true
       }, 
       {
         firstname: "Derek", 
@@ -161,7 +171,8 @@ async function createInitialUsers(){
         city: "Fort Collins", 
         state: "CO",
         zip: "80525",
-        phone: "702-326-4944"
+        phone: "702-326-4944", 
+        isAdmin: true
       }, 
       {
         firstname: "James", 
@@ -172,7 +183,8 @@ async function createInitialUsers(){
         city: "Boulder", 
         state: "CO",
         zip: "80305",
-        phone: "720-512-0024"
+        phone: "720-512-0024", 
+        isAdmin: true
       }
     ]
     const users = await Promise.all(usersToCreate.map(user => createUser(user)));
@@ -213,11 +225,28 @@ async function createInitialUsersOrders(users, products){
     const orderForUser0 = await getOrdersByUserEmail(ordersWithLineItems[1].creatorEmail);
     console.log("Order for User", ordersWithLineItems[1].creatorEmail, orderForUser0)
     console.log("All Orders with Line Items", ordersWithLineItems);
-
+    
     console.log('Finished creating Orders.');
     return users;
   } catch (error) {
     console.error("Error creating initial Orders!", error)
+  }
+}
+
+async function createInitialReviews(users, products){
+  try{
+      //Create review
+      const reviewsToCreate = {
+          userId: users[0].id, 
+          productId: products[0].id, 
+          title: "This is a great show", 
+          description: "This show is very funny and I would watch it any day of the week!"
+        }
+
+      const reviewCreated = await createReviewForProduct(reviewsToCreate);
+      console.log("Review Created", reviewCreated);
+  }catch (error){
+    throw error;
   }
 }
 
@@ -227,6 +256,7 @@ async function populateInitialData() {
     const products = await createInitialProducts();
     const users = await createInitialUsers();
     await createInitialUsersOrders(users, products);
+    await createInitialReviews(users,products)
   } catch (error) {
     throw error;
   }
