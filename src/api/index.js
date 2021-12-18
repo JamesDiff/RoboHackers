@@ -68,7 +68,12 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
 }
 
 // This function logs in a registered user
-export const loginUser = async (email, password, setToken) => {
+export const loginUser = async (email, 
+  password, 
+  setToken, 
+  // setUser, 
+  // setIsAdmin
+  ) => {
 
   try {
     const result = await axios.post('/api/users/login', {
@@ -78,9 +83,19 @@ export const loginUser = async (email, password, setToken) => {
 
     console.log(result);
     const token = result.data.token;
+    // const currentUser = result.data.user;
+    // const adminStatus = result.data.user.is_admin;
+    // console.log("Current User is: ", currentUser);
+    // console.log("Admin status is: ", adminStatus);
     setToken(token);
+    // setUser(currentUser);
+    // setIsAdmin(adminStatus);
     localStorage.setItem("token", token);
     localStorage.getItem("token");
+    // localStorage.setItem("user", currentUser);
+    // localStorage.getItem("user");
+    // localStorage.setItem("isAdmin", adminStatus);
+    // localStorage.getItem("isAdmin");
     if (result.error) throw result.error;
   } 
   
