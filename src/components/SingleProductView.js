@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getProductById, submitReviewForProduct } from '../api'
-// import { // all necessary/relevant API calls // } from //wherever they're stored//
+import { getProductById, submitReviewForProduct, createOrder, addProductToOrder } from '../api'
 
 /*As a user, I want to be able to click a product from the all products page 
 and get a detailed product page with more information about the product on it.*/
@@ -9,9 +8,7 @@ and get a detailed product page with more information about the product on it.*/
 async function fetchSingleProduct(productId, setSingleProduct, setReviews) {
     try {
         const result = await getProductById(productId, setSingleProduct)
-        console.log("SINGLE PRODUCT RESULT", result)
         setSingleProduct(result)
-        console.log("Result ", result);
         if(result.reviews){
             setReviews(result.reviews);
         }
@@ -25,12 +22,25 @@ async function submitReview(token, productId, title, description){
     const result = await submitReviewForProduct(token, productId, title, description);
 }
 
+async function addProductToCart(token, productId, quantity){
+    let activeOrderId = localStorage.getItem("ActiveOrderId");
+    if(!activeOrderId) {
+        const orderID = await createOrder(token);
+        console.log("Setting OrderId", orderID)
+        localStorage.setItem("ActiveOrderId", orderID)
+        activeOrderId = orderID;
+    }
+
+    const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity)
+}
+
 const SingleProductView = ({token, match}) => {
     const productId = match.params.productId;
     const [newReviewDescription, setNewReviewDescription] = useState('');
     const [newReviewTitle, setNewReviewTitle] = useState("");
     const [singleProduct, setSingleProduct] = useState('');
     const [reviews, setReviews] = useState([]);
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
             fetchSingleProduct(productId, setSingleProduct, setReviews)
@@ -57,21 +67,15 @@ const SingleProductView = ({token, match}) => {
                         Product Reviews:
                     </div>
                     <div className="horizGroup">
+                        <label>Quantity</label>
+                        <input className="m-3" type="number" id="quantity" value={quantity} min="1" max="100"
+                        onChange={(event) => setQuantity(event.target.value)} />
+
                         <button className="btn btn-primary btn-danger m-3" onClick={async(event) => {
-                            event.preventDefault();
-                                // try {
-                                //     const result = await handleAddToCart();
-                                //     setCart(result)
-                                // } catch(error) {
-                                //     console.error(error)
-                                // };
+                                event.preventDefault();
+                                addProductToCart(token, singleProduct.id, quantity)
                             }}> Add to Cart
                         </button>
-                        <Link to="/products">
-                            <button className="btn btn-primary m-3">
-                                Back to All Products
-                            </button>
-                        </Link>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,8 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
 
 //create order
 ordersRouter.post('/', async (req, res, next) => {
-    const userId = req.user.id;
+    let userId = "";
+    if(req.user) userId = req.user.id;
     order_status = "Open" // Default to Open because it's a new order
     const orderToCreate = { userId, order_status}
 
@@ -43,6 +44,7 @@ ordersRouter.post('/', async (req, res, next) => {
       }
 
       const newOrder = await createOrder(orderToCreate);
+      console.log("New Order", newOrder)
       res.send(newOrder);
  
     } catch (error) {
@@ -56,9 +58,12 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
 // make a POST to /api/orders/:orderID/products/:productID
     
     try{
-        const { productPrice, quantity } = req.body; 
+        const { quantity } = req.body; 
         const { orderId, productId } = req.params;
 
+        const product = await getProductById(productId);
+        productPrice = product.price;
+        console.log("Adding Product to Order", orderId, productId, quantity, productPrice)
         if(!orderId){
           throw Error({
               name: 'NoOrder', 
