@@ -218,3 +218,14 @@ export const addProductToOrder = async (token, orderId, productId, quantity) => 
     throw error;
   }
 }
+
+export const getOrderById  = async (orderId, setOrder) => {
+  try{
+    const {data} = await axios.get(`/api/orders/${orderId}`, {} , {});
+    console.log("Got Order", data);
+    setOrder(data);
+  } catch (error) {
+    console.error("Error getting order by Id")
+    throw error;
+  } 
+}

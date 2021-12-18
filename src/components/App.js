@@ -8,6 +8,7 @@ import {
   Title,
   SingleProductView,
   NavBar,
+  Cart,
  } from '../components';
 
 
@@ -63,6 +64,7 @@ const App = () => {
           {/* <Route path="/users/:userId/cart" render={(routeProps) => <UserCart {...routeProps} token={token} user={user} />} /> */}
           <Route exact path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
           <Route exact path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} token={token} setToken={setToken} />} />
+          <Route exact path="/cart" render={(routeProps) => <Cart {...routeProps} token={token} setToken={setToken} />} />
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
