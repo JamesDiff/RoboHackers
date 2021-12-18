@@ -1,4 +1,5 @@
 const client = require('./client');
+const {getUserById} = require("./users")
 
 async function createReviewForProduct({userId, productId, title, description}){
     try{
@@ -20,11 +21,16 @@ async function createReviewForProduct({userId, productId, title, description}){
 
 async function getAllReviewsForProduct(productId){
     try{
+        console.log("Getting reviews");
         const{rows: reviews} = await client.query(`
-            SELECT * 
+            SELECT reviews.*, users.firstname, users.lastname 
             FROM reviews
-            WHERE id=${ productId };
+            JOIN users ON users.id=reviews."userId"
+            WHERE "productId"=${ productId };
         `)
+        if(!reviews) {
+            return null;
+        }
         return reviews;
     }catch(error){
         console.error("Error getting reviews", error)
