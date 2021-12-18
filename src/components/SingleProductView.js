@@ -96,8 +96,15 @@ const SingleProductView = ({token, match}) => {
                     event.preventDefault();
                     
                     submitReview(token, singleProduct.id, newReviewTitle, newReviewDescription);
-                    // setNewReviewDescription("");
-                    // setNewReviewTitle("");
+                    const newReview = {
+                        title: newReviewTitle, 
+                        description: newReviewDescription
+                    }
+                    let allReviews = reviews;
+                    allReviews.push(newReview);
+                    setReviews(allReviews);
+                    setNewReviewDescription("");
+                    setNewReviewTitle("");
                 }}>
                     <div className="m-3">
                         <label htmlFor="messageTextArea" className="form-label">Submit a Review!</label>
