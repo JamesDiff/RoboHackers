@@ -160,3 +160,25 @@ export const createProduct = async (name, description, price, inventory_qty, img
       throw error;
   }
 }
+
+// Submit a review
+export const submitReviewForProduct = async (token, productId, title, description) => {
+  try {
+      const { data } = await axios.post(`/api/products/${productId}/reviews`, 
+        {
+          productId: productId, 
+          title: title, 
+          description: description, 
+        },
+        {
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token,
+        }
+      })
+      return data;
+  }catch (error){
+    console.error("Error creating a review for a product", error);
+    throw error;
+  }
+}

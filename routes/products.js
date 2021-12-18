@@ -1,7 +1,7 @@
 const express = require('express');
 const productsRouter = express.Router();
 
-const { getAllProducts, getProductById, createProduct,  deleteProduct } = require('../db');
+const { getAllProducts, getProductById, createProduct,  deleteProduct, createReviewForProduct } = require('../db');
 //{ deleteProduct } 
 
 //get products
@@ -101,6 +101,22 @@ productsRouter.delete('/:productId', async (req, res, next) => {
     } catch(error) {
       next(error);
     }
+})
+
+//submit review
+productsRouter.post("/:productId/reviews", async (req, res, next) => {
+  const productId = req.params.productId;
+  try{
+    const {description, title} = req.body;
+    const newReview = {
+      userId:req.user.id, productId:productId, title:title, description:description
+    }
+    const createdReview = await createReviewForProduct(newReview);
+    res.send(createdReview);
+  }catch(error){
+    console.error("Error creating review", error);
+    next(error);
+  }
 })
 
 module.exports = productsRouter
