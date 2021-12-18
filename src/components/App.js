@@ -10,6 +10,7 @@ import {
   NavBar,
  } from '../components';
 import CreateForm from './createProduct';
+import { getUser } from '../api';
 
 
 
@@ -19,8 +20,8 @@ const App = () => {
   // Need to figure out the whole message thing, but i don't even think we need to use it at all.
   // const [message, setMessage] = useState("");
   const [token, setToken] = useState(null);
-  // const [user, setUser] = useState(null);
-  // const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
 
 
   // useEffect(() => {
@@ -39,13 +40,33 @@ const App = () => {
   useEffect(() => {
 
     const storedToken = localStorage.getItem("token");
+    // const currentUser = localStorage.getItem("user");
+    // const admin = localStorage.getItem("isAdmin");
     if (storedToken) {
         setToken(storedToken);
+        // setUser(currentUser);
+        // setIsAdmin(admin);
+
     }
-    // if (user) {
-    //   setUser(user)
-    // }
-}, [token]);
+  }, [token]);
+
+  // useEffect(async () => {
+  //   try {
+  //   const result = await getUser(token);
+  //   console.log("User is: ", result.user);
+  //   const adminStatus = result.user.is_admin;
+  //   const currentUser = result.user;
+  //   setUser(currentUser);
+  //   setIsAdmin(adminStatus);
+  //   }
+  //   catch (error) {
+  //     console.error("Use Effect error app.js");
+  //     throw error;
+  //   }
+
+    
+
+  // }, [user, isAdmin])
 
 
 
@@ -61,11 +82,11 @@ const App = () => {
           {/* <Route path="/" render={(routeProps) => <App />} /> */}
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} 
-                                                              // setUser={setUser} 
-                                                              // setIsAdmin={setIsAdmin} 
+                                                              setUser={setUser} 
+                                                              setIsAdmin={setIsAdmin} 
 
                                                               />} />
-          <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
+          <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} user={user} setUser={setUser} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />} />
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}
@@ -78,9 +99,9 @@ const App = () => {
 
           <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
 
-          {/* {isAdmin ?  */}
+          {isAdmin ? 
           <Link to="/create" className="link">CREATE PRODUCT</Link> 
-          {/* : null} */}
+          : null}
 
         </Router>
       </>

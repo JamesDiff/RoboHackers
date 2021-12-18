@@ -71,8 +71,8 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
 export const loginUser = async (email, 
   password, 
   setToken, 
-  // setUser, 
-  // setIsAdmin
+  setUser, 
+  setIsAdmin
   ) => {
 
   try {
@@ -83,13 +83,13 @@ export const loginUser = async (email,
 
     console.log(result);
     const token = result.data.token;
-    // const currentUser = result.data.user;
-    // const adminStatus = result.data.user.is_admin;
-    // console.log("Current User is: ", currentUser);
-    // console.log("Admin status is: ", adminStatus);
+    const currentUser = result.data.user;
+    const adminStatus = result.data.user.is_admin;
+    console.log("Current User is: ", currentUser);
+    console.log("Admin status is: ", adminStatus);
     setToken(token);
-    // setUser(currentUser);
-    // setIsAdmin(adminStatus);
+    setUser(currentUser);
+    setIsAdmin(adminStatus);
     localStorage.setItem("token", token);
     localStorage.getItem("token");
     // localStorage.setItem("user", currentUser);
