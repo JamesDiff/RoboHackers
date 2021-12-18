@@ -1,5 +1,7 @@
 const client = require("./client");
 
+const {getAllReviewsForProduct} = require('./reviews')
+
 async function createProduct(product) {
     try{
         const {rows: [newProduct]} = await client.query(`
@@ -40,7 +42,10 @@ async function getProductById(id){
             FROM products
             WHERE id=$1;
         `, [id]);
-
+        const reviews = await getAllReviewsForProduct(id);
+        if(reviews) {
+            product.reviews = reviews;
+        }
         return product;
     }catch (error){
         console.error("Error getting product with ID ", id)
