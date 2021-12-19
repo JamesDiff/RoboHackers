@@ -9,9 +9,11 @@ import {
   SingleProductView,
   NavBar,
   AdminPage,
+  AdminProducts,
  } from '../components';
 import CreateForm from './createProduct';
 import { getUser } from '../api';
+// import AdminProducts from './adminProducts';
 
 
 
@@ -80,6 +82,7 @@ const App = () => {
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
           <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} /> } />
           <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
+          <Route path="/admin/products" render={(routeProps) => <AdminProducts {...routeProps} />} />
 
         </Router>
       </>

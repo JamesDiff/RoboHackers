@@ -7,6 +7,7 @@ import Title from './title';
 import NavBar from './NavBar';
 import CreateForm from './createProduct';
 import AdminPage from './AdminPage';
+import AdminProducts from './adminProducts';
 
 export { default as App } from './App';
 export { default as SingleProductView } from './SingleProductView';
@@ -19,4 +20,5 @@ export { AllProducts,
         NavBar,
         CreateForm,
         AdminPage,
+        AdminProducts,
 }
