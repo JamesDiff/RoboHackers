@@ -13,13 +13,13 @@ import axios from 'axios';
 //   }
 // }
 
-//******* GETUSER, REGISTER, & LOGIN API CALLS *******/
+//******* USER API CALLS *******/
 
 // test call to grab users info (token and to see if logged in)
 export const getUser = async (token) => {
 
   try {
-    const { data } = await axios.get(`/api/users/me`, {
+    const data = await axios.get('/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
@@ -29,6 +29,44 @@ export const getUser = async (token) => {
     return data;
   } catch (error) {
       console.error("ERROR fetching current user!!! 🤦‍♂️ FE-API getUser");
+  }
+}
+
+// This function will get all users from db
+export async function getAllUsers() {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const { data } = await axios.get(`/api/users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("ALL USERS: ", data)
+
+    return data;
+  } catch (error) {
+    console.error("ERROR getting all users!!! FE-API getAllUsers");
+    throw error;
+  }
+}
+
+export const deleteUser = async (userId) => {
+
+  try {
+    const result = await axios.delete(`/api/users/${userId}`);
+    console.log("Deleted user is: ", result)
+
+    return result;
+  } 
+  
+  catch (error) {
+      console.error("ERROR deleting user by id!!! 🤦‍♂️ - FE-API deleteUser");
+      throw error;
   }
 }
 
@@ -68,7 +106,12 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
 }
 
 // This function logs in a registered user
-export const loginUser = async (email, password, setToken) => {
+export const loginUser = async (email, 
+  password, 
+  setToken, 
+  setUser, 
+  setIsAdmin
+  ) => {
 
   try {
     const result = await axios.post('/api/users/login', {
@@ -78,9 +121,19 @@ export const loginUser = async (email, password, setToken) => {
 
     console.log(result);
     const token = result.data.token;
+    const currentUser = result.data.user;
+    const adminStatus = result.data.user.is_admin;
+    console.log("Current User is: ", currentUser);
+    console.log("Admin status is: ", adminStatus);
     setToken(token);
+    setUser(currentUser);
+    setIsAdmin(adminStatus);
     localStorage.setItem("token", token);
     localStorage.getItem("token");
+    localStorage.setItem("user", currentUser);
+    localStorage.getItem("user");
+    localStorage.setItem("isAdmin", adminStatus);
+    localStorage.getItem("isAdmin");
     if (result.error) throw result.error;
   } 
   
@@ -127,10 +180,10 @@ export const getAllProducts = async () => {
 export const deleteProductById = async (productId) => {
 
   try {
-    const { data } = await axios.delete(`/api/products/${productId}`);
-    console.log("Deleted product is: ", data)
+    const result = await axios.delete(`/api/products/${productId}`);
+    console.log("Deleted product is: ", result)
 
-    return data;
+    return result;
   } 
   
   catch (error) {
@@ -143,21 +196,38 @@ export const deleteProductById = async (productId) => {
 export const createProduct = async (name, description, price, inventory_qty, img_url) => {
 
   try {
-    const { data } = await axios.post('/api/products', {
+    const result = await axios.post('/api/products', {
       name,
       description,
       price,
       inventory_qty,
       img_url
     })
-    console.log("New product is: ", data);
+    console.log("New product is: ", result);
 
-    return data;
+    return result;
   } 
   
   catch (error) {
       console.error("ERROR creating new product!!! 🤦‍♂️ - FE-API createProduct");
       throw error;
+  }
+}
+
+export const updateProduct = async (productId, name, description, price, inventory_qty, img_url) => {
+  try {
+      const { data } = await axios.patch(`/api/products/${productId}`, {
+          name: name,
+          description: description,
+          price: price,
+          inventory_qty: inventory_qty,
+          img_url: img_url,
+      })
+      console.log("Updated product is: ", data)
+      return data;
+  }
+  catch (err) {
+      console.error("Trouble updating product - FE-API updateProduct", err)
   }
 }
 

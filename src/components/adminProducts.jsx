@@ -1,13 +1,10 @@
 import React from "react";
+import { Link} from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { getAllProducts } from "../api";
-import { Link } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
+import { getAllProducts, deleteProductById } from "../api";
 
+const AdminProducts = ({ history }) => {
 
-// This component renders the All Products page (maps out all the products in the database)
-const AllProducts = ({ history }) => {
-    // const token = props.token;
     const [products, setProducts] = useState([]);
  
     // const [cart, setCart] = useState([]);
@@ -41,7 +38,7 @@ const AllProducts = ({ history }) => {
                                 <div className="form-group list-group-item-info card-title centered">
                                     <h3 className="card-title">
                                         <Link to={"/products/" + product.id} className="link">
-                                            <b>{ product.name}</b> 
+                                            { product.name} 
                                         </Link>
                                     </h3>
                                 </div>
@@ -59,7 +56,7 @@ const AllProducts = ({ history }) => {
                                         <div className="form-group list-group-item-text text-danger">
                                             <b>QTY On-Hand:</b> {product.inventory_qty }
                                         </div>
-                                        {/* <div className="form-group">
+                                        <div className="horizGroup">
                                             <button 
                                                 onClick={async (event) => {
                                                     
@@ -68,7 +65,7 @@ const AllProducts = ({ history }) => {
                                                     const response = await deleteProductById(product.id);
                                                     console.log(response)
                                                     fetchAllProducts(products);
-                                                    history.push("/products")
+                                                    history.push("/admin/products")
                                             
                                                 }
                                                 catch (err) {
@@ -76,8 +73,9 @@ const AllProducts = ({ history }) => {
                                                 }
                                                 }} 
                                     
-                                                type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">Delete Product</button>
-                                        </div> */}
+                                                type="submit" className="btn btn-primary btn-danger m-3">Delete Product</button>
+                                                <Link className="btn btn-primary" to={"/update/" + product.id}>UPDATE</Link>
+                                        </div>
                                     </div>
                                 </div>
                                 {/* <div>
@@ -93,11 +91,12 @@ const AllProducts = ({ history }) => {
                                     </Link>
                                 </div> */}
                                 <br></br>
-                            </div>)
+                            </div>
+                        )
                     })}
                 </div>
             </div>)
 
 }
 
-export default AllProducts;
+export default AdminProducts;
