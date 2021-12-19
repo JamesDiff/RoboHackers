@@ -23,6 +23,7 @@ async function fetchSingleProduct(productId, setSingleProduct, setReviews) {
 
 async function submitReview(token, productId, title, description){
     const result = await submitReviewForProduct(token, productId, title, description);
+    console.log("Review is: ", result)
 }
 
 const SingleProductView = ({token, match}) => {
