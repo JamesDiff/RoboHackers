@@ -48,13 +48,13 @@ const AdminProducts = ({ history }) => {
                                     </div>
                                     <div className="w-75">
                                         <div className="form-group">
-                                            Description: {product.description }
+                                            <b>Description:</b> {product.description }
                                         </div>
                                         <div className="form-group list-group-item-text">
-                                            Price: { product.price }
+                                            <b>Price:</b> { product.price }
                                         </div>
                                         <div className="form-group list-group-item-text text-danger">
-                                            QTY On-Hand: {product.inventory_qty }
+                                            <b>QTY On-Hand:</b> {product.inventory_qty }
                                         </div>
                                         <div className="form-group">
                                             <button 

@@ -1,15 +1,11 @@
 import React from "react";
-import { Link} from 'react-router-dom';
+// import { Link} from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { getAllUsers } from "../api";
 
 const AdminUsers = () => {
 
     const [users, setUsers] = useState([]);
- 
-    // const [cart, setCart] = useState([]);
-    // const [cartItemCount, setCartItemCount] = useState(1);
-    // const history = useHistory();
 
     const fetchAllUsers = async () => {
         try {
@@ -37,40 +33,32 @@ const AdminUsers = () => {
                             <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <div className="form-group list-group-item-info card-title centered">
                                     <h3 className="card-title">
-                                        <Link to={"/products"} className="link">
-                                            { user.firstname + " " + user.lastname} 
-                                        </Link>
+                                            <b>{ user.firstname + " " + user.lastname}</b> 
                                     </h3>
                                 </div>
                                 <div className="horizGroup">
-                                    {/* <div className="m-3">
-                                        <img src= { product.img_url } alt="Product Cover"/>
-                                    </div> */}
                                     <div className="w-75">
                                         <div className="form-group">
-                                            Email: {user.email }
+                                            <b>Email:</b> {user.email }
                                         </div>
                                         <div className="form-group">
-                                            Street: {user.street }
+                                            <b>Street:</b> {user.street }
                                         </div>
                                         <div className="form-group">
-                                            City: {user.city }
+                                            <b>City:</b> {user.city }
                                         </div>
                                         <div className="form-group">
-                                            State: {user.state }
+                                            <b>State:</b> {user.state }
                                         </div>
                                         <div className="form-group">
-                                            Zipcode: {user.zip }
+                                            <b>Zipcode:</b> {user.zip }
                                         </div>
                                         <div className="form-group">
-                                            Phone: {user.phone }
+                                            <b>Phone:</b> {user.phone }
                                         </div>
-                                        {/* <div className="form-group list-group-item-text">
-                                            Price: { product.price }
-                                        </div>
-                                        <div className="form-group list-group-item-text text-danger">
-                                            QTY On-Hand: {product.inventory_qty }
-                                        </div> */}
+                                        {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
+                                            <b>⭐️ ADMIN ⭐️</b>
+                                        </div> : null}
                                         {/* <div className="form-group">
                                             <button 
                                                 onClick={async (event) => {
@@ -92,18 +80,6 @@ const AdminUsers = () => {
                                         </div> */}
                                     </div>
                                 </div>
-                                {/* <div>
-                                    <Link to="/user/:id/cart" className="link">
-                                        <button 
-                                            onCLick={ () => {
-                                                setCartItemCount(cartItemCount + 1);
-                                                alert("Item added to your cart 👌");
-                                            }}
-                                            type="button" id="addcart">
-                                        ADD TO CART
-                                        </button>
-                                    </Link>
-                                </div> */}
                                 <br></br>
                             </div>)
                     })}

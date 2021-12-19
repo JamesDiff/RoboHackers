@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 import { 
   Register,
   Login, 
@@ -13,7 +13,6 @@ import {
   AdminUsers
  } from '../components';
 import CreateForm from './createProduct';
-import { getUser } from '../api';
 // import AdminProducts from './adminProducts';
 
 

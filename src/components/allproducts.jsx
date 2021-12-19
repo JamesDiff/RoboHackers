@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { deleteProductById, getAllProducts } from "../api";
+import { getAllProducts } from "../api";
 import { Link } from 'react-router-dom';
 // import { useHistory } from 'react-router-dom';
 
@@ -41,7 +41,7 @@ const AllProducts = ({ history }) => {
                                 <div className="form-group list-group-item-info card-title centered">
                                     <h3 className="card-title">
                                         <Link to={"/products/" + product.id} className="link">
-                                            { product.name} 
+                                            <b>{ product.name}</b> 
                                         </Link>
                                     </h3>
                                 </div>
@@ -51,13 +51,13 @@ const AllProducts = ({ history }) => {
                                     </div>
                                     <div className="w-75">
                                         <div className="form-group">
-                                            Description: {product.description }
+                                            <b>Description:</b> {product.description }
                                         </div>
                                         <div className="form-group list-group-item-text">
-                                            Price: { product.price }
+                                            <b>Price:</b> { product.price }
                                         </div>
                                         <div className="form-group list-group-item-text text-danger">
-                                            QTY On-Hand: {product.inventory_qty }
+                                            <b>QTY On-Hand:</b> {product.inventory_qty }
                                         </div>
                                         {/* <div className="form-group">
                                             <button 

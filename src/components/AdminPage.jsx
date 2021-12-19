@@ -1,7 +1,7 @@
 import React from "react";
 import { Link} from 'react-router-dom';
-import { useState, useEffect } from "react";
-import { getAllProducts } from "../api";
+// import { useState, useEffect } from "react";
+// import { getAllProducts } from "../api";
 
 
 
@@ -9,28 +9,28 @@ import { getAllProducts } from "../api";
 
 const AdminPage = ({history}) => {
 
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
  
     // const [cart, setCart] = useState([]);
     // const [cartItemCount, setCartItemCount] = useState(1);
     // const history = useHistory();
 
-    const fetchAllProducts = async () => {
-        try {
-            const list = await getAllProducts();
-            setProducts(list.data);
-        } 
-        catch (error) {
-            console.error("ERROR fetching all products");
-            throw error;
-        }
-    }
+    // const fetchAllProducts = async () => {
+    //     try {
+    //         const list = await getAllProducts();
+    //         setProducts(list.data);
+    //     } 
+    //     catch (error) {
+    //         console.error("ERROR fetching all products");
+    //         throw error;
+    //     }
+    // }
 
 
 
-    useEffect(() => {
-        fetchAllProducts();
-    }, []);
+    // useEffect(() => {
+    //     fetchAllProducts();
+    // }, []);
 
     return (<div id="product-box" className="form-group centered w-75">
                 <br />
