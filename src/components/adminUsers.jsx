@@ -1,9 +1,9 @@
 import React from "react";
 // import { Link} from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { getAllUsers } from "../api";
+import { getAllUsers, deleteUser } from "../api";
 
-const AdminUsers = () => {
+const AdminUsers = ({history}) => {
 
     const [users, setUsers] = useState([]);
 
@@ -59,25 +59,24 @@ const AdminUsers = () => {
                                         {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
                                             <b>⭐️ ADMIN ⭐️</b>
                                         </div> : null}
-                                        {/* <div className="form-group">
+                                        <div className="form-group">
                                             <button 
                                                 onClick={async (event) => {
                                                     
                                                 try {
                                             
-                                                    const response = await deleteProductById(product.id);
+                                                    const response = await deleteUser(user.id);
                                                     console.log(response)
-                                                    fetchAllProducts(products);
-                                                    history.push("/products")
+                                                    history.push("/admin")
                                             
                                                 }
                                                 catch (err) {
-                                                    console.error("trouble deleting product", err)
+                                                    console.error("trouble deleting user", err)
                                                 }
                                                 }} 
                                     
-                                                type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">Delete Product</button>
-                                        </div> */}
+                                                type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">Delete User</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <br></br>

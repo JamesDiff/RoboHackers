@@ -13,7 +13,7 @@ import axios from 'axios';
 //   }
 // }
 
-//******* GETUSER, REGISTER, & LOGIN API CALLS *******/
+//******* USER API CALLS *******/
 
 // test call to grab users info (token and to see if logged in)
 export const getUser = async (token) => {
@@ -52,6 +52,21 @@ export async function getAllUsers() {
   } catch (error) {
     console.error("ERROR getting all users!!! FE-API getAllUsers");
     throw error;
+  }
+}
+
+export const deleteUser = async (userId) => {
+
+  try {
+    const result = await axios.delete(`/api/users/${userId}`);
+    console.log("Deleted user is: ", result)
+
+    return result;
+  } 
+  
+  catch (error) {
+      console.error("ERROR deleting user by id!!! 🤦‍♂️ - FE-API deleteUser");
+      throw error;
   }
 }
 

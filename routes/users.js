@@ -2,12 +2,11 @@ const express = require("express");
 require("dotenv").config();
 
 const jwt = require('jsonwebtoken');
-// const { getPublicRoutinesByUser } = require("../db");
 const { JWT_SECRET } = process.env;
 
 const usersRouter = express.Router();
 
-const { createUser, getUserByEmail, getUser, getAllUsers } = require("../db/users");
+const { createUser, getUserByEmail, getUser, getAllUsers, deleteUserById } = require("../db/users");
 
 
 usersRouter.post('/register', async (request, response, next) => {
@@ -101,8 +100,7 @@ usersRouter.get('/me', (request,response,next) => {
 
 // route to get all users for admin users page
 usersRouter.get('/', async (req, res) => {
-    // const user = verifyJWT(req.headers.authorization);
-    // const user = localStorage.getItem("user");
+    
     const user = req.user;
   
     if (user) {
@@ -114,8 +112,19 @@ usersRouter.get('/', async (req, res) => {
         console.log(error);
       }
     }
-  
-    // res.send(':P');
-  });
+});
+
+  usersRouter.delete('/:userId', async (req, res, next) => { 
+    const user = req.user;
+    const userId = req.params.userId;
+
+    try{
+        const deletedUser = await deleteUserById(userId);
+        res.send(deletedUser);
+    
+    } catch(error) {
+      next(error);
+    }
+})
 
 module.exports = usersRouter;
