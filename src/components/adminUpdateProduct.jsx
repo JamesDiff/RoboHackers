@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getProductById } from '../api';
+import { getProductById, updateProduct } from '../api';
 
 
 async function fetchSingleProduct(productId, setSingleProduct) {
@@ -38,14 +38,15 @@ const AdminUpdate = ({history, match}) => {
                 className="centered m-3 w-50" 
                 onSubmit={async (event) => {
                 event.preventDefault();
-                // try {
-                //     await updateProduct(newName, newDescription, newPrice, newInvQty, newImgUrl);
-                //     history.push("/admin")
-                // }
-                // catch (error) {
-                //     console.error('ERROR with submission for updating the product!!!');
-                //     throw error;
-                // }
+                try {
+                    await updateProduct(productId, newName, newDescription, newPrice, newInvQty, newImgUrl);
+                    
+                    history.push("/admin");
+                }
+                catch (error) {
+                    console.error('ERROR with submission for updating the product!!!');
+                    throw error;
+                }
             }}>
 
                 <div className="form-group w-75">
@@ -56,7 +57,6 @@ const AdminUpdate = ({history, match}) => {
                         className="form-control"
                         placeholder={singleProduct.name}
                         required
-                        value={singleProduct.name}
                         onChange={(event) => setNewName(event.target.value)}
                     />
                     <br></br>
@@ -69,7 +69,6 @@ const AdminUpdate = ({history, match}) => {
                         type="text"
                         className="form-control"
                         placeholder={singleProduct.description}
-                        value={singleProduct.description}
                         required
                         onChange={(event) => setNewDescription(event.target.value)}
                     />
@@ -83,7 +82,6 @@ const AdminUpdate = ({history, match}) => {
                         type="text"
                         className="form-control"
                         placeholder={singleProduct.price}
-                        value={singleProduct.price}
                         required
                         onChange={(event) => setNewPrice(event.target.value)}
                     />
@@ -97,7 +95,6 @@ const AdminUpdate = ({history, match}) => {
                         type="text"
                         className="form-control"
                         placeholder={singleProduct.inventory_qty}
-                        value={singleProduct.inventory_qty}
                         required
                         onChange={(event) => setNewInvQty(event.target.value)}
                     />
@@ -110,8 +107,8 @@ const AdminUpdate = ({history, match}) => {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Image URL..."
-                        value={singleProduct.img_url}
+                        placeholder={singleProduct.img_url}
+                        // value={singleProduct.img_url}
                         required
                         onChange={(event) => setNewImgUrl(event.target.value)}
                     />

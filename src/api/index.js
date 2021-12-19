@@ -214,6 +214,23 @@ export const createProduct = async (name, description, price, inventory_qty, img
   }
 }
 
+export const updateProduct = async (productId, name, description, price, inventory_qty, img_url) => {
+  try {
+      const { data } = await axios.patch(`/api/products/${productId}`, {
+          name: name,
+          description: description,
+          price: price,
+          inventory_qty: inventory_qty,
+          img_url: img_url,
+      })
+      console.log("Updated product is: ", data)
+      return data;
+  }
+  catch (err) {
+      console.error("Trouble updating product - FE-API updateProduct", err)
+  }
+}
+
 // Submit a review
 export const submitReviewForProduct = async (token, productId, title, description) => {
   try {

@@ -67,7 +67,7 @@ productsRouter.get('/:productId', async(req, res, next) => {
 productsRouter.patch ('/:productId', async(req, res, next) => {
    const id = req.params.productId;
   //  const isAdmin = req.user.is_Admin;
-  const user = req.user;
+  // const user = req.user;
 
    const {name, description, price, inventory_qty, img_url} = req.body
 
@@ -82,13 +82,12 @@ productsRouter.patch ('/:productId', async(req, res, next) => {
 
     try{
         
-        if (user) {
+        
             const updatedProduct = await updateProduct(id, updateFields);
             res.send(updatedProduct)
-        } else {
-            throw new Error("You are not authorized to update this product")   
-        }
-    }catch(error) {
+    }
+    
+    catch(error) {
       next(error);
     }
 }) 
