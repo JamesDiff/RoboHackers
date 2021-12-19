@@ -38,6 +38,9 @@ const AdminUsers = ({history}) => {
                                 </div>
                                 <div className="horizGroup">
                                     <div className="w-75">
+                                    <div className="form-group">
+                                            <b>ID #</b>{user.id }
+                                        </div>
                                         <div className="form-group">
                                             <b>Email:</b> {user.email }
                                         </div>
