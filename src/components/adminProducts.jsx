@@ -73,7 +73,7 @@ const AdminProducts = ({ history }) => {
                                                 }
                                                 }} 
                                     
-                                                type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">Delete Product</button>
+                                                type="submit" className="btn btn-primary btn-danger m-3">Delete Product</button>
                                         </div>
                                     </div>
                                 </div>

@@ -59,6 +59,7 @@ const AdminUsers = ({history}) => {
                                         {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
                                             <b>* ADMIN *</b>
                                         </div> : null}
+                                        <br />
                                         <div className="form-group">
                                             <button 
                                                 onClick={async (event) => {
@@ -75,7 +76,7 @@ const AdminUsers = ({history}) => {
                                                 }
                                                 }} 
                                     
-                                                type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">Delete User</button>
+                                                type="submit" className="btn btn-primary btn-danger m-3">DELETE</button>
                                         </div>
                                     </div>
                                 </div>
