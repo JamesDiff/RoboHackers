@@ -8,9 +8,11 @@ import {
   Title,
   SingleProductView,
   NavBar,
+  AdminPage,
  } from '../components';
 import CreateForm from './createProduct';
 import { getUser } from '../api';
+
 
 
 
@@ -20,7 +22,7 @@ const App = () => {
   // Need to figure out the whole message thing, but i don't even think we need to use it at all.
   // const [message, setMessage] = useState("");
   const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [isAdmin, setIsAdmin] = useState(null);
 
 
@@ -40,35 +42,15 @@ const App = () => {
   useEffect(() => {
 
     const storedToken = localStorage.getItem("token");
-    // const currentUser = localStorage.getItem("user");
-    // const admin = localStorage.getItem("isAdmin");
+    const currentUser = localStorage.getItem("user");
+    const admin = localStorage.getItem("isAdmin");
     if (storedToken) {
         setToken(storedToken);
-        // setUser(currentUser);
-        // setIsAdmin(admin);
+        setUser(currentUser);
+        setIsAdmin(admin);
 
     }
-  }, [token]);
-
-  // useEffect(async () => {
-  //   try {
-  //   const result = await getUser(token);
-  //   console.log("User is: ", result.user);
-  //   const adminStatus = result.user.is_admin;
-  //   const currentUser = result.user;
-  //   setUser(currentUser);
-  //   setIsAdmin(adminStatus);
-  //   }
-  //   catch (error) {
-  //     console.error("Use Effect error app.js");
-  //     throw error;
-  //   }
-
-    
-
-  // }, [user, isAdmin])
-
-
+  }, [token, user, isAdmin]);
 
   // We are returning our Title header and NavBar, which will show on every page the user goes to.
   // All of our routes are laid out for our site.
@@ -78,7 +60,7 @@ const App = () => {
         <br></br>
           
         <Router>
-          <NavBar token={token} setToken={setToken}/>
+          <NavBar token={token} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setUser={setUser} />
           {/* <Route path="/" render={(routeProps) => <App />} /> */}
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} 
@@ -96,19 +78,15 @@ const App = () => {
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
-
+          <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} /> } />
           <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
-
-          {isAdmin ? 
-          <Link to="/create" className="link">CREATE PRODUCT</Link> 
-          : null}
 
         </Router>
       </>
     
   );
-}
 
+}
 export default App;
 
 // GET /users/me

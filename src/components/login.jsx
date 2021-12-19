@@ -71,22 +71,31 @@ const Logout = ({ token, setToken, setUser, setIsAdmin, history }) => {
 
     return(
         <button
+            // onClick={(event) => {
+            //     logoutUser();
+            //     setUser({});
+            //     setIsAdmin(false);
+            //     setToken(null);
+            //     history.push("/");
+            // }}
             onClick={(event) => {
-                const storageToken = token;
+                // const storageToken = token;
                 // const admin = user.is_admin;
                 // const currentUser = user;
                 setIsAdmin(null);
-                setUser(null);            
-                if (storageToken) {
-                    localStorage.removeItem("token");
-                    // localStorage.removeItem("isAdmin");
-                    // localStorage.removeItem("user");
-                    setToken(null);
+                setUser(null);
+                localStorage.clear();
+                // sessionStorage.clear();           
+                // if (storageToken) {
+                //     localStorage.removeItem("token");
+                //     // localStorage.removeItem("isAdmin");
+                //     // localStorage.removeItem("user");
+                //     setToken(null);
                     
                     
-                    alert('You are now logged out.');
-                    history.push("/");
-                }
+                //     alert('You are now logged out.');
+                //     history.push("/");
+                // }
             }} 
             type="submit"
             className="btn btn-primary btn-dark btn-lg btn-block">

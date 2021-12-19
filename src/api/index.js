@@ -19,7 +19,7 @@ import axios from 'axios';
 export const getUser = async (token) => {
 
   try {
-    const { data } = await axios.get(`/api/users/me`, {
+    const data = await axios.get('/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
@@ -92,10 +92,10 @@ export const loginUser = async (email,
     setIsAdmin(adminStatus);
     localStorage.setItem("token", token);
     localStorage.getItem("token");
-    // localStorage.setItem("user", currentUser);
-    // localStorage.getItem("user");
-    // localStorage.setItem("isAdmin", adminStatus);
-    // localStorage.getItem("isAdmin");
+    localStorage.setItem("user", currentUser);
+    localStorage.getItem("user");
+    localStorage.setItem("isAdmin", adminStatus);
+    localStorage.getItem("isAdmin");
     if (result.error) throw result.error;
   } 
   
