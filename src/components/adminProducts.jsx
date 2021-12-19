@@ -65,7 +65,7 @@ const AdminProducts = ({ history }) => {
                                                     const response = await deleteProductById(product.id);
                                                     console.log(response)
                                                     fetchAllProducts(products);
-                                                    history.push("/products")
+                                                    history.push("/admin/products")
                                             
                                                 }
                                                 catch (err) {

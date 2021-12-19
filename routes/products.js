@@ -90,11 +90,10 @@ productsRouter.patch ('/products/:productId', async(req, res, next) => {
 productsRouter.delete('/:productId', async (req, res, next) => { 
 
     const productId = req.params.productId;
-    const isAdmin = req.user.is_Admin;
 
     try{
 
-      if (isAdmin) {
+      if (productId) {
         const deletedProduct = await deleteProduct(productId);
         res.send(deletedProduct);
       } else {
