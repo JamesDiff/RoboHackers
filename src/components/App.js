@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { 
   Register,
   Login, 
-  Logout, 
   AllProducts, 
   Title,
   SingleProductView,
   NavBar,
+  Cart,
  } from '../components';
 
 
@@ -56,13 +56,13 @@ const App = () => {
           {/* <Route path="/" render={(routeProps) => <App />} /> */}
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
-          <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/cart" render={(routeProps) => <UserCart {...routeProps} token={token} user={user} />} /> */}
           <Route exact path="/products" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
           <Route exact path="/products/:productId" render={(routeProps) => <SingleProductView {...routeProps} token={token} setToken={setToken} />} />
+          <Route exact path="/cart" render={(routeProps) => <Cart {...routeProps} token={token} setToken={setToken} />} />
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}

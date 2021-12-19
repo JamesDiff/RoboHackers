@@ -182,3 +182,55 @@ export const submitReviewForProduct = async (token, productId, title, descriptio
     throw error;
   }
 }
+
+export const createOrder = async (token) => {
+  let headers = {};
+  if(token){
+    headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+    }
+  }
+  try{
+    const {data} = await axios.post(`/api/orders`, {}, headers)
+  console.log("Order Created", data)
+  return data.id;
+  }catch (error){
+    console.error("Error creating order", error);
+    throw error;
+  }
+}
+
+export const addProductToOrder = async (token, orderId, productId, quantity) => {
+  let headers = {};
+  if(token){
+    headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+    }
+  }
+  try{
+    const {data} = await axios.post(`/api/orders/${orderId}/products/${productId}`, 
+    {
+      quantity: quantity
+    }, headers);
+  }catch (error) {
+    console.error("Error adding product to order", error);
+    throw error;
+  }
+}
+
+export const getOrderById  = async (orderId, setOrder) => {
+  try{
+    const {data} = await axios.get(`/api/orders/${orderId}`, {} , {});
+    console.log("Got Order", data);
+    setOrder(data);
+  } catch (error) {
+    console.error("Error getting order by Id")
+    throw error;
+  } 
+}

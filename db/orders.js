@@ -72,6 +72,15 @@ async function getOrderById(id){
         if(!order){
             return null;
         };
+        const user = await getUserById(order.userId);
+        if(user){
+            order.user = user;
+        }
+
+        const lineItems = await getOrderProductsByOrder(id);
+        if(lineItems){
+            order.lineItems = lineItems;
+        }
         return order;
     }catch (error){
         console.error("Error getting Order by Id", error);
