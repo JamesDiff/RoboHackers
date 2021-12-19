@@ -184,15 +184,17 @@ export const submitReviewForProduct = async (token, productId, title, descriptio
 }
 
 export const createOrder = async (token) => {
-  
-  try{
-    const {data} = await axios.post(`/api/orders`, {},
-    {
+  let headers = {};
+  if(token){
+    headers = {
       headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
     }
-  })
+  }
+  try{
+    const {data} = await axios.post(`/api/orders`, {}, headers)
   console.log("Order Created", data)
   return data.id;
   }catch (error){
@@ -202,17 +204,20 @@ export const createOrder = async (token) => {
 }
 
 export const addProductToOrder = async (token, orderId, productId, quantity) => {
+  let headers = {};
+  if(token){
+    headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+    }
+  }
   try{
     const {data} = await axios.post(`/api/orders/${orderId}/products/${productId}`, 
     {
       quantity: quantity
-    }, 
-    {
-      headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-      }
-    });
+    }, headers);
   }catch (error) {
     console.error("Error adding product to order", error);
     throw error;

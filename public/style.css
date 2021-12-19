@@ -35,6 +35,10 @@ img {
     width: 7rem;
 }
 
+.alignLeft {
+    align-items: left;
+}
+
 .link {
     text-decoration: none;
 }

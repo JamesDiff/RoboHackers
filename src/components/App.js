@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { 
   Register,
   Login, 
-  Logout, 
   AllProducts, 
   Title,
   SingleProductView,
@@ -57,7 +56,6 @@ const App = () => {
           {/* <Route path="/" render={(routeProps) => <App />} /> */}
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
           <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
-          <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} />
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}

@@ -14,6 +14,7 @@ const NavBar = ({token, setToken}) => {
                         {(!token ? <Link className="nav-link active" to="/login">Log In</Link> : 
                             <Link className="nav-link active" to="/login" onClick={(event) => {
                                 localStorage.removeItem("token");
+                                localStorage.removeItem("ActiveOrderId");
                                 setToken("");
                         }}>Log Out</Link>)}
                     </div>

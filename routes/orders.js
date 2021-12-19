@@ -29,20 +29,12 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
 
 //create order
 ordersRouter.post('/', async (req, res, next) => {
-    let userId = "";
+    let userId = null;
     if(req.user) userId = req.user.id;
     order_status = "Open" // Default to Open because it's a new order
     const orderToCreate = { userId, order_status}
 
     try {
-
-      if(!userId){
-        throw Error({
-            name: 'NotAUser', 
-            message: "You must be logged in to place an order"
-        });
-      }
-
       const newOrder = await createOrder(orderToCreate);
       console.log("New Order", newOrder)
       res.send(newOrder);
