@@ -32,6 +32,29 @@ export const getUser = async (token) => {
   }
 }
 
+// This function will get all users from db
+export async function getAllUsers() {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const { data } = await axios.get(`/api/users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("ALL USERS: ", data)
+
+    return data;
+  } catch (error) {
+    console.error("ERROR getting all users!!! FE-API getAllUsers");
+    throw error;
+  }
+}
+
 // This function registers a new user
 export const registerUser = async (setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
 

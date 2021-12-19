@@ -79,9 +79,25 @@ async function getUserByEmail(email) {
     }
 }
 
+const getAllUsers = async () => {
+    try {
+      const { rows } = await client.query(
+        `
+          SELECT id, firstname, lastname, email, street, city, state, zip, phone, is_admin
+          FROM users;
+        `
+      );
+  
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  };
+
 module.exports = {
     createUser, 
     getUser, 
     getUserById, 
-    getUserByEmail
+    getUserByEmail,
+    getAllUsers
 }

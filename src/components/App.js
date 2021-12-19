@@ -10,6 +10,7 @@ import {
   NavBar,
   AdminPage,
   AdminProducts,
+  AdminUsers
  } from '../components';
 import CreateForm from './createProduct';
 import { getUser } from '../api';
@@ -83,6 +84,7 @@ const App = () => {
           <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} /> } />
           <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
           <Route path="/admin/products" render={(routeProps) => <AdminProducts {...routeProps} />} />
+          <Route path="/admin/users" render={(routeProps) => <AdminUsers {...routeProps} />} />
 
         </Router>
       </>
