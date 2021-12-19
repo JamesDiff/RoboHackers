@@ -9,6 +9,7 @@ import CreateForm from './createProduct';
 import AdminPage from './AdminPage';
 import AdminProducts from './adminProducts';
 import AdminUsers from './adminUsers';
+import AdminUpdate from './adminUpdateProduct';
 
 export { default as App } from './App';
 export { default as SingleProductView } from './SingleProductView';
@@ -23,4 +24,5 @@ export { AllProducts,
         AdminPage,
         AdminProducts,
         AdminUsers,
+        AdminUpdate,
 }

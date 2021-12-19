@@ -10,7 +10,8 @@ import {
   NavBar,
   AdminPage,
   AdminProducts,
-  AdminUsers
+  AdminUsers,
+  AdminUpdate
  } from '../components';
 import CreateForm from './createProduct';
 // import AdminProducts from './adminProducts';
@@ -82,6 +83,7 @@ const App = () => {
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
           <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} /> } />
           <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
+          <Route path="/update/:productId" render={(routeProps) => <AdminUpdate {...routeProps} />} />
           <Route path="/admin/products" render={(routeProps) => <AdminProducts {...routeProps} />} />
           <Route path="/admin/users" render={(routeProps) => <AdminUsers {...routeProps} />} />
 

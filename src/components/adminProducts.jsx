@@ -56,7 +56,7 @@ const AdminProducts = ({ history }) => {
                                         <div className="form-group list-group-item-text text-danger">
                                             <b>QTY On-Hand:</b> {product.inventory_qty }
                                         </div>
-                                        <div className="form-group">
+                                        <div className="horizGroup">
                                             <button 
                                                 onClick={async (event) => {
                                                     
@@ -74,6 +74,7 @@ const AdminProducts = ({ history }) => {
                                                 }} 
                                     
                                                 type="submit" className="btn btn-primary btn-danger m-3">Delete Product</button>
+                                                <Link className="btn btn-primary" to={"/update/" + product.id}>UPDATE</Link>
                                         </div>
                                     </div>
                                 </div>
