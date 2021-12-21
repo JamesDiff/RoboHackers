@@ -101,7 +101,7 @@ async function createInitialProducts() {
     console.log("starting to create products...")
     const productsToCreate = [
       {
-        name: "It's Always Sunny in Philidelphia", 
+        name: "It's Always Sunny in Philadelphia", 
         description: "A crazy group of people who own the bar Pattys Pub do horrible things!", 
         price: 15, 
         inventory_qty: 30, 
@@ -120,7 +120,71 @@ async function createInitialProducts() {
         price: 9.99, 
         inventory_qty: 14, 
         img_url:'https://m.media-amazon.com/images/M/MV5BZjRlNDUxZjAtOGQ4OC00OTNlLTgxNmQtYTBmMDgwZmNmNjkxXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg'
+      },
+      {
+        name: "Breaking Bad", 
+        description: "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future.", 
+        price: 46.99, 
+        inventory_qty: 23, 
+        img_url:'https://flxt.tmsimg.com/assets/p185846_b_v9_ad.jpg'
       }, 
+      {
+        name: "Pulp Fiction", 
+        description: "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.", 
+        price: 13.49, 
+        inventory_qty: 33, 
+        img_url:'https://www.miramax.com/media/assets/Pulp-Fiction1.png'
+      }, 
+      {
+        name: "World War Z", 
+        description: "Former United Nations employee Gerry Lane traverses the world in a race against time to stop a zombie pandemic that is toppling armies and governments and threatens to destroy humanity itself.", 
+        price: 10.99, 
+        inventory_qty: 8, 
+        img_url:'https://flxt.tmsimg.com/assets/p9087912_p_v10_av.jpg'
+      },
+      {
+        name: "Game of Thrones", 
+        description: "Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.", 
+        price: 78.99, 
+        inventory_qty: 45, 
+        img_url:'https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_FMjpg_UX1000_.jpg'
+      }, 
+      {
+        name: "Kingdom", 
+        description: "While strange rumors about their ill King grip a kingdom, the crown prince becomes their only hope against a mysterious plague overtaking the land.", 
+        price: 15.49, 
+        inventory_qty: 28, 
+        img_url:'https://i.pinimg.com/564x/aa/e6/03/aae6034c7dd0aebb9666f5094b742710.jpg'
+      }, 
+      {
+        name: "Dexter", 
+        description: "He's smart. He's lovable. He's Dexter Morgan, America's favorite serial killer, who spends his days solving crimes and nights committing them. Golden Globe winner Michael C. Hall stars in the hit SHOWTIME Original Series.", 
+        price: 33.99, 
+        inventory_qty: 57, 
+        img_url:'https://m.media-amazon.com/images/M/MV5BZjkzMmU5MjMtODllZS00OTA5LTk2ZTEtNjdhYjZhMDA5ZTRhXkEyXkFqcGdeQXVyOTA3MTMyOTk@._V1_.jpg'
+      },
+      {
+        name: "Star Wars: The Original Trilogy", 
+        description: "The Star Wars Trilogy, also known as the original trilogy or the classic trilogy, is the first set of three films produced in the Star Wars franchise, an American space opera created by George Lucas.", 
+        price: 46.49, 
+        inventory_qty: 25, 
+        img_url:'https://www.moviemem.com/wp-content/uploads/2020/07/STARWARSTRILOGY1SHHRwslogo.jpg'
+      }, 
+      {
+        name: "Lord of the Rings: The Complete Trilogy", 
+        description: "The Lord of the Rings is a series of three epic fantasy adventure films directed by Peter Jackson, based on the novel written by J. R. R. Tolkien.", 
+        price: 67.99, 
+        inventory_qty: 19, 
+        img_url:'https://cdn.hmv.com/r/w-640/hmv/files/2f/2fe217e0-9fdd-4711-a336-94d372ea6b58.jpg'
+      }, 
+      {
+        name: "Predator", 
+        description: "A team of commandos on a mission in a Central American jungle find themselves hunted by an extraterrestrial warrior.", 
+        price: 5.99, 
+        inventory_qty: 48, 
+        img_url:'https://lumiere-a.akamaihd.net/v1/images/predator_feature-poster_584x800_6ec38255.jpeg?region=0%2C0%2C584%2C800'
+      },
+       
     ]
 
     const products = await Promise.all(productsToCreate.map(product => createProduct(product)));
