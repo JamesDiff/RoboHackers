@@ -21,7 +21,7 @@ async function createReviewForProduct({userId, productId, title, description}){
 
 async function getAllReviewsForProduct(productId){
     try{
-        console.log("Getting reviews");
+        
         const{rows: reviews} = await client.query(`
             SELECT reviews.*, users.firstname, users.lastname 
             FROM reviews
