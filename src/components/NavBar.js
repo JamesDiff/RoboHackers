@@ -17,7 +17,7 @@ const NavBar = ({token,
                         <Link className="nav-link active" to="/cart">Cart</Link>
                         {isAdmin ? <Link className="nav-link active" style={{ color: 'darkorange' }} to="/admin">
                                         <b>
-                                            <u>Admin Page</u>
+                                            Admin Page
                                         </b>
                                     </Link> : null}
                         {(!token ? <Link className="nav-link active" to="/login">Log In</Link> : 

@@ -63,7 +63,6 @@ const AdminProducts = ({ history }) => {
                                             
                                                     const response = await deleteProductById(product.id);
                                                     console.log(response)
-                                                    fetchAllProducts(products);
                                                     history.push("/admin/products")
                                             
                                                 }
