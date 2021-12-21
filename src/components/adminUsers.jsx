@@ -31,6 +31,10 @@ const AdminUsers = ({history}) => {
                 </Link>
                 <br />
                 <div id="product" className="container">
+                    <h1 className="text-center">
+                        <b style={{ color: 'dodgerblue' }}>*** ALL REGISTERED USERS ***</b>
+                    </h1>
+                    <br />
                     {users.map((user, index) => {
             
                         return (

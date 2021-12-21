@@ -6,10 +6,6 @@ import { getAllProducts, deleteProductById } from "../api";
 const AdminProducts = ({ history }) => {
 
     const [products, setProducts] = useState([]);
- 
-    // const [cart, setCart] = useState([]);
-    // const [cartItemCount, setCartItemCount] = useState(1);
-    // const history = useHistory();
 
     const fetchAllProducts = async () => {
         try {
@@ -81,18 +77,6 @@ const AdminProducts = ({ history }) => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div>
-                                    <Link to="/user/:id/cart" className="link">
-                                        <button 
-                                            onCLick={ () => {
-                                                setCartItemCount(cartItemCount + 1);
-                                                alert("Item added to your cart 👌");
-                                            }}
-                                            type="button" id="addcart">
-                                        ADD TO CART
-                                        </button>
-                                    </Link>
-                                </div> */}
                                 <br></br>
                             </div>
                         )

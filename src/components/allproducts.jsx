@@ -59,39 +59,8 @@ const AllProducts = ({ history }) => {
                                         <div className="form-group list-group-item-text text-danger">
                                             <b>QTY On-Hand:</b> {product.inventory_qty }
                                         </div>
-                                        {/* <div className="form-group">
-                                            <button 
-                                                onClick={async (event) => {
-                                                    
-                                                try {
-                                            
-                                                    const response = await deleteProductById(product.id);
-                                                    console.log(response)
-                                                    fetchAllProducts(products);
-                                                    history.push("/products")
-                                            
-                                                }
-                                                catch (err) {
-                                                    console.error("trouble deleting product", err)
-                                                }
-                                                }} 
-                                    
-                                                type="submit" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">Delete Product</button>
-                                        </div> */}
                                     </div>
                                 </div>
-                                {/* <div>
-                                    <Link to="/user/:id/cart" className="link">
-                                        <button 
-                                            onCLick={ () => {
-                                                setCartItemCount(cartItemCount + 1);
-                                                alert("Item added to your cart 👌");
-                                            }}
-                                            type="button" id="addcart">
-                                        ADD TO CART
-                                        </button>
-                                    </Link>
-                                </div> */}
                                 <br></br>
                             </div>)
                     })}
