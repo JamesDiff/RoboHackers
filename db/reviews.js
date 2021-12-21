@@ -38,6 +38,24 @@ async function getAllReviewsForProduct(productId){
     }
 }
 
+async function addReviewsToProducts(products) {
+    try {
+      const result = Promise.all(
+        products.map(async (product) => {
+          const reviews = await getAllReviewsForProduct(product.id);
+          return {
+            ...product,
+            reviews,
+          };
+        })
+      );
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
 async function deleteReviewByProduct(productId) {
 
     try {
@@ -81,4 +99,5 @@ module.exports = {
     getAllReviewsForProduct,
     deleteReviewByProduct,
     deleteReviewByUser,
+    addReviewsToProducts,
 }

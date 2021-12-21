@@ -1,6 +1,6 @@
 const client = require("./client");
 
-const {getAllReviewsForProduct} = require('./reviews')
+const {getAllReviewsForProduct, addReviewsToProducts} = require('./reviews')
 
 async function createProduct(product) {
     try{
@@ -23,14 +23,15 @@ async function createProduct(product) {
 
 async function getAllProducts() {
     try {
-        const { rows : products } = await client.query(`
+        const { rows } = await client.query(`
             SELECT *
             FROM products;
         `);
+        const productsWithReviews = await addReviewsToProducts(rows);
 
-        return products;
+        return productsWithReviews;
     }catch(error){
-        console.error("Error getting all products");
+        console.error("Error getting all products with reviews");
         throw error;
     }
 }
