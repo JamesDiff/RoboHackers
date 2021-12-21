@@ -84,8 +84,8 @@ const App = () => {
           <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} /> } />
           <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
           <Route path="/update/:productId" render={(routeProps) => <AdminUpdate {...routeProps} />} />
-          <Route path="/admin/products" render={(routeProps) => <AdminProducts {...routeProps} />} />
-          <Route path="/admin/users" render={(routeProps) => <AdminUsers {...routeProps} />} />
+          <Route path="/admin-products" render={(routeProps) => <AdminProducts {...routeProps} />} />
+          <Route path="/admin-users" render={(routeProps) => <AdminUsers {...routeProps} />} />
 
         </Router>
       </>

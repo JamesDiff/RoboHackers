@@ -32,7 +32,8 @@ async function addProductToCart(token, productId, quantity){
         activeOrderId = orderID;
     }
 
-    const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity)
+    const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity);
+    console.log("Product added to cart: ", addedProduct);
 }
 
 const SingleProductView = ({token, match}) => {
@@ -64,9 +65,6 @@ const SingleProductView = ({token, match}) => {
                     <div className="form-group list-group-item-text text-danger">
                         <b>QTY On-Hand:</b> {singleProduct.inventory_qty }
                     </div>
-                    <div>
-                        Product Reviews:
-                    </div>
                     <div className="horizGroup">
                         <label>Quantity</label>
                         <input className="m-3" type="number" id="quantity" value={quantity} min="1" max="100"
@@ -77,6 +75,9 @@ const SingleProductView = ({token, match}) => {
                                 addProductToCart(token, singleProduct.id, quantity)
                             }}> Add to Cart
                         </button>
+                        <Link to="/products" className='btn btn-primary m-3'>
+                            Back to Products
+                        </Link>
                     </div>
                 </div>
             </div>

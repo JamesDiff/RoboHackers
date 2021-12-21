@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { createProduct } from '../api';
+import { Link } from 'react-router-dom';
 
 
 
@@ -14,6 +15,11 @@ const CreateForm = ({ history }) => {
 
     return (
         <div className="form-container">
+            <br />
+                <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                    GO BACK
+                </Link>
+            <br />
           <h1 className="form-header">ADD A PRODUCT</h1>
           <div>
             <form 

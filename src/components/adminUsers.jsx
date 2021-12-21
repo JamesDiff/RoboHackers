@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { getAllUsers, deleteUser } from "../api";
 
@@ -25,6 +25,11 @@ const AdminUsers = ({history}) => {
     }, []);
 
     return (<div id="product-box" className="form-group centered w-75">
+                <br />
+                <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                    GO BACK
+                </Link>
+                <br />
                 <div id="product" className="container">
                     {users.map((user, index) => {
             

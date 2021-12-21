@@ -29,6 +29,11 @@ const AdminProducts = ({ history }) => {
     }, []);
 
     return (<div id="product-box" className="form-group centered w-75">
+                <br />
+                <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                    GO BACK
+                </Link>
+                <br />
                 <div id="product" className="container">
                     {products.map((product, index) => {
             

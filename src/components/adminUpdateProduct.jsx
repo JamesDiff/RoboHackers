@@ -32,6 +32,11 @@ const AdminUpdate = ({history, match}) => {
 
     return (
         <div className="form-container">
+            <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                            GO BACK
+            </Link>
+            <br />
+            <br />
           <h1 className="form-header">UPDATE PRODUCT</h1>
           <div>
             <form 

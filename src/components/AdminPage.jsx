@@ -36,9 +36,9 @@ const AdminPage = ({history}) => {
                 <br />
                 <Link to="/create" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">CREATE NEW PRODUCT</Link>
                 <br />
-                <Link to="/admin/products" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">ALL PRODUCTS</Link>
+                <Link to="/admin-products" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">ALL PRODUCTS</Link>
                 <br />
-                <Link to="/admin/users" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">ALL USERS</Link>
+                <Link to="/admin-users" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">ALL USERS</Link>
                 
             </div>)
 
