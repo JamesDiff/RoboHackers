@@ -11,6 +11,7 @@ import {
   AdminProducts,
   AdminUsers,
   AdminUpdate,
+  AdminOrders,
   Cart,
  } from '../components';
 import CreateForm from './createProduct';
@@ -86,6 +87,7 @@ const App = () => {
           <Route path="/update/:productId" render={(routeProps) => <AdminUpdate {...routeProps} />} />
           <Route path="/admin/products" render={(routeProps) => <AdminProducts {...routeProps} />} />
           <Route path="/admin/users" render={(routeProps) => <AdminUsers {...routeProps} />} />
+          <Route path="/admin/orders" render={(routeProps) => <AdminOrders {...routeProps} />} />
 
         </Router>
       </>

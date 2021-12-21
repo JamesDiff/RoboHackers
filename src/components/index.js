@@ -10,6 +10,7 @@ import AdminPage from './AdminPage';
 import AdminProducts from './adminProducts';
 import AdminUsers from './adminUsers';
 import AdminUpdate from './adminUpdateProduct';
+import AdminOrders from './adminOrders';
 import Cart from './Cart';
 
 export { default as App } from './App';
@@ -25,5 +26,6 @@ export { AllProducts,
         AdminProducts,
         AdminUsers,
         AdminUpdate,
+        AdminOrders,
         Cart,
 }

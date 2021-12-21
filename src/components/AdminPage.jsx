@@ -39,7 +39,9 @@ const AdminPage = ({history}) => {
                 <Link to="/admin/products" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">ALL PRODUCTS</Link>
                 <br />
                 <Link to="/admin/users" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">ALL USERS</Link>
-                
+                <br />
+                <Link to="/admin/orders" className="btn btn-primary btn-dark btn-lg btn-block centered w-50">ALL ORDERS</Link>
+
             </div>)
 
 }

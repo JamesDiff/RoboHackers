@@ -253,6 +253,8 @@ export const submitReviewForProduct = async (token, productId, title, descriptio
   }
 }
 
+//********* ORDERS **********/
+
 export const createOrder = async (token) => {
   let headers = {};
   if(token){
@@ -303,4 +305,35 @@ export const getOrderById  = async (orderId, setOrder) => {
     console.error("Error getting order by Id")
     throw error;
   } 
+}
+
+export const getAllOrders = async () => {
+
+  try {
+    const data = await axios.get('/api/orders');
+    console.log('All orders: ', data);
+
+    return data;
+  } 
+  
+  catch (error) {
+    console.error('ERROR fetching all orderss!!! 🤦‍♂️ - FE-API getAllOrders');
+    throw error;
+  }
+}
+
+// This function deletes a single order by it's id
+export const deleteOrderById = async (orderId) => {
+
+  try {
+    const result = await axios.delete(`/api/orders/${orderId}`);
+    console.log("Deleted order is: ", result)
+
+    return result;
+  } 
+  
+  catch (error) {
+      console.error("ERROR deleting order by id!!! - FE-API deleteOrderById");
+      throw error;
+  }
 }
