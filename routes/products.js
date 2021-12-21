@@ -102,6 +102,7 @@ productsRouter.delete('/:productId', async (req, res, next) => {
 
       if (productId) {
         const deletedReview = await deleteReviewByProduct(productId);
+        console.log("Deleted review is: ", deletedReview);
         const deletedProduct = await deleteProduct(productId);
         res.send(deletedProduct);
       } else {
