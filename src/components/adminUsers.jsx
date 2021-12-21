@@ -47,7 +47,10 @@ const AdminUsers = ({history}) => {
                                 </div>
                                 <div className="horizGroup">
                                     <div className="w-75">
-                                    <div className="form-group">
+                                        {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
+                                            <b>*** ADMIN ***</b>
+                                        </div> : null}
+                                        <div className="form-group">
                                             <b>ID #</b>{user.id }
                                         </div>
                                         <div className="form-group">
@@ -68,9 +71,6 @@ const AdminUsers = ({history}) => {
                                         <div className="form-group">
                                             <b>Phone:</b> {user.phone }
                                         </div>
-                                        {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
-                                            <b>* ADMIN *</b>
-                                        </div> : null}
                                         <br />
                                         <div className="form-group">
                                             <button 
