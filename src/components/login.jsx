@@ -65,43 +65,4 @@ const Login = ({ setToken,
     )
 }
 
-// This component logs out a registered logged-in user and removes token from localStorage. 
-// Pushes user back to /login page.
-const Logout = ({ token, setToken, setUser, setIsAdmin, history }) => {
-
-    return(
-        <button
-            // onClick={(event) => {
-            //     logoutUser();
-            //     setUser({});
-            //     setIsAdmin(false);
-            //     setToken(null);
-            //     history.push("/");
-            // }}
-            onClick={(event) => {
-                // const storageToken = token;
-                // const admin = user.is_admin;
-                // const currentUser = user;
-                setIsAdmin(null);
-                setUser(null);
-                localStorage.clear();
-                // sessionStorage.clear();           
-                // if (storageToken) {
-                //     localStorage.removeItem("token");
-                //     // localStorage.removeItem("isAdmin");
-                //     // localStorage.removeItem("user");
-                //     setToken(null);
-                    
-                    
-                //     alert('You are now logged out.');
-                //     history.push("/");
-                // }
-            }} 
-            type="submit"
-            className="btn btn-primary btn-dark btn-lg btn-block">
-                Logout
-        </button>
-    )
-}
-
-export { Login, Logout };
+export { Login };

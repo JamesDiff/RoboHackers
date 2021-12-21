@@ -21,6 +21,7 @@ const NavBar = ({token,
                                 localStorage.removeItem("token");
                                 localStorage.removeItem("user");
                                 localStorage.removeItem("isAdmin");
+                                localStorage.removeItem("ActiveOrderId");
                                 setToken("");
                                 setIsAdmin(false);
                                 setUser(null);
