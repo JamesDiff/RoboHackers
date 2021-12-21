@@ -65,7 +65,7 @@ export const deleteUser = async (userId) => {
   } 
   
   catch (error) {
-      console.error("ERROR deleting user by id!!! 🤦‍♂️ - FE-API deleteUser");
+      console.error("ERROR deleting user by id!!! - FE-API deleteUser");
       throw error;
   }
 }

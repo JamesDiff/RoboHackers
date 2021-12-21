@@ -37,9 +37,7 @@ const AdminProducts = ({ history }) => {
                             <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <div className="form-group list-group-item-info card-title centered">
                                     <h3 className="card-title">
-                                        <Link to={"/products/" + product.id} className="link">
-                                            { product.name} 
-                                        </Link>
+                                        { product.name} 
                                     </h3>
                                 </div>
                                 <div className="horizGroup">

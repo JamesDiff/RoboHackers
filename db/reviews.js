@@ -38,7 +38,47 @@ async function getAllReviewsForProduct(productId){
     }
 }
 
+async function deleteReviewByProduct(productId) {
+
+    try {
+        
+        const {rows: [review]} = await client.query(`
+            DELETE FROM reviews 
+            WHERE "productId"=$1
+            RETURNING *;
+        `, [productId]);
+
+        return (review);
+      }
+
+      catch (error) {
+        console.error('ERROR removing review from database!!! BE - deleteReviewByProduct');
+        throw error;
+    }
+}
+
+async function deleteReviewByUser(userId) {
+
+    try {
+        
+        const {rows: [review]} = await client.query(`
+            DELETE FROM reviews 
+            WHERE "userId"=$1
+            RETURNING *;
+        `, [userId]);
+
+        return (review);
+      }
+
+      catch (error) {
+        console.error('ERROR removing review from database!!! BE - deleteReviewByUser');
+        throw error;
+    }
+}
+
 module.exports = {
     createReviewForProduct,
-    getAllReviewsForProduct
+    getAllReviewsForProduct,
+    deleteReviewByProduct,
+    deleteReviewByUser,
 }
