@@ -2,12 +2,12 @@ const express = require("express");
 require("dotenv").config();
 
 const jwt = require('jsonwebtoken');
-const { getPublicRoutinesByUser } = require("../db");
+const { deleteReviewByUser } = require("../db");
 const { JWT_SECRET } = process.env;
 
 const usersRouter = express.Router();
 
-const { createUser, getUserByEmail, getUser } = require("../db/users");
+const { createUser, getUserByEmail, getUser, getAllUsers, deleteUserById } = require("../db/users");
 
 
 usersRouter.post('/register', async (request, response, next) => {
@@ -98,5 +98,36 @@ usersRouter.get('/me', (request,response,next) => {
         });
     }
 });
+
+// route to get all users for admin users page
+usersRouter.get('/', async (req, res) => {
+    
+    const user = req.user;
+  
+    if (user) {
+      try {
+        const users = await getAllUsers();
+  
+        return res.send({ users });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+});
+
+  usersRouter.delete('/:userId', async (req, res, next) => { 
+    const user = req.user;
+    const userId = req.params.userId;
+
+    try{
+        const deletedReview = await deleteReviewByUser(userId);
+        console.log("Deleted review is: ", deletedReview);
+        const deletedUser = await deleteUserById(userId);
+        res.send(deletedUser);
+    
+    } catch(error) {
+      next(error);
+    }
+})
 
 module.exports = usersRouter;

@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 // This component takes us to the login page for a registered user.
 // On success a token will be given and stored in localStorage.
 // User must confirm their password in order to log in successfully.
-const Login = ({ setToken, history, match }) => {
+const Login = ({ setToken, 
+    setUser, 
+    setIsAdmin, 
+    history, 
+    match }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,8 +20,10 @@ const Login = ({ setToken, history, match }) => {
             onSubmit={(event) => {
                 event.preventDefault();
                     console.log(email, password);
-                    loginUser(email, password, setToken);
-                    alert('You are now logged in!');
+                    loginUser(email, password, setToken, 
+                    setUser, 
+                    setIsAdmin
+                    );
                     history.push("/products");
             }
         }>
@@ -58,26 +64,4 @@ const Login = ({ setToken, history, match }) => {
     )
 }
 
-// This component logs out a registered logged-in user and removes token from localStorage. 
-// Pushes user back to /login page.
-const Logout = ({ token, setToken, history }) => {
-
-    return(
-        <button
-            onClick={(event) => {
-                const storageToken = token;                
-                if (storageToken) {
-                    localStorage.removeItem("token");
-                    setToken(null);
-                    alert('You are now logged out.');
-                    history.push("/login");
-                    }
-            }} 
-            type="submit"
-            className="btn btn-primary btn-dark btn-lg btn-block">
-                Logout
-        </button>
-    )
-}
-
-export { Login, Logout };
+export { Login };

@@ -21,7 +21,7 @@ async function createReviewForProduct({userId, productId, title, description}){
 
 async function getAllReviewsForProduct(productId){
     try{
-        console.log("Getting reviews");
+        
         const{rows: reviews} = await client.query(`
             SELECT reviews.*, users.firstname, users.lastname 
             FROM reviews
@@ -38,7 +38,66 @@ async function getAllReviewsForProduct(productId){
     }
 }
 
+async function addReviewsToProducts(products) {
+    try {
+      const result = Promise.all(
+        products.map(async (product) => {
+          const reviews = await getAllReviewsForProduct(product.id);
+          return {
+            ...product,
+            reviews,
+          };
+        })
+      );
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+async function deleteReviewByProduct(productId) {
+
+    try {
+        
+        const {rows: [review]} = await client.query(`
+            DELETE FROM reviews 
+            WHERE "productId"=$1
+            RETURNING *;
+        `, [productId]);
+
+        return (review);
+      }
+
+      catch (error) {
+        console.error('ERROR removing review from database!!! BE - deleteReviewByProduct');
+        throw error;
+    }
+}
+
+async function deleteReviewByUser(userId) {
+
+    try {
+        
+        const {rows: [review]} = await client.query(`
+            DELETE FROM reviews 
+            WHERE "userId"=$1
+            RETURNING *;
+        `, [userId]);
+
+        return (review);
+      }
+
+      catch (error) {
+        console.error('ERROR removing review from database!!! BE - deleteReviewByUser');
+        throw error;
+    }
+}
+
 module.exports = {
     createReviewForProduct,
-    getAllReviewsForProduct
+    getAllReviewsForProduct,
+    deleteReviewByProduct,
+    deleteReviewByUser,
+    addReviewsToProducts,
 }

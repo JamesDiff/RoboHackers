@@ -1,7 +1,7 @@
 const express = require('express');
 const productsRouter = express.Router();
 
-const { getAllProducts, getProductById, createProduct,  deleteProduct, createReviewForProduct } = require('../db');
+const { getAllProducts, getProductById, createProduct,  deleteProduct, createReviewForProduct, updateProduct, deleteReviewByProduct } = require('../db');
 //{ deleteProduct } 
 
 //get products
@@ -37,20 +37,22 @@ productsRouter.get('/:productId', async(req, res, next) => {
   }
 })
 
-//create product
-productsRouter.post('/', async (req, res, next) => {
-  const creatorId = req.user.id;
+// module.exports = productsRouter;
+
+
+//post products
+ productsRouter.post('/', async (req, res, next) => {
+   
   const { name, description, price, inventory_qty, img_url } = req.body;
   
-  const productToCreate = { creatorId, name, description, price, inventory_qty, img_url }
+  const productToCreate = {  
+    name, 
+    description, 
+    price, 
+    inventory_qty, 
+    img_url }
   
   try {
-    if(!creatorId){
-      throw Error({
-          name: 'NotACreator', 
-          message: "You are not authorized to post a product"
-      });
-    }
 
     const newProduct = await createProduct(productToCreate);
     res.send(newProduct);
@@ -62,23 +64,30 @@ productsRouter.post('/', async (req, res, next) => {
 })
 
 //update/patch
-productsRouter.patch ('/products/:productId', async(req, res, next) => {
+productsRouter.patch ('/:productId', async(req, res, next) => {
    const id = req.params.productId;
-   const isAdmin = req.user.is_Admin;
+  //  const isAdmin = req.user.is_Admin;
+  // const user = req.user;
 
    const {name, description, price, inventory_qty, img_url} = req.body
 
-   const updateFields = {id, name, description, price, inventory_qty, img_url};
+   const updateFields = {
+                          // id, 
+                          name, 
+                          description, 
+                          price, 
+                          inventory_qty, 
+                          img_url
+  };
 
     try{
         
-        if (isAdmin) {
-            const updatedProduct = await updateProduct(updateFields);
+        
+            const updatedProduct = await updateProduct(id, updateFields);
             res.send(updatedProduct)
-        } else {
-            throw new Error("You are not authorized to update this product")   
-        }
-    }catch(error) {
+    }
+    
+    catch(error) {
       next(error);
     }
 }) 
@@ -88,11 +97,12 @@ productsRouter.patch ('/products/:productId', async(req, res, next) => {
 productsRouter.delete('/:productId', async (req, res, next) => { 
 
     const productId = req.params.productId;
-    const isAdmin = req.user.is_Admin;
 
     try{
 
-      if (isAdmin) {
+      if (productId) {
+        const deletedReview = await deleteReviewByProduct(productId);
+        console.log("Deleted review is: ", deletedReview);
         const deletedProduct = await deleteProduct(productId);
         res.send(deletedProduct);
       } else {
