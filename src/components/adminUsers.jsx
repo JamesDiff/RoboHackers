@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { getAllUsers, deleteUser } from "../api";
 
@@ -25,7 +25,16 @@ const AdminUsers = ({history}) => {
     }, []);
 
     return (<div id="product-box" className="form-group centered w-75">
+                <br />
+                <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                    GO BACK
+                </Link>
+                <br />
                 <div id="product" className="container">
+                    <h1 className="text-center">
+                        <b style={{ color: 'dodgerblue' }}>*** ALL REGISTERED USERS ***</b>
+                    </h1>
+                    <br />
                     {users.map((user, index) => {
             
                         return (
@@ -38,7 +47,10 @@ const AdminUsers = ({history}) => {
                                 </div>
                                 <div className="horizGroup">
                                     <div className="w-75">
-                                    <div className="form-group">
+                                        {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
+                                            <b>*** ADMIN ***</b>
+                                        </div> : null}
+                                        <div className="form-group">
                                             <b>ID #</b>{user.id }
                                         </div>
                                         <div className="form-group">
@@ -59,9 +71,6 @@ const AdminUsers = ({history}) => {
                                         <div className="form-group">
                                             <b>Phone:</b> {user.phone }
                                         </div>
-                                        {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
-                                            <b>* ADMIN *</b>
-                                        </div> : null}
                                         <br />
                                         <div className="form-group">
                                             <button 

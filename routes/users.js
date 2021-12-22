@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 
 const jwt = require('jsonwebtoken');
+const { deleteReviewByUser } = require("../db");
 const { JWT_SECRET } = process.env;
 
 const usersRouter = express.Router();
@@ -119,6 +120,8 @@ usersRouter.get('/', async (req, res) => {
     const userId = req.params.userId;
 
     try{
+        const deletedReview = await deleteReviewByUser(userId);
+        console.log("Deleted review is: ", deletedReview);
         const deletedUser = await deleteUserById(userId);
         res.send(deletedUser);
     

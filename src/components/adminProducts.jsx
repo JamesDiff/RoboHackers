@@ -6,10 +6,6 @@ import { getAllProducts, deleteProductById } from "../api";
 const AdminProducts = ({ history }) => {
 
     const [products, setProducts] = useState([]);
- 
-    // const [cart, setCart] = useState([]);
-    // const [cartItemCount, setCartItemCount] = useState(1);
-    // const history = useHistory();
 
     const fetchAllProducts = async () => {
         try {
@@ -29,6 +25,11 @@ const AdminProducts = ({ history }) => {
     }, []);
 
     return (<div id="product-box" className="form-group centered w-75">
+                <br />
+                <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                    GO BACK
+                </Link>
+                <br />
                 <div id="product" className="container">
                     {products.map((product, index) => {
             
@@ -37,9 +38,7 @@ const AdminProducts = ({ history }) => {
                             <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <div className="form-group list-group-item-info card-title centered">
                                     <h3 className="card-title">
-                                        <Link to={"/products/" + product.id} className="link">
-                                            { product.name} 
-                                        </Link>
+                                        { product.name} 
                                     </h3>
                                 </div>
                                 <div className="horizGroup">
@@ -64,7 +63,6 @@ const AdminProducts = ({ history }) => {
                                             
                                                     const response = await deleteProductById(product.id);
                                                     console.log(response)
-                                                    fetchAllProducts(products);
                                                     history.push("/admin/products")
                                             
                                                 }
@@ -78,18 +76,6 @@ const AdminProducts = ({ history }) => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div>
-                                    <Link to="/user/:id/cart" className="link">
-                                        <button 
-                                            onCLick={ () => {
-                                                setCartItemCount(cartItemCount + 1);
-                                                alert("Item added to your cart 👌");
-                                            }}
-                                            type="button" id="addcart">
-                                        ADD TO CART
-                                        </button>
-                                    </Link>
-                                </div> */}
                                 <br></br>
                             </div>
                         )

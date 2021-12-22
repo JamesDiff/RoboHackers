@@ -65,7 +65,7 @@ export const deleteUser = async (userId) => {
   } 
   
   catch (error) {
-      console.error("ERROR deleting user by id!!! 🤦‍♂️ - FE-API deleteUser");
+      console.error("ERROR deleting user by id!!! - FE-API deleteUser");
       throw error;
   }
 }
@@ -288,6 +288,7 @@ export const addProductToOrder = async (token, orderId, productId, quantity) => 
     {
       quantity: quantity
     }, headers);
+    console.log("Product added to order: ", data);
   }catch (error) {
     console.error("Error adding product to order", error);
     throw error;
