@@ -17,15 +17,18 @@ import axios from 'axios';
 
 // test call to grab users info (token and to see if logged in)
 export const getUser = async (token) => {
+if (!token) {
+  return null;
+}
 
   try {
-    const data = await axios.get('/api/users/me', {
+    const { data } = await axios.get(`/api/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
       },
     })
-    console.log("Current user: ", data);
+    console.log("Current user from API index file: ", data);
     return data;
   } catch (error) {
       console.error("ERROR fetching current user!!! 🤦‍♂️ FE-API getUser");
