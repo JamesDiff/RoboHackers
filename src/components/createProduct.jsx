@@ -23,7 +23,7 @@ const CreateForm = ({ history }) => {
             <div className='form-group centered'>
                 <div className="">
                     <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX8654794.jpg"
-                        style={{width: 600, height: 200}}
+                        style={{width: 400, height: 150}}
                         alt="New Product" />
                 </div>
             </div>
