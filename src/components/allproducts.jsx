@@ -53,7 +53,7 @@ const AllProducts = ({ history }) => {
                         className="" 
 
                     />
-                    <img src="https://png.pngtree.com/element_our/png/20181227/movie-icon-which-is-designed-for-all-application-purpose-new-png_287896.jpg"
+                    <img src="https://i.dlpng.com/static/png/6682567_preview.png"
                         style={{width: 200, height: 150}}
                         alt="All Current Products"
                         className="" 

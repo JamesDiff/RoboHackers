@@ -30,10 +30,22 @@ const AdminProducts = ({ history }) => {
                     GO BACK
                 </Link>
                 <br />
-                <div className='form-group centered'>
+                <div className='d-flex justify-content-between p-3 w-100'>
+                <div className="">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAYhCBOhIagmrBM0QUMC4oCJNVdxS50cM2vg&usqp=CAU"
+                            style={{width: 400, height: 250}}
+                            alt="All Products"
+                            className="" />
+                    </div>
                     <div className="">
-                        <img src="https://www.dana.com.ly/images/agri-products.jpg"
-                            style={{width: 600, height: 150}}
+                        <img src="http://cdn.shopify.com/s/files/1/2478/5296/collections/Our_Products02_Vector.png?v=1615111024"
+                            style={{width: 600, height: 250}}
+                            alt="All Products"
+                            className="" />
+                    </div>
+                    <div className="">
+                        <img src="https://www.kindpng.com/picc/m/247-2472302_admin-transparent-background-admin-icon-hd-png-download.png"
+                            style={{width: 300, height: 250}}
                             alt="All Products"
                             className="" />
                     </div>
