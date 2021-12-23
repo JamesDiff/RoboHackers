@@ -15,7 +15,7 @@ const NavBar = ({token,
                         <Link className="nav-link active" to="/products"><b className="shadow">All Products</b></Link>
                         <Link className="nav-link active" to="/account"><b className="shadow">My Account</b></Link>
                         <Link className="nav-link active" to="/cart"><b className="shadow">Cart</b></Link>
-                        {isAdmin ? <Link className="nav-link active" style={{ color: 'darkorange' }} to="/admin">
+                        {isAdmin ? <Link className="nav-link active" style={{ color: 'orangered' }} to="/admin">
                                         <b className="shadow">
                                             Admin Page
                                         </b>

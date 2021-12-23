@@ -84,8 +84,8 @@ const SingleProductView = ({token, match}) => {
                     />
             
         </div>
-        <div className="card w-50 p-3 border-dark m-3 shadow bg-body rounded"> 
-            <h3 className="card-title shadow centered"><b>{singleProduct.name}</b></h3>
+        <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded"> 
+            <h1 className="card-title shadow centered"><b>{singleProduct.name}</b></h1>
             <div className="horizGroup">
                 <div className="m-3 shadow">
                     <img src= { singleProduct.img_url } alt="Product Cover"/>

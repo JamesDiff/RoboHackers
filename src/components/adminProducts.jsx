@@ -31,14 +31,14 @@ const AdminProducts = ({ history }) => {
                 </Link>
                 <br />
                 <div className='form-group centered'>
-                <div className="">
-                    <img src="https://www.dana.com.ly/images/agri-products.jpg"
-                        style={{width: 600, height: 150}}
-                        alt="All Products"
-                        className="" />
+                    <div className="">
+                        <img src="https://www.dana.com.ly/images/agri-products.jpg"
+                            style={{width: 600, height: 150}}
+                            alt="All Products"
+                            className="" />
+                    </div>
                 </div>
                 <br />
-            </div>
                 <div id="product" className="container centered">
                     {products.map((product, index) => {
             

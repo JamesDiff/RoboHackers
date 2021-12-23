@@ -36,7 +36,7 @@ const AllProducts = ({ history }) => {
                 <div className="d-flex justify-content-between p-3 w-100">
                 
                     <img src="https://kickstartendurance.files.wordpress.com/2013/05/order-now-go-shopping-shop-online-now-button.png"
-                        style={{width: 400, height: 150}}
+                        style={{width: 300, height: 150}}
                         alt="All Current Products"
                         className="" 
 
@@ -48,7 +48,7 @@ const AllProducts = ({ history }) => {
 
                     />
                     <img src="https://live.staticflickr.com/6130/6021227717_cb4b0c19a7.jpg"
-                        style={{width: 400, height: 250}}
+                        style={{width: 300, height: 250}}
                         alt="All Current Products"
                         className="" 
 
@@ -59,8 +59,8 @@ const AllProducts = ({ history }) => {
                         className="" 
 
                     />
-                    <img src="https://img.favpng.com/25/13/16/child-north-bromsgrove-high-school-raise-your-kids-without-raising-your-voice-dermatitis-gps-tracking-unit-png-favpng-vsR7uv6WgBev6eKL0NzEBNURi.jpg"
-                        style={{width: 400, height: 150}}
+                    <img src="https://laghis.com/wp-content/uploads/2020/05/order-7.png"
+                        style={{width: 300, height: 200}}
                         alt="All Current Products"
                         className="" 
 
@@ -76,7 +76,7 @@ const AllProducts = ({ history }) => {
                                 <div className="form-group list-group-item card-title centered shadow">
                                     <h3 className="card-title">
                                         <Link to={"/products/" + product.id} className="link shadow">
-                                            <b>{ product.name}</b> 
+                                            <h1><b>{ product.name}</b></h1> 
                                         </Link>
                                     </h3>
                                 </div>
