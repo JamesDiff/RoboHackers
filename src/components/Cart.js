@@ -31,7 +31,7 @@ const Cart = ({token, setToken}) => {
                 <div className="horizGroup">
                     {(order.user ?
                     <div className="card w-50 p-3 border-dark m-3 shadow bg-body rounded"> 
-                        <h3 className="card-title">Shipping Information</h3>
+                        <h3 className="card-title"><b><u>Shipping Information</u></b></h3>
 
                         <div className="w-75">
                             <div className="form-group">
@@ -53,7 +53,7 @@ const Cart = ({token, setToken}) => {
                     </div>  : <h3>Please Login/Register to have Shipping Information</h3>)}
                     {(order.user ?
                     <div className="card w-50 p-3 border-dark m-3 shadow bg-body rounded"> 
-                        <h3 className="card-title">Billing Information</h3>
+                        <h3 className="card-title"><b><u>Billing Information</u></b></h3>
 
                         <div className="w-75">
                             <div className="form-group">
@@ -83,7 +83,7 @@ const Cart = ({token, setToken}) => {
                                         <div className="m-3">
                                             <img src= { lineItem.img_url } alt="Product Cover"/>
                                         </div>
-                                        <h3 className="w-50 card-title">{lineItem.name}</h3>
+                                        <h3 className="w-50 card-title"><b>{lineItem.name}</b></h3>
                                         <div className="w-50 horizGroup alignLeft">
                                             <div className="m-5 form-group list-group-item-text">
                                                 Quantity: {lineItem.quantity }
