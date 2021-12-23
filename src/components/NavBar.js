@@ -15,7 +15,11 @@ const NavBar = ({token,
                         <Link className="nav-link active" to="/products">All Products</Link>
                         <Link className="nav-link active" to="/account">My Account</Link>
                         <Link className="nav-link active" to="/cart">Cart</Link>
-                        {isAdmin ? <Link className="nav-link active" to="/admin">ADMIN</Link> : null}
+                        {isAdmin ? <Link className="nav-link active" style={{ color: 'darkorange' }} to="/admin">
+                                        <b>
+                                            Admin Page
+                                        </b>
+                                    </Link> : null}
                         {(!token ? <Link className="nav-link active" to="/login">Log In</Link> : 
                             <Link className="nav-link active" to="/login" onClick={(event) => {
                                 localStorage.removeItem("token");

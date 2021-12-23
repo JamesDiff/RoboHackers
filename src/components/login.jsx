@@ -24,7 +24,6 @@ const Login = ({ setToken,
                     setUser, 
                     setIsAdmin
                     );
-                    // alert('You are now logged in!');
                     history.push("/products");
             }
         }>

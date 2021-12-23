@@ -1,7 +1,7 @@
 const express = require('express');
 const productsRouter = express.Router();
 
-const { getAllProducts, getProductById, createProduct,  deleteProduct, createReviewForProduct, updateProduct } = require('../db');
+const { getAllProducts, getProductById, createProduct,  deleteProduct, createReviewForProduct, updateProduct, deleteReviewByProduct } = require('../db');
 //{ deleteProduct } 
 
 //get products
@@ -101,6 +101,8 @@ productsRouter.delete('/:productId', async (req, res, next) => {
     try{
 
       if (productId) {
+        const deletedReview = await deleteReviewByProduct(productId);
+        console.log("Deleted review is: ", deletedReview);
         const deletedProduct = await deleteProduct(productId);
         res.send(deletedProduct);
       } else {

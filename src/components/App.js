@@ -13,33 +13,14 @@ import {
   AdminUpdate,
   AdminOrders,
   Cart,
+  CreateForm
  } from '../components';
-import CreateForm from './createProduct';
-// import AdminProducts from './adminProducts';
-
-
-
-
-
 
 const App = () => {
-  // Need to figure out the whole message thing, but i don't even think we need to use it at all.
-  // const [message, setMessage] = useState("");
+  
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
   const [isAdmin, setIsAdmin] = useState(null);
-
-
-  // useEffect(() => {
-  //   getSomething()
-  //     .then(response => {
-  //       setMessage(response.message);
-  //     })
-  //     .catch(error => {
-  //       setMessage(error.message);
-  //     });
-  // });
-
 
 
   // As soon as page hits we will grab the current logged in users token and set it on state.
@@ -83,11 +64,10 @@ const App = () => {
           {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
           <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} /> } />
-          <Route path="/create" render={(routeProps) => <CreateForm {...routeProps} />} />
+          <Route path="/admin-create" render={(routeProps) => <CreateForm {...routeProps} />} />
           <Route path="/update/:productId" render={(routeProps) => <AdminUpdate {...routeProps} />} />
-          <Route path="/admin/products" render={(routeProps) => <AdminProducts {...routeProps} />} />
-          <Route path="/admin/users" render={(routeProps) => <AdminUsers {...routeProps} />} />
-          <Route path="/admin/orders" render={(routeProps) => <AdminOrders {...routeProps} />} />
+          <Route path="/admin-products" render={(routeProps) => <AdminProducts {...routeProps} />} />
+          <Route path="/admin-users" render={(routeProps) => <AdminUsers {...routeProps} />} />
 
         </Router>
       </>
@@ -96,26 +76,3 @@ const App = () => {
 
 }
 export default App;
-
-// GET /users/me
-// POST /users/register
-// POST /users/login
-// UPDATE /users/:userId
-
-// GET /products/
-// GET /products/:productId
-// POST /products/
-// UPDATE /products/:productId
-// DELETE /products/:productId
-
-// GET /orders/
-// GET /orders/:orderId/
-// POST /orders/
-// UPDATE /orders/:orderid/
-// DELETE /orders/:orderId/
-
-// GET /reviews/
-// GET /reviews/:reviewId/
-// POST /reviews
-// UPDATE /reviews/:reviewId
-// DELETE /reviews/:reviewId
