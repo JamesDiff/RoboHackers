@@ -6,7 +6,7 @@ import { registerUser } from "../api";
 // All fields are required.
 // Once the user fills out form and hits register button, their info will now be authorized and it will push them to the login page where they must login to the site.
 
-const Register = ({ setToken, history }) => {
+const Register = ({ setToken, setUser, setIsAdmin, history }) => {
 
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
@@ -26,7 +26,7 @@ const Register = ({ setToken, history }) => {
             onSubmit={async (event) => {
             event.preventDefault();
             try {
-                await registerUser(setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone);
+                await registerUser(setToken, setUser, setIsAdmin, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone);
                 history.push("/products")
             }
             catch (error) {

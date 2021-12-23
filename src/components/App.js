@@ -47,12 +47,12 @@ const App = () => {
         <Router>
           <NavBar token={token} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setUser={setUser} />
           {/* <Route path="/" render={(routeProps) => <App />} /> */}
-          <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
+          <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken}
+                                                              setUser={setUser}
+                                                              setIsAdmin={setIsAdmin} />} />
           <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} 
                                                               setUser={setUser} 
-                                                              setIsAdmin={setIsAdmin} 
-
-                                                              />} />
+                                                              setIsAdmin={setIsAdmin} />} />
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}

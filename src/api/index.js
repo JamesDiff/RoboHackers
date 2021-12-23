@@ -71,7 +71,7 @@ export const deleteUser = async (userId) => {
 }
 
 // This function registers a new user
-export const registerUser = async (setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
+export const registerUser = async (setToken, setUser, setIsAdmin, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
 
     try {
       if (password !== verifyPassword) {
@@ -90,12 +90,22 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
           phone,
         })
         console.log(result);
-        const user = result.data.user;
+        const currentUser = result.data.user;
         const token = result.data.token;
-        console.log("New registered user is: ", user);
-        console.log("Token is: ", token)
+        const adminStatus = result.data.user.is_admin;
+        console.log("New registered user is: ", currentUser);
+        console.log("Token is: ", token);
+        console.log("Admin status: ", adminStatus);
         setToken(token);
+        setUser(currentUser);
+        setIsAdmin(adminStatus);
         localStorage.setItem("token", token);
+        localStorage.getItem("token");
+        localStorage.setItem("user", currentUser);
+        localStorage.getItem("user");
+        localStorage.setItem("isAdmin", adminStatus);
+        localStorage.getItem("isAdmin");
+        
         if (result.error) throw result.error;
     } 
     
