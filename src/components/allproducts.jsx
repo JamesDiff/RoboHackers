@@ -53,7 +53,7 @@ const AllProducts = ({ history }) => {
                         className="" 
 
                     />
-                    <img src="https://i.dlpng.com/static/png/6682567_preview.png"
+                    <img src="https://i.pinimg.com/736x/d9/2e/42/d92e4265a5c5f28276e0602669ba817e.jpg"
                         style={{width: 200, height: 150}}
                         alt="All Current Products"
                         className="" 
