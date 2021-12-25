@@ -28,7 +28,7 @@ const Cart = ({token, setToken}) => {
     if(order.id){
         return (
             <div>
-                <div className="horizGroup">
+                <div className="horizGroup">   
                     {(order.user ?
                     <div className="card w-50 p-3 border-dark m-3 shadow bg-body rounded"> 
                         <h3 className="card-title"><b><u>Shipping Information</u></b></h3>
@@ -124,8 +124,19 @@ const Cart = ({token, setToken}) => {
             </div>
         )
     }else{
-        return (<div className="centered m-3">
-            <h1>Your Cart is Empty!</h1>  
+        return (<div className="d-flex justify-content-between p-3 w-100">
+            <img src="https://pngimg.com/uploads/kim_kardashian/kim_kardashian_PNG52.png"
+                style={{width: 350, height: 300}}
+                        alt="Shopping cart is empty"
+                        className="" />
+            <img src="http://www.brushaplush.com/assets/img/icon/emptybag3.png"
+                style={{width: 700, height: 325}}
+                        alt="Shopping cart is empty"
+                        className="" />
+            <img src="https://media.istockphoto.com/photos/angry-senior-man-redneck-with-two-thumbs-down-hand-gestures-picture-id613788900"
+                style={{width: 500, height: 300}}
+                        alt="Shopping cart is empty"
+                        className="" />  
         </div>)
     }
 }
