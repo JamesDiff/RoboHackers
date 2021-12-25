@@ -30,6 +30,14 @@ const AdminUpdate = ({history, match}) => {
         fetchSingleProduct(productId, setSingleProduct)
     }, [productId, setSingleProduct])
 
+    useEffect(() => {
+        setNewName(singleProduct.name);
+        setNewDescription(singleProduct.description);
+        setNewPrice(singleProduct.price);
+        setNewInvQty(singleProduct.inventory_qty);
+        setNewImgUrl(singleProduct.img_url);
+    }, [singleProduct])
+
     return (
         <div className="form-container">
             <Link to="/admin" className='btn btn-primary btn-danger m-3'>
@@ -59,9 +67,9 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
+                        value={newName}
                         className="form-control"
                         placeholder={singleProduct.name}
-                        required
                         onChange={(event) => setNewName(event.target.value)}
                     />
                     <br></br>
@@ -72,9 +80,9 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
+                        value={newDescription}
                         className="form-control"
                         placeholder={singleProduct.description}
-                        required
                         onChange={(event) => setNewDescription(event.target.value)}
                     />
                     <br></br>
@@ -85,9 +93,9 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
+                        value={newPrice}
                         className="form-control"
                         placeholder={singleProduct.price}
-                        required
                         onChange={(event) => setNewPrice(event.target.value)}
                     />
                     <br></br>
@@ -98,9 +106,9 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
+                        value={newInvQty}
                         className="form-control"
                         placeholder={singleProduct.inventory_qty}
-                        required
                         onChange={(event) => setNewInvQty(event.target.value)}
                     />
                     <br></br>
@@ -111,10 +119,9 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
+                        value={newImgUrl}
                         className="form-control"
                         placeholder={singleProduct.img_url}
-                        // value={singleProduct.img_url}
-                        required
                         onChange={(event) => setNewImgUrl(event.target.value)}
                     />
                     <br></br>
