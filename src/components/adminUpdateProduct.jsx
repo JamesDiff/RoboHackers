@@ -67,7 +67,7 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
-                        value={newName}
+                        value={newName || ""}
                         className="form-control"
                         placeholder={singleProduct.name}
                         onChange={(event) => setNewName(event.target.value)}
@@ -80,7 +80,7 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
-                        value={newDescription}
+                        value={newDescription || ""}
                         className="form-control"
                         placeholder={singleProduct.description}
                         onChange={(event) => setNewDescription(event.target.value)}
@@ -93,7 +93,7 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
-                        value={newPrice}
+                        value={newPrice || ""}
                         className="form-control"
                         placeholder={singleProduct.price}
                         onChange={(event) => setNewPrice(event.target.value)}
@@ -106,7 +106,7 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
-                        value={newInvQty}
+                        value={newInvQty || ""}
                         className="form-control"
                         placeholder={singleProduct.inventory_qty}
                         onChange={(event) => setNewInvQty(event.target.value)}
@@ -119,7 +119,7 @@ const AdminUpdate = ({history, match}) => {
                     <br></br>
                     <input
                         type="text"
-                        value={newImgUrl}
+                        value={newImgUrl || ""}
                         className="form-control"
                         placeholder={singleProduct.img_url}
                         onChange={(event) => setNewImgUrl(event.target.value)}
