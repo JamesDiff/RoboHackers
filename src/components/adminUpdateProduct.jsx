@@ -45,21 +45,12 @@ const AdminUpdate = ({history, match}) => {
             </Link>
             <br />
             <br />
-            <div className='d-flex justify-content-between p-3 w-100'>
-                <div className="">
-                    <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1150,h_500/https://www.instamojo.com/blog/wp-content/uploads/2017/06/product-update.png"
-                        style={{width: 100, height: 75}}
-                        alt="All Users" />
-                </div>
-                <div className="">
+            <div className='centered'>
+                <div className="centered">
                     <img src="https://userguiding.com/wp-content/uploads/2021/04/what-is-product-update-1160x387.jpg"
                         style={{width: 1000, height: 175}}
-                        alt="All Users" />
-                </div>
-                <div className="">
-                    <img src="https://www.productplan.com/uploads/status-updates-product-manager.png"
-                        style={{width: 100, height: 125}}
-                        alt="All Users" />
+                        alt="All Users"
+                        className='centered w-100' />
                 </div>
             </div>
           <div className='container centered'>

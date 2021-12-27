@@ -82,7 +82,9 @@ const Cart = ({token, setToken}) => {
                                 return (                                
                                     <div key={index} className="card w-100 p-3 border-dark m-3 shadow bg-body rounded horizGroup">
                                         <div className="m-3">
-                                            <img src= { lineItem.img_url } alt="Product Cover"/>
+                                            <img src= { lineItem.img_url } 
+                                                alt="Product Cover"
+                                                style={{width: 200, height: 250}} />
                                         </div>
                                         <h3 className="w-50 card-title"><b>{lineItem.name}</b></h3>
                                         <div className="w-50 horizGroup alignLeft">
