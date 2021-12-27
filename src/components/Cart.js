@@ -132,7 +132,7 @@ const Cart = ({token, setToken}) => {
             <img src="http://www.brushaplush.com/assets/img/icon/emptybag3.png"
                 style={{width: 700, height: 325}}
                         alt="Shopping cart is empty"
-                        className="" />
+                        className="shadow" />
             <img src="https://media.istockphoto.com/photos/angry-senior-man-redneck-with-two-thumbs-down-hand-gestures-picture-id613788900"
                 style={{width: 500, height: 300}}
                         alt="Shopping cart is empty"
