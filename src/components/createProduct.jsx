@@ -21,9 +21,22 @@ const CreateForm = ({ history }) => {
                 </Link>
             {/* <br /> */}
             <div className='form-group centered'>
-                <div className="">
-                    <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX8654794.jpg"
-                        style={{width: 400, height: 150}}
+                <div className="d-flex justify-content-between p-3 w-100">
+                    <img src="https://www.quitmanlibrary.org/NEW.png/@@images/image.png"
+                        style={{width: 150, height: 150}}
+                        alt="New Product" />
+                    <img src="https://www.kindpng.com/picc/m/210-2101790_video-clapper-png-clapper-with-white-background-transparent.png"
+                        style={{width: 100, height: 100}}
+                        alt="New Product" />
+                    <img src="https://www.newswire.com/blog/wp-content/uploads/2018/03/newproduct.png"
+                        style={{width: 800, height: 300}}
+                        alt="New Product"
+                        className='text-danger shadow-lg p-3 mb-5 bg-white rounded' />
+                    <img src="https://www.kindpng.com/picc/m/210-2101790_video-clapper-png-clapper-with-white-background-transparent.png"
+                        style={{width: 100, height: 100}}
+                        alt="New Product" />
+                    <img src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151203567/49752222-product-development.jpg"
+                        style={{width: 150, height: 150}}
                         alt="New Product" />
                 </div>
             </div>

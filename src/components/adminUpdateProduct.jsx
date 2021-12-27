@@ -45,10 +45,26 @@ const AdminUpdate = ({history, match}) => {
             </Link>
             <br />
             <br />
-          <h1 className="form-header">UPDATE PRODUCT</h1>
-          <div>
+            <div className='d-flex justify-content-between p-3 w-100'>
+                <div className="">
+                    <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1150,h_500/https://www.instamojo.com/blog/wp-content/uploads/2017/06/product-update.png"
+                        style={{width: 100, height: 75}}
+                        alt="All Users" />
+                </div>
+                <div className="">
+                    <img src="https://userguiding.com/wp-content/uploads/2021/04/what-is-product-update-1160x387.jpg"
+                        style={{width: 1000, height: 175}}
+                        alt="All Users" />
+                </div>
+                <div className="">
+                    <img src="https://www.productplan.com/uploads/status-updates-product-manager.png"
+                        style={{width: 100, height: 125}}
+                        alt="All Users" />
+                </div>
+            </div>
+          <div className='container centered'>
             <form 
-                className="centered m-3 w-50" 
+                className="centered m-3 w-100" 
                 onSubmit={async (event) => {
                 event.preventDefault();
                 try {
@@ -61,7 +77,7 @@ const AdminUpdate = ({history, match}) => {
                     throw error;
                 }
             }}>
-
+            <div id="product-box" className='container centered'>
                 <div className="form-group w-75">
                     <label>Product Name</label>
                     <br></br>
@@ -126,11 +142,13 @@ const AdminUpdate = ({history, match}) => {
                     />
                     <br></br>
                 </div>
-    
-                <button className="btn btn-primary btn-dark btn-lg btn-block centered w-50" 
+            </div>
+            <div className='form-group centered'>
+                <button className="btn btn-primary btn-block centered w-25" 
                         type="submit">
                     Update Product
                 </button>
+                </div>
             </form>
           </div>
         </div>
