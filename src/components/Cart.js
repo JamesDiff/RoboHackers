@@ -124,20 +124,51 @@ const Cart = ({token, setToken}) => {
             </div>
         )
     }else{
-        return (<div className="d-flex justify-content-between p-3 w-100">
-            <img src="https://pngimg.com/uploads/kim_kardashian/kim_kardashian_PNG52.png"
-                style={{width: 350, height: 300}}
+        return (
+            <div>
+                <div className="d-flex justify-content-between p-3 w-100">
+                    <img src="https://pngimg.com/uploads/kim_kardashian/kim_kardashian_PNG52.png"
+                        style={{width: 350, height: 300}}
                         alt="Shopping cart is empty"
                         className="" />
-            <img src="http://www.brushaplush.com/assets/img/icon/emptybag3.png"
-                style={{width: 700, height: 325}}
+                    <img src="https://askthegreengenie.com/wp-content/uploads/2013/03/shopping_cart_empty2.png"
+                        style={{width: 400, height: 275}}
                         alt="Shopping cart is empty"
-                        className="shadow" />
-            <img src="https://media.istockphoto.com/photos/angry-senior-man-redneck-with-two-thumbs-down-hand-gestures-picture-id613788900"
-                style={{width: 500, height: 300}}
+                        className="" />
+                    <img src="https://media.istockphoto.com/photos/angry-senior-man-redneck-with-two-thumbs-down-hand-gestures-picture-id613788900"
+                        style={{width: 500, height: 300}}
                         alt="Shopping cart is empty"
-                        className="" />  
-        </div>)
+                        className="" />
+             
+                </div>
+                <div className="form-group centered">
+                    <h1 className="">
+                        <b className="text-danger shadow-lg p-3 mb-5 bg-white rounded">Get what you want before it's GONE</b>
+                    </h1>
+                </div>
+                <div className="d-flex justify-content-between p-3 w-100">
+                    <img src="https://www.assistnews.net/wp-content/uploads/2019/09/hurryup.jpg"
+                        style={{width: 300, height: 250}}
+                        alt="Hurry up"
+                        className="" />
+                    <img src="http://www.orokos.com/odam/kart/go.png"
+                        style={{width: 100, height: 100}}
+                        alt="Hurry up"
+                        className="" />
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSczrP3dnq84Qw8U9-BbKYUVB3yfEF-zz1g5AA7TbVjB_yRXQdzYg-_a7AjVrjzMml4S2A&usqp=CAU"
+                        style={{width: 500, height: 200}}
+                        alt="Hurry up"
+                        className="" />
+                    <img src="https://cdn.pixabay.com/photo/2017/10/06/20/24/man-2824503_960_720.png"
+                        style={{width: 100, height: 100}}
+                        alt="Hurry up"
+                        className="" />
+                    <img src="https://www.myenglishteacher.eu/blog/wp-content/uploads/2018/01/other-ways-to-say-hurry-up.png"
+                        style={{width: 300, height: 200}}
+                        alt="Hurry up"
+                        className="" />
+                </div>
+            </div>)
     }
 }
 
