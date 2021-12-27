@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getOrderById } from "../api";
+import { Link } from 'react-router-dom';
 
 async function fetchActiveOrder(setOrder, setUpdatedQtys) {
     const orderId = localStorage.getItem("ActiveOrderId");
@@ -131,42 +132,31 @@ const Cart = ({token, setToken}) => {
                         style={{width: 350, height: 300}}
                         alt="Shopping cart is empty"
                         className="" />
-                    <img src="https://askthegreengenie.com/wp-content/uploads/2013/03/shopping_cart_empty2.png"
-                        style={{width: 400, height: 275}}
+                    <img src="https://previews.123rf.com/images/doomu/doomu1304/doomu130400038/19117901-blau-einkaufswagen-symbol-auf-einem-wei%C3%9Fen-hintergrund.jpg"
+                        style={{width: 300, height: 200}}
                         alt="Shopping cart is empty"
                         className="" />
                     <img src="https://media.istockphoto.com/photos/angry-senior-man-redneck-with-two-thumbs-down-hand-gestures-picture-id613788900"
-                        style={{width: 500, height: 300}}
+                        style={{width: 400, height: 300}}
                         alt="Shopping cart is empty"
                         className="" />
              
                 </div>
                 <div className="form-group centered">
                     <h1 className="">
-                        <b className="text-danger shadow-lg p-3 mb-5 bg-white rounded">Get what you want before it's GONE</b>
+                        <b className="text-danger shadow-lg p-3 mb-5 bg-white rounded">*** Your shopping cart is empty ***</b>
                     </h1>
                 </div>
-                <div className="d-flex justify-content-between p-3 w-100">
-                    <img src="https://www.assistnews.net/wp-content/uploads/2019/09/hurryup.jpg"
-                        style={{width: 300, height: 250}}
-                        alt="Hurry up"
-                        className="" />
-                    <img src="http://www.orokos.com/odam/kart/go.png"
-                        style={{width: 100, height: 100}}
-                        alt="Hurry up"
-                        className="" />
+                <div className="d-flex justify-content-between centered p-3 w-100">
+                    <Link to="/products" className='m-3 shadow'>
+                        <img src="https://aradiafarm.com/wp-content/uploads/2020/03/button-shop-now.jpg"
+                            alt="Shop now"
+                            style={{width: 200, height: 75}} />
+                    </Link>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSczrP3dnq84Qw8U9-BbKYUVB3yfEF-zz1g5AA7TbVjB_yRXQdzYg-_a7AjVrjzMml4S2A&usqp=CAU"
-                        style={{width: 500, height: 200}}
+                        style={{width: 500, height: 150}}
                         alt="Hurry up"
-                        className="" />
-                    <img src="https://cdn.pixabay.com/photo/2017/10/06/20/24/man-2824503_960_720.png"
-                        style={{width: 100, height: 100}}
-                        alt="Hurry up"
-                        className="" />
-                    <img src="https://www.myenglishteacher.eu/blog/wp-content/uploads/2018/01/other-ways-to-say-hurry-up.png"
-                        style={{width: 300, height: 200}}
-                        alt="Hurry up"
-                        className="" />
+                        className="centered" />
                 </div>
             </div>)
     }

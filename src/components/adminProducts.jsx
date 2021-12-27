@@ -31,21 +31,9 @@ const AdminProducts = ({ history }) => {
                 </Link>
                 <br />
                 <div className='d-flex justify-content-between p-3 w-100'>
-                <div className="">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAYhCBOhIagmrBM0QUMC4oCJNVdxS50cM2vg&usqp=CAU"
-                            style={{width: 100, height: 100}}
-                            alt="All Products"
-                            className="" />
-                    </div>
                     <div className="">
                         <img src="http://cdn.shopify.com/s/files/1/2478/5296/collections/Our_Products02_Vector.png?v=1615111024"
                             style={{width: 1000, height: 250}}
-                            alt="All Products"
-                            className="" />
-                    </div>
-                    <div className="">
-                        <img src="https://www.kindpng.com/picc/m/247-2472302_admin-transparent-background-admin-icon-hd-png-download.png"
-                            style={{width: 100, height: 100}}
                             alt="All Products"
                             className="" />
                     </div>
