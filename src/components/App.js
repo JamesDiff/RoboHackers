@@ -12,20 +12,22 @@ import {
   AdminUsers,
   AdminUpdate,
   Cart,
-  CreateForm
+  CreateForm,
+  MyAccount
  } from '../components';
 
 const App = () => {
   
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState({});
-  const [isAdmin, setIsAdmin] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("token"));
 
 
   // As soon as page hits we will grab the current logged in users token and set it on state.
   useEffect(() => {
 
     const storedToken = localStorage.getItem("token");
+    console.log("STORED TOKEN FROM APP", storedToken)
     const currentUser = localStorage.getItem("user");
     const admin = localStorage.getItem("isAdmin");
     if (storedToken) {
@@ -67,6 +69,7 @@ const App = () => {
           <Route path="/update/:productId" render={(routeProps) => <AdminUpdate {...routeProps} />} />
           <Route path="/admin-products" render={(routeProps) => <AdminProducts {...routeProps} />} />
           <Route path="/admin-users" render={(routeProps) => <AdminUsers {...routeProps} />} />
+          <Route path ="/account" render={(routeProps) => <MyAccount {...routeProps} token={token} />} />
 
         </Router>
       </>
