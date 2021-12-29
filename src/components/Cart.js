@@ -146,7 +146,7 @@ const Cart = ({token, setToken}) => {
                 </div>
                 <div className="form-group centered">
                     <h1 className="">
-                        <b className="text-danger shadow-lg p-3 mb-5 bg-white rounded">*** Your shopping cart is empty ***</b>
+                        <b className="text-danger p-3 mb-5 bg-white rounded">*** Your shopping cart is empty ***</b>
                     </h1>
                 </div>
                 <div className="d-flex justify-content-between centered p-3 w-100">
