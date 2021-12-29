@@ -2,7 +2,7 @@ const { urlencoded } = require('express');
 const express = require('express');
 const ordersRouter = express.Router();
 
-const { createOrder, getOrderById, getProductById, addProductToOrder } = require('../db');
+const { createOrder, getOrderById, getProductById, addProductToOrder, deleteLineItem } = require('../db');
 
 
 //get order by id
@@ -17,7 +17,6 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
             message: "This order doesn't exist"
         });
       }
-
       const orderToGet = await getOrderById(orderId); 
       res.send(orderToGet);
 
@@ -112,6 +111,17 @@ ordersRouter.delete('/:orderId', async (req, res, next) => {
     } else {
       throw new Error("You are not authorized to delete this product")
     }
+  } catch(error) {
+    next(error);
+  }
+})
+
+ordersRouter.delete(`/lineitem/:lineItemId`, async (req, res, next) => {
+  const lineItemId = req.params.lineItemId;
+  console.log("Deleting line item", lineItemId)
+  try{
+    const deletedLineItem = await deleteLineItem (lineItemId);
+    res.send(deletedLineItem);
   } catch(error) {
     next(error);
   }

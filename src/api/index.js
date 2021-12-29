@@ -308,3 +308,12 @@ export const getOrderById  = async (orderId, setOrder) => {
     throw error;
   } 
 }
+
+export const removeLineItemByID = async (lineItemId) => {
+  try{
+    const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
+  } catch (error) {
+    console.error("Error deleting line item", error);
+    throw error;
+  }
+}
