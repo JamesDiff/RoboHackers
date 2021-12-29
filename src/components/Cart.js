@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getOrderById } from "../api";
+import { getOrderById, removeLineItemByID } from "../api";
 import { Link } from 'react-router-dom';
 
 async function fetchActiveOrder(setOrder, setUpdatedQtys) {
@@ -16,6 +16,10 @@ async function fetchActiveOrder(setOrder, setUpdatedQtys) {
         });
         setUpdatedQtys(newQtys);
     }
+}
+
+async function removeLineItem(lineItemId){
+    const deletedItem = await removeLineItemByID(lineItemId);
 }
 
 const Cart = ({token, setToken}) => {
@@ -100,8 +104,12 @@ const Cart = ({token, setToken}) => {
                                                 }} />
                                             </div>
                                             <div className="m-5 form-group list-group-item-text">
-                                                Price:  {lineItem.price}
+                                                Price Per:  ${lineItem.price}
                                             </div>
+                                            <div className="m-5 form-group list-group-item-text">
+                                                Total Price:  ${lineItem.price * lineItem.quantity}
+                                            </div>        
+
                                             <div className="m-5 form-group list-group-item-text">
                                                 <button className="btn btn-primary m-3" onClick={async(event) => {
                                                         event.preventDefault();
@@ -109,6 +117,7 @@ const Cart = ({token, setToken}) => {
                                                 </button>            
                                                 <button className="btn btn-primary btn-danger m-3" onClick={async(event) => {
                                                         event.preventDefault();
+                                                        removeLineItem(lineItem.id)
                                                     }}> Remove
                                                 </button>
                                             </div>
