@@ -18,7 +18,7 @@ async function addProductToOrder(orderId, productId, productPrice, quantity){
 async function getOrderProductsByOrder(orderId){
     try{
         const {rows : lineItems} = await client.query(`
-            SELECT products.*, order_products.priceAtTimeOfOrder, order_products.quantity
+            SELECT products.*, order_products.id, order_products.priceAtTimeOfOrder, order_products.quantity
             FROM products
             JOIN order_products ON products.id=order_products."productId"
             WHERE order_products."orderId"=$1;
@@ -30,7 +30,23 @@ async function getOrderProductsByOrder(orderId){
     }
 }
 
+async function deleteLineItem(id){
+    try {
+        const { rows: [lineItme] } = await client.query(`
+            DELETE FROM order_products
+            WHERE id = $1
+            RETURNING *;
+        `, [id]);
+    
+    return lineItme;
+    } catch (error) {
+        console.error("Error deleting line item")
+        throw error;
+    }
+}
+
 module.exports = {
     addProductToOrder,
-    getOrderProductsByOrder
+    getOrderProductsByOrder,
+    deleteLineItem
 }

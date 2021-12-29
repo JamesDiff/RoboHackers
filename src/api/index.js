@@ -17,15 +17,18 @@ import axios from 'axios';
 
 // test call to grab users info (token and to see if logged in)
 export const getUser = async (token) => {
+if (!token) {
+  return null;
+}
 
   try {
-    const data = await axios.get('/api/users/me', {
+    const { data } = await axios.get(`/api/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
       },
     })
-    console.log("Current user: ", data);
+    console.log("Current user from API index file: ", data);
     return data;
   } catch (error) {
       console.error("ERROR fetching current user!!! 🤦‍♂️ FE-API getUser");
@@ -120,21 +123,24 @@ export const loginUser = async (email,
   password, 
   setToken, 
   setUser, 
-  setIsAdmin
+  setIsAdmin, orderId
   ) => {
 
   try {
     const result = await axios.post('/api/users/login', {
       email,
       password,
+      orderId
     })
 
     console.log(result);
     const token = result.data.token;
     const currentUser = result.data.user;
     const adminStatus = result.data.user.is_admin;
+    const activeOrderId = currentUser.activeorderid;
     console.log("Current User is: ", currentUser);
     console.log("Admin status is: ", adminStatus);
+    console.log("Active Order Id", activeOrderId)
     setToken(token);
     setUser(currentUser);
     setIsAdmin(adminStatus);
@@ -144,6 +150,10 @@ export const loginUser = async (email,
     localStorage.getItem("user");
     localStorage.setItem("isAdmin", adminStatus);
     localStorage.getItem("isAdmin");
+    if(activeOrderId){
+      localStorage.setItem("ActiveOrderId", activeOrderId);
+      localStorage.getItem("ActiveOrderId");
+    }
     if (result.error) throw result.error;
   } 
   
@@ -329,6 +339,14 @@ export const getAllOrders = async () => {
   
   catch (error) {
     console.error('ERROR fetching all orderss!!! 🤦‍♂️ - FE-API getAllOrders');
+  }
+}
+ 
+export const removeLineItemByID = async (lineItemId) => {
+  try{
+    const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
+  } catch (error) {
+    console.error("Error deleting line item", error);
     throw error;
   }
 }
@@ -346,5 +364,20 @@ export const deleteOrderById = async (orderId) => {
   catch (error) {
       console.error("ERROR deleting order by id!!! - FE-API deleteOrderById");
       throw error;
+  }
+}
+
+export const saveOrderToUser = async (token, orderId) => {
+  try {
+    const {data} = await axios.post(`/api/users/saveorder/${orderId}`, {},
+    {
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+      }
+    })
+  } catch (error) {
+    console.error("Error saving the logged off user order")
+    throw error;
   }
 }

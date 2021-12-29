@@ -2,6 +2,7 @@ const { urlencoded } = require('express');
 const express = require('express');
 const ordersRouter = express.Router();
 
+
 const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder } = require('../db');
 
 //get all orders
@@ -17,7 +18,6 @@ ordersRouter.get('/', async(req, res, next) => {
 })
 
 
-
 //get order by id
 ordersRouter.get('/:orderId', async(req, res, next) => {
     const orderId = req.params.orderId;
@@ -30,7 +30,6 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
             message: "This order doesn't exist"
         });
       }
-
       const orderToGet = await getOrderById(orderId); 
       res.send(orderToGet);
 
@@ -122,6 +121,17 @@ ordersRouter.delete('/:orderId', async (req, res, next) => {
       res.send(deletedOrder);
   } 
   catch(error) {
+    next(error);
+  }
+})
+
+ordersRouter.delete(`/lineitem/:lineItemId`, async (req, res, next) => {
+  const lineItemId = req.params.lineItemId;
+  console.log("Deleting line item", lineItemId)
+  try{
+    const deletedLineItem = await deleteLineItem (lineItemId);
+    res.send(deletedLineItem);
+  } catch(error) {
     next(error);
   }
 })

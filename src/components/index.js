@@ -12,9 +12,12 @@ import AdminUsers from './adminUsers';
 import AdminUpdate from './adminUpdateProduct';
 import AdminOrders from './adminOrders';
 import Cart from './Cart';
+import MyAccount from './MyAccount';
+import SingleProductView from './SingleProductView';
+
 
 export { default as App } from './App';
-export { default as SingleProductView } from './SingleProductView';
+
 
 export { AllProducts,
         Login,
@@ -28,4 +31,6 @@ export { AllProducts,
         AdminUpdate,
         AdminOrders,
         Cart,
+        MyAccount,
+        SingleProductView
 }
