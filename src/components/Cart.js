@@ -18,8 +18,10 @@ async function fetchActiveOrder(setOrder, setUpdatedQtys) {
     }
 }
 
-async function removeLineItem(lineItemId){
+async function removeLineItem(lineItemId, setOrder, setUpdatedQtys){
     const deletedItem = await removeLineItemByID(lineItemId);
+    await fetchActiveOrder(setOrder, setUpdatedQtys);
+
 }
 
 const Cart = ({token, setToken}) => {
@@ -117,7 +119,7 @@ const Cart = ({token, setToken}) => {
                                                 </button>            
                                                 <button className="btn btn-primary btn-danger m-3" onClick={async(event) => {
                                                         event.preventDefault();
-                                                        removeLineItem(lineItem.id)
+                                                        removeLineItem(lineItem.id, setOrder, setUpdatedQtys)
                                                     }}> Remove
                                                 </button>
                                             </div>
