@@ -113,21 +113,24 @@ export const loginUser = async (email,
   password, 
   setToken, 
   setUser, 
-  setIsAdmin
+  setIsAdmin, orderId
   ) => {
 
   try {
     const result = await axios.post('/api/users/login', {
       email,
       password,
+      orderId
     })
 
     console.log(result);
     const token = result.data.token;
     const currentUser = result.data.user;
     const adminStatus = result.data.user.is_admin;
+    const activeOrderId = currentUser.activeorderid;
     console.log("Current User is: ", currentUser);
     console.log("Admin status is: ", adminStatus);
+    console.log("Active Order Id", activeOrderId)
     setToken(token);
     setUser(currentUser);
     setIsAdmin(adminStatus);
@@ -137,6 +140,10 @@ export const loginUser = async (email,
     localStorage.getItem("user");
     localStorage.setItem("isAdmin", adminStatus);
     localStorage.getItem("isAdmin");
+    if(activeOrderId){
+      localStorage.setItem("ActiveOrderId", activeOrderId);
+      localStorage.getItem("ActiveOrderId");
+    }
     if (result.error) throw result.error;
   } 
   
@@ -314,6 +321,21 @@ export const removeLineItemByID = async (lineItemId) => {
     const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
   } catch (error) {
     console.error("Error deleting line item", error);
+    throw error;
+  }
+}
+
+export const saveOrderToUser = async (token, orderId) => {
+  try {
+    const {data} = await axios.post(`/api/users/saveorder/${orderId}`, {},
+    {
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+      }
+    })
+  } catch (error) {
+    console.error("Error saving the logged off user order")
     throw error;
   }
 }
