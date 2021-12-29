@@ -20,6 +20,7 @@ async function fetchSingleProduct(productId, setSingleProduct, setReviews) {
 
 async function submitReview(token, productId, title, description){
     const result = await submitReviewForProduct(token, productId, title, description);
+    console.log("Review is: ", result)
 }
 
 async function addProductToCart(token, productId, quantity){
@@ -31,7 +32,8 @@ async function addProductToCart(token, productId, quantity){
         activeOrderId = orderID;
     }
 
-    const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity)
+    const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity);
+    console.log("Product added to cart: ", addedProduct);
 }
 
 const SingleProductView = ({token, match}) => {
@@ -55,16 +57,13 @@ const SingleProductView = ({token, match}) => {
                 </div>
                 <div className="w-75">
                     <div className="form-group">
-                        Description: {singleProduct.description }
+                        <b>Description:</b> {singleProduct.description }
                     </div>
                     <div className="form-group list-group-item-text">
-                        Price: { singleProduct.price }
+                        <b>Price:</b> { singleProduct.price }
                     </div>
                     <div className="form-group list-group-item-text text-danger">
-                        QTY On-Hand: {singleProduct.inventory_qty }
-                    </div>
-                    <div>
-                        Product Reviews:
+                        <b>QTY On-Hand:</b> {singleProduct.inventory_qty }
                     </div>
                     <div className="horizGroup">
                         <label>Quantity</label>
@@ -76,6 +75,9 @@ const SingleProductView = ({token, match}) => {
                                 addProductToCart(token, singleProduct.id, quantity)
                             }}> Add to Cart
                         </button>
+                        <Link to="/products" className='btn btn-primary m-3'>
+                            Back to Products
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -87,8 +89,10 @@ const SingleProductView = ({token, match}) => {
                                 <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                     <ul className="list-group list-group-flush">
                                         <li className="list-group-item"><h3>Post: {review.title}</h3></li>
-                                        <li className="list-group-item">From: {review.firstname} {review.lastname}</li>
-                                        <li className="list-group-item">Message: {review.description}</li>
+                                        <li className="list-group-item">
+                                            <b>From:</b> {review.firstname} {review.lastname}</li>
+                                        <li className="list-group-item">
+                                            <b>Message:</b> {review.description}</li>
                                     </ul>
                                 </div>
                             )

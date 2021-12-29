@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 // This component takes us to the login page for a registered user.
 // On success a token will be given and stored in localStorage.
 // User must confirm their password in order to log in successfully.
-const Login = ({ setToken, history, match }) => {
+const Login = ({ setToken, 
+    setUser, 
+    setIsAdmin, 
+    history, 
+    match }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,8 +20,10 @@ const Login = ({ setToken, history, match }) => {
             onSubmit={(event) => {
                 event.preventDefault();
                     console.log(email, password);
-                    loginUser(email, password, setToken);
-                    alert('You are now logged in!');
+                    loginUser(email, password, setToken, 
+                    setUser, 
+                    setIsAdmin
+                    );
                     history.push("/products");
             }
         }>

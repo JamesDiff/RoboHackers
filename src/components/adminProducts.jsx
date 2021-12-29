@@ -1,18 +1,11 @@
 import React from "react";
+import { Link} from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { getAllProducts } from "../api";
-import { Link } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
+import { getAllProducts, deleteProductById } from "../api";
 
+const AdminProducts = ({ history }) => {
 
-// This component renders the All Products page (maps out all the products in the database)
-const AllProducts = ({ history }) => {
-    // const token = props.token;
     const [products, setProducts] = useState([]);
- 
-    // const [cart, setCart] = useState([]);
-    // const [cartItemCount, setCartItemCount] = useState(1);
-    // const history = useHistory();
 
     const fetchAllProducts = async () => {
         try {
@@ -32,6 +25,11 @@ const AllProducts = ({ history }) => {
     }, []);
 
     return (<div id="product-box" className="form-group centered w-75">
+                <br />
+                <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                    GO BACK
+                </Link>
+                <br />
                 <div id="product" className="container">
                     {products.map((product, index) => {
             
@@ -40,9 +38,7 @@ const AllProducts = ({ history }) => {
                             <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <div className="form-group list-group-item-info card-title centered">
                                     <h3 className="card-title">
-                                        <Link to={"/products/" + product.id} className="link">
-                                            <b>{ product.name}</b> 
-                                        </Link>
+                                        { product.name} 
                                     </h3>
                                 </div>
                                 <div className="horizGroup">
@@ -59,14 +55,34 @@ const AllProducts = ({ history }) => {
                                         <div className="form-group list-group-item-text text-danger">
                                             <b>QTY On-Hand:</b> {product.inventory_qty }
                                         </div>
+                                        <div className="horizGroup">
+                                            <button 
+                                                onClick={async (event) => {
+                                                    
+                                                try {
+                                            
+                                                    const response = await deleteProductById(product.id);
+                                                    console.log(response)
+                                                    history.push("/admin/products")
+                                            
+                                                }
+                                                catch (err) {
+                                                    console.error("trouble deleting product", err)
+                                                }
+                                                }} 
+                                    
+                                                type="submit" className="btn btn-primary btn-danger m-3">Delete Product</button>
+                                                <Link className="btn btn-primary" to={"/update/" + product.id}>UPDATE</Link>
+                                        </div>
                                     </div>
                                 </div>
                                 <br></br>
-                            </div>)
+                            </div>
+                        )
                     })}
                 </div>
             </div>)
 
 }
 
-export default AllProducts;
+export default AdminProducts;

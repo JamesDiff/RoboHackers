@@ -1,7 +1,11 @@
 import React from "react";
 import { Link} from 'react-router-dom';
 
-const NavBar = ({token, setToken}) => {
+const NavBar = ({token, 
+                    setToken, 
+                    isAdmin,
+                    setUser,
+                    setIsAdmin}) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <div className="d-flex justify-content-between p-3">
@@ -11,11 +15,20 @@ const NavBar = ({token, setToken}) => {
                         <Link className="nav-link active" to="/products">All Products</Link>
                         <Link className="nav-link active" to="/account">My Account</Link>
                         <Link className="nav-link active" to="/cart">Cart</Link>
+                        {isAdmin ? <Link className="nav-link active" style={{ color: 'darkorange' }} to="/admin">
+                                        <b>
+                                            Admin Page
+                                        </b>
+                                    </Link> : null}
                         {(!token ? <Link className="nav-link active" to="/login">Log In</Link> : 
                             <Link className="nav-link active" to="/login" onClick={(event) => {
                                 localStorage.removeItem("token");
+                                localStorage.removeItem("user");
+                                localStorage.removeItem("isAdmin");
                                 localStorage.removeItem("ActiveOrderId");
                                 setToken("");
+                                setIsAdmin(false);
+                                setUser(null);
                         }}>Log Out</Link>)}
                     </div>
                 </div>
