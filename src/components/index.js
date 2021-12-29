@@ -10,6 +10,7 @@ import AdminPage from './AdminPage';
 import AdminProducts from './adminProducts';
 import AdminUsers from './adminUsers';
 import AdminUpdate from './adminUpdateProduct';
+import AdminOrders from './adminOrders';
 import Cart from './Cart';
 import MyAccount from './MyAccount';
 import SingleProductView from './SingleProductView';
@@ -28,6 +29,7 @@ export { AllProducts,
         AdminProducts,
         AdminUsers,
         AdminUpdate,
+        AdminOrders,
         Cart,
         MyAccount,
         SingleProductView

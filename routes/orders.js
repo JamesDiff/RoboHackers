@@ -2,7 +2,20 @@ const { urlencoded } = require('express');
 const express = require('express');
 const ordersRouter = express.Router();
 
-const { createOrder, getOrderById, getProductById, addProductToOrder, deleteLineItem } = require('../db');
+
+const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder } = require('../db');
+
+//get all orders
+ordersRouter.get('/', async(req, res, next) => {
+  try{
+      const orders = await getAllOrders();
+      console.log("got orders")
+      res.send(orders)
+
+  } catch(error) {
+      next(error)
+}
+})
 
 
 //get order by id
@@ -100,18 +113,14 @@ ordersRouter.patch ('/orders/:orderId', async(req, res, next) => {
 })
 
 ordersRouter.delete('/:orderId', async (req, res, next) => { 
-  const productId = req.params.orderId;
-  const isAdmin = req.user.is_Admin;
+  const orderId = req.params.orderId;
+  
 
   try{
-
-    if (isAdmin) {
-      const deletedProduct = await deleteProduct(productId);
-      res.send(deletedProduct);
-    } else {
-      throw new Error("You are not authorized to delete this product")
-    }
-  } catch(error) {
+      const deletedOrder = await deleteOrder(orderId);
+      res.send(deletedOrder);
+  } 
+  catch(error) {
     next(error);
   }
 })

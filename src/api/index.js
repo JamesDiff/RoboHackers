@@ -74,7 +74,7 @@ export const deleteUser = async (userId) => {
 }
 
 // This function registers a new user
-export const registerUser = async (setToken, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
+export const registerUser = async (setToken, setUser, setIsAdmin, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
 
     try {
       if (password !== verifyPassword) {
@@ -93,12 +93,22 @@ export const registerUser = async (setToken, firstname, lastname, password, veri
           phone,
         })
         console.log(result);
-        const user = result.data.user;
+        const currentUser = result.data.user;
         const token = result.data.token;
-        console.log("New registered user is: ", user);
-        console.log("Token is: ", token)
+        const adminStatus = result.data.user.is_admin;
+        console.log("New registered user is: ", currentUser);
+        console.log("Token is: ", token);
+        console.log("Admin status: ", adminStatus);
         setToken(token);
+        setUser(currentUser);
+        setIsAdmin(adminStatus);
         localStorage.setItem("token", token);
+        localStorage.getItem("token");
+        localStorage.setItem("user", currentUser);
+        localStorage.getItem("user");
+        localStorage.setItem("isAdmin", adminStatus);
+        localStorage.getItem("isAdmin");
+        
         if (result.error) throw result.error;
     } 
     
@@ -263,6 +273,8 @@ export const submitReviewForProduct = async (token, productId, title, descriptio
   }
 }
 
+//********* ORDERS **********/
+
 export const createOrder = async (token) => {
   let headers = {};
   if(token){
@@ -316,12 +328,42 @@ export const getOrderById  = async (orderId, setOrder) => {
   } 
 }
 
+export const getAllOrders = async () => {
+
+  try {
+    const data = await axios.get('/api/orders');
+    console.log('All orders: ', data);
+
+    return data;
+  } 
+  
+  catch (error) {
+    console.error('ERROR fetching all orderss!!! 🤦‍♂️ - FE-API getAllOrders');
+  }
+}
+ 
 export const removeLineItemByID = async (lineItemId) => {
   try{
     const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
   } catch (error) {
     console.error("Error deleting line item", error);
     throw error;
+  }
+}
+
+// This function deletes a single order by it's id
+export const deleteOrderById = async (orderId) => {
+
+  try {
+    const result = await axios.delete(`/api/orders/${orderId}`);
+    console.log("Deleted order is: ", result)
+
+    return result;
+  } 
+  
+  catch (error) {
+      console.error("ERROR deleting order by id!!! - FE-API deleteOrderById");
+      throw error;
   }
 }
 

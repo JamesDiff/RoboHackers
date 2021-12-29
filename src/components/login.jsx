@@ -28,8 +28,17 @@ const Login = ({ setToken,
                     history.push("/products");
             }
         }>
+            <br />
+            <div className='form-group centered'>
+                    <div className="">
+                        <img src="https://image.shutterstock.com/image-vector/vector-3d-gray-web-button-260nw-216786802.jpg"
+                            style={{width: 600, height: 250}}
+                            alt="Login"
+                            className="" />
+                    </div>
+                </div>
             <div className="form-group mb-3">
-                    <label>Email</label>
+                    <label><h5><b className="shadow">Email</b></h5></label>
                     <input 
                         onChange={({target: {value}}) => setEmail(value)} 
                         type="text" 
@@ -40,7 +49,7 @@ const Login = ({ setToken,
             </div>
 
             <div className="form-group mb-3">
-                    <label>Password</label>
+                    <label><h5><b className="shadow">Password</b></h5></label>
                     <input 
                         onChange={({target: {value}}) => setPassword(value)} 
                         type="password" 
@@ -50,7 +59,7 @@ const Login = ({ setToken,
                     />
             </div>
 
-            <button className="btn btn-primary btn-dark btn-lg btn-block"
+            <button className="btn btn-primary btn-lg btn-block"
                 type="submit">
                     Login
             </button>
@@ -58,7 +67,7 @@ const Login = ({ setToken,
                 {(match.url === "/register" ?
                     <Link to="/login">Already a user? Login Here! </Link> 
                     :
-                    <Link to="/register">Not a User? Register Here! </Link>
+                    <Link to="/register"><b className="shadow">Not a User? Register Here!</b></Link>
                 )}
             </div>
         </form>
