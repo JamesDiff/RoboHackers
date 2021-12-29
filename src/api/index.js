@@ -342,6 +342,14 @@ export const getAllOrders = async () => {
     throw error;
   }
 }
+export const removeLineItemByID = async (lineItemId) => {
+  try{
+    const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
+  } catch (error) {
+    console.error("Error deleting line item", error);
+    throw error;
+  }
+}
 
 // This function deletes a single order by it's id
 export const deleteOrderById = async (orderId) => {
@@ -359,8 +367,6 @@ export const deleteOrderById = async (orderId) => {
   }
 }
 
-
-
 export const removeLineItemByID = async (lineItemId) => {
   try{
     const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
@@ -369,7 +375,6 @@ export const removeLineItemByID = async (lineItemId) => {
     throw error;
   }
 }
-
 export const saveOrderToUser = async (token, orderId) => {
   try {
     const {data} = await axios.post(`/api/users/saveorder/${orderId}`, {},
