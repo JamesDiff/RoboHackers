@@ -33,7 +33,7 @@ const AdminProducts = ({ history }) => {
                 <div className='d-flex justify-content-between p-3 w-100'>
                     <div className="centered">
                         <img src="http://cdn.shopify.com/s/files/1/2478/5296/collections/Our_Products02_Vector.png?v=1615111024"
-                            style={{width: 1000, height: 250}}
+                            style={{width: 600, height: 100}}
                             alt="All Products"
                             className="" />
                     </div>

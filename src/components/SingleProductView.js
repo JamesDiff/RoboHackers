@@ -50,7 +50,7 @@ const SingleProductView = ({token, match}) => {
 
     return (
         <div className='centered w-100'>
-        <div className="d-flex justify-content-between p-3 w-100">
+        {/* <div className="d-flex justify-content-between p-3 w-100">
             
             <img src="https://us.123rf.com/450wm/aquir/aquir1911/aquir191100215/133345268-buy-now-grunge-stamp-with-green-band-buy-now.jpg?ver=6"
                         style={{width: 200, height: 150}}
@@ -83,15 +83,14 @@ const SingleProductView = ({token, match}) => {
 
                     />
             
-        </div>
+        </div> */}
         <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded"> 
             <h1 className="card-title shadow centered"><b>{singleProduct.name}</b></h1>
-            <div className="horizGroup">
+            <div className="">
                 <div className="m-3 shadow">
                     <img src= { singleProduct.img_url } 
                         alt="Product Cover"
-                        style={{width: 200, height: 250}}
-                        />
+                    />
                 </div>
                 <div className="w-75">
                     <div className="form-group">

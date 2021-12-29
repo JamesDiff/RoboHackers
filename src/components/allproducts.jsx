@@ -33,7 +33,7 @@ const AllProducts = ({ history }) => {
 
     return (<div id="product-box" className="form-group centered w-100">
                 <br />
-                <div className="d-flex justify-content-between p-3 w-100">
+                {/* <div className="d-flex justify-content-between p-3 w-100">
                 
                     <img src="https://kickstartendurance.files.wordpress.com/2013/05/order-now-go-shopping-shop-online-now-button.png"
                         style={{width: 300, height: 150}}
@@ -65,6 +65,11 @@ const AllProducts = ({ history }) => {
                         className="" 
 
                     />
+                </div> */}
+                <div className="centered shadow-lg">
+                    <h1>
+                        <b>ALL PRODUCTS</b>
+                    </h1>
                 </div>
                 <br />
                 <div id="product" className="container centered">

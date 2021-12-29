@@ -83,14 +83,16 @@ const Cart = ({token, setToken}) => {
                 </div>
                 {(order.lineItems ? 
                     <div id="product-box" className="form-group centered w-100">
-                        <div id="lineItems" className="container">
+                        <div id="lineItems" className="container ">
                             {order.lineItems.map((lineItem, index) => {
                                 return (                                
                                     <div key={index} className="card w-100 p-3 border-dark m-3 shadow bg-body rounded horizGroup">
                                         <div className="m-3">
                                             <img src= { lineItem.img_url } 
                                                 alt="Product Cover"
-                                                style={{width: 200, height: 250}} />
+                                                // style={{width: 200, height: 250}} 
+
+                                            />
                                         </div>
                                         <h3 className="w-50 card-title"><b>{lineItem.name}</b></h3>
                                         <div className="w-50 horizGroup alignLeft">
@@ -140,36 +142,38 @@ const Cart = ({token, setToken}) => {
     }else{
         return (
             <div>
-                <div className="d-flex justify-content-between p-3 w-100">
-                    <img src="https://pngimg.com/uploads/kim_kardashian/kim_kardashian_PNG52.png"
+                <div className="centered">
+                    {/* <img src="https://pngimg.com/uploads/kim_kardashian/kim_kardashian_PNG52.png"
                         style={{width: 350, height: 300}}
                         alt="Shopping cart is empty"
-                        className="" />
+                        className="" /> */}
                     <img src="https://previews.123rf.com/images/doomu/doomu1304/doomu130400038/19117901-blau-einkaufswagen-symbol-auf-einem-wei%C3%9Fen-hintergrund.jpg"
                         style={{width: 300, height: 200}}
                         alt="Shopping cart is empty"
                         className="" />
-                    <img src="https://media.istockphoto.com/photos/angry-senior-man-redneck-with-two-thumbs-down-hand-gestures-picture-id613788900"
+                    {/* <img src="https://media.istockphoto.com/photos/angry-senior-man-redneck-with-two-thumbs-down-hand-gestures-picture-id613788900"
                         style={{width: 400, height: 300}}
                         alt="Shopping cart is empty"
-                        className="" />
+                        className="" /> */}
              
                 </div>
                 <div className="form-group centered">
+                    <br />
                     <h1 className="">
                         <b className="text-danger p-3 mb-5 bg-white rounded">*** Your shopping cart is empty ***</b>
                     </h1>
                 </div>
-                <div className="d-flex justify-content-between centered p-3 w-100">
-                    <Link to="/products" className='m-3 shadow'>
+                <br />
+                <div className="centered">
+                    <Link to="/products" className='btn'>
                         <img src="https://aradiafarm.com/wp-content/uploads/2020/03/button-shop-now.jpg"
                             alt="Shop now"
                             style={{width: 200, height: 75}} />
                     </Link>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSczrP3dnq84Qw8U9-BbKYUVB3yfEF-zz1g5AA7TbVjB_yRXQdzYg-_a7AjVrjzMml4S2A&usqp=CAU"
+                    {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSczrP3dnq84Qw8U9-BbKYUVB3yfEF-zz1g5AA7TbVjB_yRXQdzYg-_a7AjVrjzMml4S2A&usqp=CAU"
                         style={{width: 500, height: 150}}
                         alt="Hurry up"
-                        className="centered" />
+                        className="centered" /> */}
                 </div>
             </div>)
     }

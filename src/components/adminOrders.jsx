@@ -30,9 +30,9 @@ const AdminOrders = ({history}) => {
                     GO BACK
                 </Link>
                 <br />
-                <div className="d-flex justify-content-between p-3 w-100">
+                <div className="centered">
                 <br />
-                <div>
+                {/* <div>
                 <img src="https://www.skubana.com/hubfs/purchase%20order-1.png"
                         style={{width: 200, height: 200}}
                         alt="All Orders"
@@ -43,10 +43,10 @@ const AdminOrders = ({history}) => {
                         style={{width: 600, height: 200}}
                         alt="All Orders"
                         className="shadow" />
-                </div>
+                </div> */}
                 <div>
                     <img src="https://image.winudf.com/v2/image/Y29tLmVzLmV4Y2VsbGVudC5wdXJjaGFzZW9yZGVyX2ljb25fMTUzNTU0OTQ2Ml8wNDc/icon.png?w=170&amp;fakeurl=1"
-                        style={{width: 200, height: 200}}
+                        style={{width: 200, height: 125}}
                         alt="All Orders"
                         className="" />
                 </div>    

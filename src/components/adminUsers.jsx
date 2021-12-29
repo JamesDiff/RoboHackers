@@ -30,8 +30,13 @@ const AdminUsers = ({history}) => {
                     GO BACK
                 </Link>
                 <br />
-                <div className='d-flex justify-content-between p-3 w-100'>
-                <div className="">
+                <div className="title shadow">
+                    <h1 className="centered">
+                        <b>ALL REGISTERED USERS</b>
+                    </h1>
+                </div>
+                {/* <div className='d-flex justify-content-between p-3 w-100'>
+                    <div className="">
                         <img src="https://www.computerhope.com/issues/pictures/users.png"
                             style={{width: 100, height: 75}}
                             alt="All Users" />
@@ -46,7 +51,7 @@ const AdminUsers = ({history}) => {
                             style={{width: 100, height: 125}}
                             alt="All Users" />
                     </div>
-                </div>
+                </div> */}
                 <div id="product" className="container centered">
                     
                     <br />
