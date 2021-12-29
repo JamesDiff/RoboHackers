@@ -1,5 +1,6 @@
 import React from "react";
 import { Link} from 'react-router-dom';
+import { saveOrderToUser } from "../api";
 
 const NavBar = ({token, 
                     setToken, 
@@ -22,6 +23,10 @@ const NavBar = ({token,
                                     </Link> : null}
                         {(!token ? <Link className="nav-link active" to="/login"><b className="shadow">Log In</b></Link> : 
                             <Link className="nav-link active" to="/login" onClick={(event) => {
+                                const activeOrderId = localStorage.getItem("ActiveOrderId")
+                                if(activeOrderId){
+                                    saveOrderToUser(token, activeOrderId);
+                                }
                                 localStorage.removeItem("token");
                                 localStorage.removeItem("user");
                                 localStorage.removeItem("isAdmin");

@@ -2,12 +2,12 @@ const express = require("express");
 require("dotenv").config();
 
 const jwt = require('jsonwebtoken');
-const { deleteReviewByUser } = require("../db");
+const { deleteReviewByUser, assignUserToOrder } = require("../db");
 const { JWT_SECRET } = process.env;
 
 const usersRouter = express.Router();
 
-const { createUser, getUserByEmail, getUser, getAllUsers, deleteUserById } = require("../db/users");
+const { createUser, getUserByEmail, getUser, getAllUsers, deleteUserById, saveActiveOrderId } = require("../db/users");
 
 
 usersRouter.post('/register', async (request, response, next) => {
@@ -62,7 +62,7 @@ usersRouter.post('/register', async (request, response, next) => {
 });
 
 usersRouter.post('/login', async (request, response, next) => {
-    const { email , password } = request.body;
+    const { email , password, orderId } = request.body;
     try {
         if(!email || !password) {
             throw Error({
@@ -77,6 +77,12 @@ usersRouter.post('/login', async (request, response, next) => {
                 message: "User logged in successfully!",
                 user: user,
                 token: token});
+
+            if(orderId){
+                console.log("Assigning Order to User", orderId, user.id)
+                const order = await assignUserToOrder(orderId, user.id);
+                console.log("Order", order);
+            }    
         } else {
             throw Error({
                 name: 'IncorrectCredentialsError', 
@@ -87,6 +93,7 @@ usersRouter.post('/login', async (request, response, next) => {
         next(error);
     }
 });
+
 
 usersRouter.get('/me', (request,response,next) => {
     if(request.user) {
@@ -127,6 +134,18 @@ usersRouter.get('/', async (req, res) => {
     
     } catch(error) {
       next(error);
+    }
+})
+
+usersRouter.post(`/saveorder/:orderId`, async (req, res, next) => {
+    const userId = req.user.id;
+    const orderId = req.params.orderId;
+    console.log("Saving order for logged off user", userId, orderId);
+
+    try{
+        const user = await saveActiveOrderId(userId, orderId)
+    }catch(error){
+        next(error);
     }
 })
 

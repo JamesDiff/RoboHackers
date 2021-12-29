@@ -52,7 +52,8 @@ async function createTables() {
           state VARCHAR(255) NOT NULL, 
           zip VARCHAR(255) NOT NULL,
           phone VARCHAR(255) NOT NULL, 
-          is_admin BOOLEAN DEFAULT false
+          is_admin BOOLEAN DEFAULT false,
+          activeOrderId VARCHAR(255)
         );
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,

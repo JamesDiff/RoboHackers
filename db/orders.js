@@ -104,10 +104,25 @@ async function deleteOrder(id) {
     }
 }
 
+async function assignUserToOrder(orderId, userId){
+    try {
+        const {rows: [order] }  = await client.query(`
+            UPDATE orders
+            SET "userId"=$2
+            WHERE id=$1
+            RETURNING *;
+        `, [orderId, userId])
+    } catch (error) {
+        console.error("Error updating order", error);
+        throw error;
+    }
+}
+
 module.exports = {
     createOrder,
     getAllOrders,
     getOrdersByUserEmail,
     getOrderById,
-    deleteOrder
+    deleteOrder,
+    assignUserToOrder
 }
