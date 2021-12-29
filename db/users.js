@@ -110,11 +110,26 @@ const getAllUsers = async () => {
     }
 }
 
+async function saveActiveOrderId(userId, orderId){
+    try {
+        const {rows: [user] }  = await client.query(`
+            UPDATE users
+            SET activeOrderId=$2
+            WHERE id=$1
+            RETURNING *;
+        `, [userId, orderId])
+    } catch (error) {
+        console.error("Error updating user", error);
+        throw error;
+    }
+}
+
 module.exports = {
     createUser, 
     getUser, 
     getUserById, 
     getUserByEmail,
     getAllUsers,
-    deleteUserById
+    deleteUserById,
+    saveActiveOrderId
 }
