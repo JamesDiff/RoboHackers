@@ -90,16 +90,17 @@ const Cart = ({token, setToken}) => {
                                         <div className="m-3">
                                             <img src= { lineItem.img_url } 
                                                 alt="Product Cover"
+                                                style={{width: 175, height: 225}}
                                                 // style={{width: 200, height: 250}} 
 
                                             />
                                         </div>
                                         <h3 className="w-50 card-title"><b>{lineItem.name}</b></h3>
-                                        <div className="w-50 horizGroup alignLeft">
+                                        <div className="w-100 horizGroup alignLeft">
                                             <div className="m-5 form-group list-group-item-text">
-                                                Quantity: {lineItem.quantity }
+                                                <b>Quantity:</b> {lineItem.quantity }
 
-                                                <label>Quantity</label>
+                                                <label><b className="text-danger">Quantity</b></label>
                                                 <input className="m-3" type="number" id="quantity" 
                                                     value={(updatedQtys[lineItem.id] ? updatedQtys[lineItem.id] : lineItem.quantity)
                                                     } min="1" max="100"
@@ -110,12 +111,12 @@ const Cart = ({token, setToken}) => {
                                                 }} />
                                             </div>
                                             <div className="m-5 form-group list-group-item-text">
-                                                Price Per:  ${lineItem.price}
+                                                <b>Price Per:</b>  ${lineItem.price}
                                             </div>
                                             <div className="m-5 form-group list-group-item-text">
-                                                Total Price:  ${lineItem.price * lineItem.quantity}
+                                                <b>Total Price:</b>  ${lineItem.price * lineItem.quantity}
                                             </div>        
-
+                                            <br />
                                             <div className="m-5 form-group list-group-item-text">
                                                 <button className="btn btn-primary m-3" onClick={async(event) => {
                                                         event.preventDefault();
