@@ -31,17 +31,18 @@ const MyAccount = ({token}) => {
     }, [token]);
 
     return (
-        <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-            <h2 className="card-title centered shadow"><b>Profile</b></h2>
+    <div className="form-group centered w-75">
+        <div className="container">
+            <h1 className="centered"><b>My Account</b></h1>
             <div id="user-info" className="horizGroup">
                 {myInfo.map((stuff, index) => {
                     return (
-                        <div key={index}> 
+                        <div key={index} className="centered"> 
                             <br />
-                            <div className="form-group list-group-item-text">
-                                <h1>Hey, {stuff.firstname}!</h1>
+                            <div>
+                                <h2>Hey, {stuff.firstname}!</h2>
                             </div>
-                            <div className="card w-90 p-3 border-dark m-3 shadow bg-body rounded">
+                            <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <h2>Shipping address</h2>
                                     <div className="form-group list-group-item-text">
                                         {stuff.firstname } {stuff.lastname}
@@ -111,6 +112,7 @@ const MyAccount = ({token}) => {
                                             </div>
                                
                         </div>
+                        
                     )
                 })}
             </div>
@@ -121,6 +123,13 @@ const MyAccount = ({token}) => {
         )
         })}
 </div>
+
+</div>
+
+<div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
+                        <h2>Purchase History</h2>
+        </div>
+
 </div>
 )
 }
