@@ -137,6 +137,33 @@ usersRouter.get('/', async (req, res) => {
     }
 })
 
+
+//update/patch
+usersRouter.patch ('/:userId', async(req, res, next) => {
+    const id = req.params.userId;
+    const {firstname, lastname, email, street, city, state, zip, phone} = req.body
+    const updateFields = {
+                           // id, 
+                          firstname,
+                          lastname,
+                          email,
+                          street,
+                          city,
+                          state,
+                          zip,
+                          phone
+   };
+     try{
+         
+             const updatedUser = await updateUser(id, updateFields);
+             res.send(updatedUser)
+     }
+     catch(error) {
+       next(error);
+     }
+ }) 
+
+
 usersRouter.post(`/saveorder/:orderId`, async (req, res, next) => {
     const userId = req.user.id;
     const orderId = req.params.orderId;

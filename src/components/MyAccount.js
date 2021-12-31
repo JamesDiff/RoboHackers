@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { getUser } from '../api';
 import { useState, useEffect } from "react";
 
@@ -65,14 +66,11 @@ const MyAccount = ({token}) => {
                                     </div>
 
                                     <div className="m-1 form-group list-group-item-text">
-
-                                        <button className="btn btn-primary m-1 w-30"
-                                            onClick={async ()=> {
-                                            alert('Edit button has been clicked')
-                                        }}>
-                                            Edit 
-                                        </button>
-
+                                        <Link to="/EditUser">
+                                            <button className="btn btn-primary m-1 w-30">
+                                                Edit 
+                                            </button>
+                                        </Link>
                                         <button className="btn btn-primary m-1 w-30"
                                             onClick={async ()=> {
                                             alert('Delete button has been clicked')
@@ -103,12 +101,11 @@ const MyAccount = ({token}) => {
 
                                     <div className="m-1 form-group list-group-item-text">
 
-                                        <button className="btn btn-primary m-1 w-30"
-                                            onClick={async ()=> {
-                                            alert('Edit button has been clicked')
-                                        }}>
-                                            Edit 
-                                        </button>
+                                        <Link to="/EditUser">
+                                            <button className="btn btn-primary m-1 w-30">
+                                                Edit 
+                                            </button>
+                                        </Link>
 
                                         <button className="btn btn-primary m-1 w-30"
                                             onClick={async ()=> {
@@ -136,12 +133,11 @@ const MyAccount = ({token}) => {
                                             </div>
 
                                             <div className="m-1 form-group list-group-item-text">
-                                                <button className="btn btn-primary m-1 w-30"
-                                                    onClick={async ()=> {
-                                                    alert('Edit button has been clicked')
-                                                }}>
+                                                <Link to="/EditUser">
+                                                    <button className="btn btn-primary m-1 w-30">
                                                     Edit 
-                                                </button>
+                                                    </button>
+                                                </Link>
                         
                                                 <button className="btn btn-primary m-1 w-30"
                                                     onClick={async ()=> {
