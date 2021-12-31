@@ -32,7 +32,14 @@ const MyAccount = ({token}) => {
 
     return (
     <div className="row">
-        <h1 className="centered"><b>My Account</b></h1>
+        <div id="account-box" className="form-group centered w-100">
+            <br />
+            <div className="centered shadow-lg">
+                        <h1>
+                            <b>MY ACCOUNT</b>
+                        </h1>
+            </div>
+            </div>
         <div className="col">
             <div id="user-info" className="horizGroup">
                 {myInfo.map((stuff, index) => {
