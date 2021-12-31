@@ -16,8 +16,6 @@ ordersRouter.get('/', async(req, res, next) => {
       next(error)
 }
 })
-
-
 //get order by id
 ordersRouter.get('/:orderId', async(req, res, next) => {
     const orderId = req.params.orderId;

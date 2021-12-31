@@ -339,14 +339,6 @@ export const getAllOrders = async () => {
   
   catch (error) {
     console.error('ERROR fetching all orderss!!! 🤦‍♂️ - FE-API getAllOrders');
-  }
-}
- 
-export const removeLineItemByID = async (lineItemId) => {
-  try{
-    const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
-  } catch (error) {
-    console.error("Error deleting line item", error);
     throw error;
   }
 }
@@ -367,6 +359,14 @@ export const deleteOrderById = async (orderId) => {
   }
 }
 
+export const removeLineItemByID = async (lineItemId) => {
+  try{
+    const {data} = await axios.delete(`/api/orders/lineitem/${lineItemId}`, {}, {})
+  } catch (error) {
+    console.error("Error deleting line item", error);
+    throw error;
+  }
+}
 export const saveOrderToUser = async (token, orderId) => {
   try {
     const {data} = await axios.post(`/api/users/saveorder/${orderId}`, {},

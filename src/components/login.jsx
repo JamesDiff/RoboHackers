@@ -31,8 +31,8 @@ const Login = ({ setToken,
             <br />
             <div className='form-group centered'>
                     <div className="">
-                        <img src="https://image.shutterstock.com/image-vector/vector-3d-gray-web-button-260nw-216786802.jpg"
-                            style={{width: 600, height: 250}}
+                        <img src="https://ak.picdn.net/shutterstock/videos/1922917/thumb/1.jpg"
+                            style={{width: 500, height: 200}}
                             alt="Login"
                             className="" />
                     </div>
