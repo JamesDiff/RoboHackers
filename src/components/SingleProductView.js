@@ -33,10 +33,11 @@ async function addProductToCart(token, productId, quantity){
     }
 
     const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity);
-    console.log("Product added to cart: ", addedProduct);
 }
 
-const SingleProductView = ({token, match}) => {
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+const SingleProductView = ({token, match, history}) => {
     const productId = match.params.productId;
     const [newReviewDescription, setNewReviewDescription] = useState('');
     const [newReviewTitle, setNewReviewTitle] = useState("");
@@ -110,7 +111,9 @@ const SingleProductView = ({token, match}) => {
 
                         <button className="btn btn-primary btn-danger m-3 shadow" onClick={async(event) => {
                                 event.preventDefault();
-                                addProductToCart(token, singleProduct.id, quantity)
+                                addProductToCart(token, singleProduct.id, quantity);
+                                await delay(1000);
+                                history.push("/cart");
                             }}> Add to Cart
                         </button>
                         <Link to="/products" className='btn btn-primary m-3 shadow'>
