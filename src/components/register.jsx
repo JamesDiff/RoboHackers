@@ -42,8 +42,6 @@ const Register = ({ setToken, setUser, setIsAdmin, history }) => {
                             className="" />
                     </div>
                 </div>
-                {/* <h1 className="shadow"><b>Register</b></h1> */}
-
                 <div className="form-group w-50">
                     <label><b className="shadow">First Name</b></label>
                     <br></br>
