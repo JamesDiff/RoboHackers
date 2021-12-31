@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getOrderById, removeLineItemByID } from "../api";
+import { getOrderById, removeLineItemByID, closeOrderById } from "../api";
 import { Link } from 'react-router-dom';
 
 async function fetchActiveOrder(setOrder, setUpdatedQtys) {
@@ -21,10 +21,16 @@ async function fetchActiveOrder(setOrder, setUpdatedQtys) {
 async function removeLineItem(lineItemId, setOrder, setUpdatedQtys){
     const deletedItem = await removeLineItemByID(lineItemId);
     await fetchActiveOrder(setOrder, setUpdatedQtys);
-
 }
 
-const Cart = ({token, setToken}) => {
+async function closeOrder(orderId, setOrder, setUpdatedQtys) {
+    const closedOrder = await closeOrderById(orderId);
+    localStorage.removeItem("ActiveOrderId");
+}
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+const Cart = ({token, setToken, history}) => {
     const [order, setOrder] = useState({})
     const [updatedQtys, setUpdatedQtys] = useState({});
     
@@ -96,17 +102,7 @@ const Cart = ({token, setToken}) => {
                                         <h3 className="w-50 card-title"><b>{lineItem.name}</b></h3>
                                         <div className="w-100 horizGroup alignLeft">
                                             <div className="m-5 form-group list-group-item-text">
-                                                <b>Quantity:</b> {lineItem.quantity }
-
-                                                <label><b className="text-danger">Quantity</b></label>
-                                                <input className="m-3" type="number" id="quantity" 
-                                                    value={(updatedQtys[lineItem.id] ? updatedQtys[lineItem.id] : lineItem.quantity)
-                                                    } min="1" max="100"
-                                                    onChange={({target : {value}}) => {
-                                                        let newQuantities = updatedQtys;
-                                                        newQuantities[lineItem.id] = value;
-                                                        setUpdatedQtys(newQuantities);
-                                                }} />
+                                                Quantity: {lineItem.quantity }
                                             </div>
                                             <div className="m-5 form-group list-group-item-text">
                                                 <b>Price Per:</b>  ${lineItem.price}
@@ -114,12 +110,21 @@ const Cart = ({token, setToken}) => {
                                             <div className="m-5 form-group list-group-item-text">
                                                 <b>Total Price:</b>  ${lineItem.price * lineItem.quantity}
                                             </div>        
-                                            <br />
-                                            <div className="m-5 form-group list-group-item-text">
+                                            {/* <div className="m-5 form-group list-group-item-text">
+                                                <label>Update Quantity</label>
+                                                <input className="m-3" type="number" id="quantity" 
+                                                    min="1" max="100"
+                                                    onChange={({target : {value}}) => {
+                                                        let newQuantities = updatedQtys;
+                                                        newQuantities[lineItem.id] = value;
+                                                        setUpdatedQtys(newQuantities);
+                                                }} />
                                                 <button className="btn btn-primary m-3" onClick={async(event) => {
                                                         event.preventDefault();
                                                     }}> Update
-                                                </button>            
+                                                </button>   
+                                            </div>  */}
+                                            <div className="m-5 form-group list-group-item-text">         
                                                 <button className="btn btn-primary btn-danger m-3" onClick={async(event) => {
                                                         event.preventDefault();
                                                         removeLineItem(lineItem.id, setOrder, setUpdatedQtys)
@@ -134,6 +139,9 @@ const Cart = ({token, setToken}) => {
                 : <h3>Please add items to your cart to see line items</h3> )}
                 <button className="btn btn-success m-3" onClick={async(event) => {
                         event.preventDefault();
+                        closeOrder(order.id);
+                        await delay(1000);
+                        history.push('/products');
                     }}> Complete Order
                 </button>
             </div>

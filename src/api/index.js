@@ -381,3 +381,12 @@ export const saveOrderToUser = async (token, orderId) => {
     throw error;
   }
 }
+
+export const closeOrderById = async (orderId) => {
+  try {
+    const {data} = await axios.post(`/api/orders/complete/${orderId}`, {}, {})
+  } catch (error) {
+    console.error("Error completing order");
+    throw error;
+  }
+}
