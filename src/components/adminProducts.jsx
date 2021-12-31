@@ -33,7 +33,7 @@ const AdminProducts = ({ history }) => {
                 <div className='d-flex justify-content-between p-3 w-100'>
                     <div className="centered">
                         <img src="http://cdn.shopify.com/s/files/1/2478/5296/collections/Our_Products02_Vector.png?v=1615111024"
-                            style={{width: 1000, height: 250}}
+                            style={{width: 600, height: 100}}
                             alt="All Products"
                             className="" />
                     </div>
@@ -46,13 +46,13 @@ const AdminProducts = ({ history }) => {
                             
                             <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <div className="form-group list-group-item card-title centered shadow">
-                                    <h3 className="card-title">
-                                        <b>{ product.name}</b> 
+                                    <h3 className="card card-title border-dark p-3 rounded shadow w-75 centered">
+                                        <h1 className="text-primary"><b>{ product.name}</b></h1> 
                                     </h3>
                                 </div>
                                 <div className="horizGroup">
                                     <div className="m-3 shadow">
-                                        <img src= { product.img_url } alt="Product Cover" />
+                                        <img src= { product.img_url } alt="Product Cover" style={{width: 175, height: 225}} />
                                     </div>
                                     <div className="w-75">
                                         <div className="form-group">

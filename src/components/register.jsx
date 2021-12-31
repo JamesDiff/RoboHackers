@@ -37,13 +37,11 @@ const Register = ({ setToken, setUser, setIsAdmin, history }) => {
             <div className='form-group centered'>
                     <div className="">
                         <img src="https://www.freeiconspng.com/thumbs/sign-up-button-png/sign-up-now-button-png-14.png"
-                            style={{width: 600, height: 150}}
+                            style={{width: 400, height: 75}}
                             alt="Register"
                             className="" />
                     </div>
                 </div>
-                <h1 className="shadow"><b>Register</b></h1>
-
                 <div className="form-group w-50">
                     <label><b className="shadow">First Name</b></label>
                     <br></br>

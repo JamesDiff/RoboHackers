@@ -48,7 +48,7 @@ const AdminUpdate = ({history, match}) => {
             <div className='centered'>
                 <div className="centered">
                     <img src="https://userguiding.com/wp-content/uploads/2021/04/what-is-product-update-1160x387.jpg"
-                        style={{width: 1000, height: 175}}
+                        style={{width: 1000, height: 150}}
                         alt="All Users"
                         className='centered w-100' />
                 </div>

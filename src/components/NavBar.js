@@ -12,16 +12,16 @@ const NavBar = ({token,
             <div className="d-flex justify-content-between p-3 centered">
                 <div className="collapse navbar-collapse fs-3" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <Link className="nav-link active" aria-current="page" to="/"><b className="shadow">Home</b></Link>
-                        <Link className="nav-link active" to="/products"><b className="shadow">All Products</b></Link>
-                        <Link className="nav-link active" to="/account"><b className="shadow">My Account</b></Link>
-                        <Link className="nav-link active" to="/cart"><b className="shadow">Cart</b></Link>
+                        <Link className="nav-link active" aria-current="page" to="/"><b className="btn-primary">Home</b></Link>
+                        <Link className="nav-link active" to="/products"><b className="btn-primary">All Products</b></Link>
+                        <Link className="nav-link active" to="/account"><b className="btn-primary">My Account</b></Link>
+                        <Link className="nav-link active" to="/cart"><b className="btn-primary">Cart</b></Link>
                         {isAdmin ? <Link className="nav-link active" style={{ color: 'orangered' }} to="/admin">
-                                        <b className="shadow">
+                                        <b className="btn-danger">
                                             Admin Page
                                         </b>
                                     </Link> : null}
-                        {(!token ? <Link className="nav-link active" to="/login"><b className="shadow">Log In</b></Link> : 
+                        {(!token ? <Link className="nav-link active" to="/login"><b className="btn-primary">Log In</b></Link> : 
                             <Link className="nav-link active" to="/login" onClick={(event) => {
                                 const activeOrderId = localStorage.getItem("ActiveOrderId")
                                 if(activeOrderId){
@@ -34,7 +34,7 @@ const NavBar = ({token,
                                 setToken("");
                                 setIsAdmin(false);
                                 setUser(null);
-                        }}><b className="shadow">Log Out</b></Link>)}
+                        }}><b className="btn-primary">Log Out</b></Link>)}
                     </div>
                 </div>
             </div>

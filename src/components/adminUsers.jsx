@@ -30,22 +30,10 @@ const AdminUsers = ({history}) => {
                     GO BACK
                 </Link>
                 <br />
-                <div className='d-flex justify-content-between p-3 w-100'>
-                <div className="">
-                        <img src="https://www.computerhope.com/issues/pictures/users.png"
-                            style={{width: 100, height: 75}}
-                            alt="All Users" />
-                    </div>
-                    <div className="">
-                        <img src="https://store-images.s-microsoft.com/image/apps.25871.53baf1fd-a88b-421e-96ea-18e584d3df32.2263e8ca-1f9f-4991-8937-d1c42f79ccc3.2fed0e10-4552-446e-b131-5cabd645b924.png"
-                            style={{width: 450, height: 175}}
-                            alt="All Users" />
-                    </div>
-                    <div className="">
-                        <img src="https://cleanspeak.com/images/blog/User-Mngmt.png"
-                            style={{width: 100, height: 125}}
-                            alt="All Users" />
-                    </div>
+                <div className="title shadow">
+                    <h1 className="centered">
+                        <b>ALL REGISTERED USERS</b>
+                    </h1>
                 </div>
                 <div id="product" className="container centered">
                     

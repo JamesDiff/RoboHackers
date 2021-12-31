@@ -2,8 +2,7 @@ const { urlencoded } = require('express');
 const express = require('express');
 const ordersRouter = express.Router();
 
-
-const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder } = require('../db');
+const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder, deleteLineItem } = require('../db');
 
 //get all orders
 ordersRouter.get('/', async(req, res, next) => {
@@ -16,8 +15,6 @@ ordersRouter.get('/', async(req, res, next) => {
       next(error)
 }
 })
-
-
 //get order by id
 ordersRouter.get('/:orderId', async(req, res, next) => {
     const orderId = req.params.orderId;
