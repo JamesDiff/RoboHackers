@@ -118,11 +118,26 @@ async function assignUserToOrder(orderId, userId){
     }
 }
 
+async function setStatusClosed(orderId){
+    try {
+        const {rows: [order] }  = await client.query(`
+            UPDATE orders
+            SET "order_status"=$2
+            WHERE id=$1
+            RETURNING *;
+        `, [orderId, "Closed"])
+    } catch (error) {
+        console.error("Error updating order", error);
+        throw error;
+    }
+}
+
 module.exports = {
     createOrder,
     getAllOrders,
     getOrdersByUserEmail,
     getOrderById,
     deleteOrder,
-    assignUserToOrder
+    assignUserToOrder,
+    setStatusClosed
 }

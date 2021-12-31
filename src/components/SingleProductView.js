@@ -33,10 +33,11 @@ async function addProductToCart(token, productId, quantity){
     }
 
     const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity);
-    console.log("Product added to cart: ", addedProduct);
 }
 
-const SingleProductView = ({token, match}) => {
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+const SingleProductView = ({token, match, history}) => {
     const productId = match.params.productId;
     const [newReviewDescription, setNewReviewDescription] = useState('');
     const [newReviewTitle, setNewReviewTitle] = useState("");
@@ -50,77 +51,42 @@ const SingleProductView = ({token, match}) => {
 
     return (
         <div className='centered w-100'>
-        <div className="d-flex justify-content-between p-3 w-100">
-            
-            <img src="https://us.123rf.com/450wm/aquir/aquir1911/aquir191100215/133345268-buy-now-grunge-stamp-with-green-band-buy-now.jpg?ver=6"
-                        style={{width: 200, height: 150}}
-                        alt="All Current Products"
-                        className="" 
-
-                    />
-            <img src="https://cdn.xxl.thumbs.canstockphoto.com/good-decision-red-rubber-stamp-over-a-white-background-drawings_csp25277634.jpg"
-                        style={{width: 300, height: 200}}
-                        alt="All Current Products"
-                        className="" 
-
-                    />
-            <img src="https://previews.123rf.com/images/vgstudio/vgstudio1304/vgstudio130400059/18917555-happy-smiling-cheerful-business-man-with-thumbs-up-gesture-isolated-over-white-background.jpg"
-                        style={{width: 300, height: 350}}
-                        alt="All Current Products"
-                        className="" 
-
-                    />
-            <img src="https://www.seekpng.com/png/detail/243-2434525_free-shipping-to-the-continental-usa-made-in.png"
-                        style={{width: 300, height: 200}}
-                        alt="All Current Products"
-                        className="" 
-
-                    />
-            <img src="https://img.favpng.com/25/13/16/child-north-bromsgrove-high-school-raise-your-kids-without-raising-your-voice-dermatitis-gps-tracking-unit-png-favpng-vsR7uv6WgBev6eKL0NzEBNURi.jpg"
-                        style={{width: 200, height: 100}}
-                        alt="All Current Products"
-                        className="" 
-
-                    />
-            
-        </div>
-        <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded"> 
-            <h1 className="card-title shadow centered"><b>{singleProduct.name}</b></h1>
-            <div className="horizGroup">
-                <div className="m-3 shadow">
-                    <img src= { singleProduct.img_url } 
-                        alt="Product Cover"
-                        style={{width: 200, height: 250}}
-                        />
-                </div>
-                <div className="w-75">
-                    <div className="form-group">
-                        <b className="shadow">Description:</b> {singleProduct.description }
+            <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded"> 
+                <h1 className="card-title shadow centered"><b>{singleProduct.name}</b></h1>
+                <div className="horizGroup">
+                    <div className="m-3">
+                        <img src= { singleProduct.img_url } alt="Product Cover" style={{width: 300, height: 400}} />
                     </div>
-                    <div className="form-group list-group-item-text">
-                        <b className="shadow">Price:</b> { singleProduct.price }
-                    </div>
-                    <div className="form-group list-group-item-text text-danger">
-                        <b className="shadow">QTY On-Hand:</b> {singleProduct.inventory_qty }
-                    </div>
-                    <div className="horizGroup">
-                        <label className="shadow">Quantity</label>
-                        <input className="m-3" type="number" id="quantity" value={quantity} min="1" max="100"
-                        onChange={(event) => setQuantity(event.target.value)} />
+                    <div className="w-75">
+                        <div className="form-group">
+                            <b className="">Description:</b> {singleProduct.description }
+                        </div>
+                        <div className="form-group list-group-item-text">
+                            <b className="">Price:</b> { singleProduct.price }
+                        </div>
+                        <div className="form-group list-group-item-text text-danger">
+                            <b className="">QTY On-Hand:</b> {singleProduct.inventory_qty }
+                        </div>
+                        <div className="horizGroup">
+                            <label className=""><b>Quantity</b></label>
+                            <input className="m-3" type="number" id="quantity" value={quantity} min="1" max="100"
+                                onChange={(event) => setQuantity(event.target.value)} />
 
-                        <button className="btn btn-primary btn-danger m-3 shadow" onClick={async(event) => {
+                            <button className="btn btn-primary btn-danger m-3 shadow" onClick={async(event) => {
                                 event.preventDefault();
-                                addProductToCart(token, singleProduct.id, quantity)
+                                addProductToCart(token, singleProduct.id, quantity);
+                                await delay(1000);
+                                history.push("/cart");
                             }}> Add to Cart
-                        </button>
-                        <Link to="/products" className='btn btn-primary m-3 shadow'>
-                            Back to Products
-                        </Link>
+                            </button>
+                            <Link to="/products" className='btn btn-primary m-3 shadow'>
+                                Back to Products
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="messages" className="centered w-100">
-                <h2><b className='shadow'>Reviews</b></h2>
+                <div id="messages" className="centered w-100">
+                    <h2><b className='shadow'>Reviews</b></h2>
                     {
                         reviews.map((review, index) => {
                             return (

@@ -3,7 +3,7 @@ const express = require('express');
 const ordersRouter = express.Router();
 
 
-const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder } = require('../db');
+const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder, deleteLineItem, setStatusClosed } = require('../db');
 
 //get all orders
 ordersRouter.get('/', async(req, res, next) => {
@@ -16,8 +16,6 @@ ordersRouter.get('/', async(req, res, next) => {
       next(error)
 }
 })
-
-
 //get order by id
 ordersRouter.get('/:orderId', async(req, res, next) => {
     const orderId = req.params.orderId;
@@ -131,6 +129,17 @@ ordersRouter.delete(`/lineitem/:lineItemId`, async (req, res, next) => {
   try{
     const deletedLineItem = await deleteLineItem (lineItemId);
     res.send(deletedLineItem);
+  } catch(error) {
+    next(error);
+  }
+})
+
+ordersRouter.post('/complete/:orderId', async (req, res, next) => {
+  const orderId = req.params.orderId;
+  console.log("Closing Order", orderId);
+  try{
+    const closedOrder = setStatusClosed(orderId)
+    res.send(closedOrder);
   } catch(error) {
     next(error);
   }
