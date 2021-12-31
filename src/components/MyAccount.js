@@ -38,7 +38,7 @@ const MyAccount = ({token}) => {
                 {myInfo.map((stuff, index) => {
                     return (
                         <div key={index} className="centered"> 
-                            <br />
+                            
                             <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <h2>Shipping address</h2>
                                     <div className="form-group list-group-item-text">
@@ -162,7 +162,9 @@ const MyAccount = ({token}) => {
 
     <div className="col">
         <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-            <h2>Order History</h2>
+            <div className="horizGroup">
+                <h2>My Order History</h2>
+            </div>
         </div>
     </div>
 
