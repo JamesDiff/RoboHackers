@@ -47,7 +47,7 @@ const AdminProducts = ({ history }) => {
                             <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <div className="form-group list-group-item card-title centered shadow">
                                     <h3 className="card card-title border-dark p-3 rounded shadow w-75 centered">
-                                        <h1 className="text-primary"><b>{ product.name}</b></h1> 
+                                        <h1 className="text-primary font-bangers"><b>{ product.name}</b></h1> 
                                     </h3>
                                 </div>
                                 <div className="horizGroup">

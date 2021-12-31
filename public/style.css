@@ -57,3 +57,18 @@ img {
     font-family: 'Amatic SC', cursive;
     font-size: 3em;
 }
+
+.font-bangers {
+    font-family: 'Bangers', cursive;
+    font-size: 50px;
+}
+.font-big {
+    font-size: 60px;
+}
+
+.font-lora {
+    font-family: 'Lora', serif;
+
+    font-size: 60px;
+
+}
