@@ -24,23 +24,26 @@ const AdminUsers = ({history}) => {
         fetchAllUsers();
     }, []);
 
-    return (<div id="product-box" className="form-group centered w-75">
+    return (<div id="product-box" className="form-group w-100">
                 <br />
                 <Link to="/admin" className='btn btn-primary btn-danger m-3'>
                     GO BACK
                 </Link>
                 <br />
-                <div id="product" className="container">
-                    <h1 className="text-center">
-                        <b style={{ color: 'dodgerblue' }}>*** ALL REGISTERED USERS ***</b>
+                <div className="title shadow">
+                    <h1 className="centered">
+                        <b>ALL REGISTERED USERS</b>
                     </h1>
+                </div>
+                <div id="product" className="container centered">
+                    
                     <br />
                     {users.map((user, index) => {
             
                         return (
                             
-                            <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-                                <div className="form-group list-group-item-info card-title centered">
+                            <div key={index} className="card w-50 p-3 border-dark m-3 shadow bg-body rounded">
+                                <div className="form-group list-group-item card-title centered shadow">
                                     <h3 className="card-title">
                                             <b>{ user.firstname + " " + user.lastname}</b> 
                                     </h3>
@@ -48,31 +51,31 @@ const AdminUsers = ({history}) => {
                                 <div className="horizGroup">
                                     <div className="w-75">
                                         {(user.is_admin === true) ? <div className="form-group list-group-item-text text-danger">
-                                            <b>*** ADMIN ***</b>
+                                            <b className="shadow">*** ADMIN ***</b>
                                         </div> : null}
                                         <div className="form-group">
-                                            <b>ID #</b>{user.id }
+                                            <b className="shadow">ID #</b>{user.id }
                                         </div>
                                         <div className="form-group">
-                                            <b>Email:</b> {user.email }
+                                            <b className="shadow">Email:</b> {user.email }
                                         </div>
                                         <div className="form-group">
-                                            <b>Street:</b> {user.street }
+                                            <b className="shadow">Street:</b> {user.street }
                                         </div>
                                         <div className="form-group">
-                                            <b>City:</b> {user.city }
+                                            <b className="shadow">City:</b> {user.city }
                                         </div>
                                         <div className="form-group">
-                                            <b>State:</b> {user.state }
+                                            <b className="shadow">State:</b> {user.state }
                                         </div>
                                         <div className="form-group">
-                                            <b>Zipcode:</b> {user.zip }
+                                            <b className="shadow">Zipcode:</b> {user.zip }
                                         </div>
                                         <div className="form-group">
-                                            <b>Phone:</b> {user.phone }
+                                            <b className="shadow">Phone:</b> {user.phone }
                                         </div>
                                         <br />
-                                        <div className="form-group">
+                                        <div className="form-group centered">
                                             <button 
                                                 onClick={async (event) => {
                                                     
@@ -88,7 +91,7 @@ const AdminUsers = ({history}) => {
                                                 }
                                                 }} 
                                     
-                                                type="submit" className="btn btn-primary btn-danger m-3">DELETE</button>
+                                                type="submit" className="btn btn-primary btn-danger m-3 shadow w-50">DELETE</button>
                                         </div>
                                     </div>
                                 </div>

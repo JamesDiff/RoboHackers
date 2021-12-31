@@ -2,9 +2,20 @@ const { urlencoded } = require('express');
 const express = require('express');
 const ordersRouter = express.Router();
 
-const { createOrder, getOrderById, getProductById, addProductToOrder } = require('../db');
 
+const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder, deleteLineItem, setStatusClosed } = require('../db');
 
+//get all orders
+ordersRouter.get('/', async(req, res, next) => {
+  try{
+      const orders = await getAllOrders();
+      console.log("got orders")
+      res.send(orders)
+
+  } catch(error) {
+      next(error)
+}
+})
 //get order by id
 ordersRouter.get('/:orderId', async(req, res, next) => {
     const orderId = req.params.orderId;
@@ -17,7 +28,6 @@ ordersRouter.get('/:orderId', async(req, res, next) => {
             message: "This order doesn't exist"
         });
       }
-
       const orderToGet = await getOrderById(orderId); 
       res.send(orderToGet);
 
@@ -101,17 +111,35 @@ ordersRouter.patch ('/orders/:orderId', async(req, res, next) => {
 })
 
 ordersRouter.delete('/:orderId', async (req, res, next) => { 
-  const productId = req.params.orderId;
-  const isAdmin = req.user.is_Admin;
+  const orderId = req.params.orderId;
+  
 
   try{
+      const deletedOrder = await deleteOrder(orderId);
+      res.send(deletedOrder);
+  } 
+  catch(error) {
+    next(error);
+  }
+})
 
-    if (isAdmin) {
-      const deletedProduct = await deleteProduct(productId);
-      res.send(deletedProduct);
-    } else {
-      throw new Error("You are not authorized to delete this product")
-    }
+ordersRouter.delete(`/lineitem/:lineItemId`, async (req, res, next) => {
+  const lineItemId = req.params.lineItemId;
+  console.log("Deleting line item", lineItemId)
+  try{
+    const deletedLineItem = await deleteLineItem (lineItemId);
+    res.send(deletedLineItem);
+  } catch(error) {
+    next(error);
+  }
+})
+
+ordersRouter.post('/complete/:orderId', async (req, res, next) => {
+  const orderId = req.params.orderId;
+  console.log("Closing Order", orderId);
+  try{
+    const closedOrder = setStatusClosed(orderId)
+    res.send(closedOrder);
   } catch(error) {
     next(error);
   }

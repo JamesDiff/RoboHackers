@@ -14,16 +14,23 @@ const CreateForm = ({ history }) => {
     const [imgUrl, setImgUrl] = useState("");
 
     return (
-        <div className="form-container">
+        <div className="form-group w-100">
             <br />
-                <Link to="/admin" className='btn btn-primary btn-danger m-3'>
+                <Link to="/admin" className='btn btn-primary btn-danger m-3 shadow'>
                     GO BACK
                 </Link>
-            <br />
-          <h1 className="form-header">ADD A PRODUCT</h1>
+            <div className='form-group centered'>
+                <div className="centered">
+                    <img src="https://www.newswire.com/blog/wp-content/uploads/2018/03/newproduct.png"
+                        style={{width: 600, height: 200}}
+                        alt="New Product"
+                        className='text-danger shadow-lg p-3 mb-5 bg-white rounded' />
+                </div>
+            </div>
+            
           <div>
             <form 
-                className="centered m-3 w-50" 
+                className="centered m-3 w-100" 
                 onSubmit={async (event) => {
                 event.preventDefault();
                 try {
@@ -36,12 +43,12 @@ const CreateForm = ({ history }) => {
                 }
             }}>
 
-                <div className="form-group w-75">
-                    <label>Product Name</label>
+                <div className="form-group w-50">
+                    <label className='shadow'><b>Product Name</b></label>
                     <br></br>
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control shadow"
                         placeholder="Product name..."
                         required
                         onChange={(event) => setName(event.target.value)}
@@ -49,12 +56,12 @@ const CreateForm = ({ history }) => {
                     <br></br>
                 </div>
 
-                <div className="form-group w-75">
-                    <label>Description</label>
+                <div className="form-group w-50">
+                    <label className='shadow'><b>Description</b></label>
                     <br></br>
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control shadow"
                         placeholder="Description..."
                         required
                         onChange={(event) => setDescription(event.target.value)}
@@ -62,12 +69,12 @@ const CreateForm = ({ history }) => {
                     <br></br>
                 </div>
 
-                <div className="form-group w-75">
-                    <label>Price</label>
+                <div className="form-group w-50">
+                    <label className='shadow'><b>Price</b></label>
                     <br></br>
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control shadow"
                         placeholder="Price..."
                         required
                         onChange={(event) => setPrice(event.target.value)}
@@ -75,12 +82,12 @@ const CreateForm = ({ history }) => {
                     <br></br>
                 </div>
 
-                <div className="form-group w-75">
-                    <label>Quantity In Inventory</label>
+                <div className="form-group w-50">
+                    <label className='shadow'><b>Quantity In Inventory</b></label>
                     <br></br>
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control shadow"
                         placeholder="Inventory quantity..."
                         required
                         onChange={(event) => setInvQty(event.target.value)}
@@ -88,12 +95,12 @@ const CreateForm = ({ history }) => {
                     <br></br>
                 </div>
 
-                <div className="form-group w-75">
-                    <label>Image URL</label>
+                <div className="form-group w-50">
+                    <label className='shadow'><b>Image URL</b></label>
                     <br></br>
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control shadow"
                         placeholder="Image URL..."
                         required
                         onChange={(event) => setImgUrl(event.target.value)}
@@ -101,7 +108,7 @@ const CreateForm = ({ history }) => {
                     <br></br>
                 </div>
     
-                <button className="btn btn-primary btn-dark btn-lg btn-block centered w-50" 
+                <button className="btn btn-primary btn-lg btn-block centered w-25 shadow" 
                         type="submit">
                     Add Product
                 </button>

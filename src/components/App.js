@@ -11,21 +11,24 @@ import {
   AdminProducts,
   AdminUsers,
   AdminUpdate,
+  AdminOrders,
   Cart,
-  CreateForm
+  CreateForm,
+  MyAccount
  } from '../components';
 
 const App = () => {
   
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState({});
-  const [isAdmin, setIsAdmin] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("token"));
 
 
   // As soon as page hits we will grab the current logged in users token and set it on state.
   useEffect(() => {
 
     const storedToken = localStorage.getItem("token");
+    console.log("STORED TOKEN FROM APP", storedToken)
     const currentUser = localStorage.getItem("user");
     const admin = localStorage.getItem("isAdmin");
     if (storedToken) {
@@ -46,12 +49,12 @@ const App = () => {
         <Router>
           <NavBar token={token} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setUser={setUser} />
           {/* <Route path="/" render={(routeProps) => <App />} /> */}
-          <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
+          <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken}
+                                                              setUser={setUser}
+                                                              setIsAdmin={setIsAdmin} />} />
           <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} 
                                                               setUser={setUser} 
-                                                              setIsAdmin={setIsAdmin} 
-
-                                                              />} />
+                                                              setIsAdmin={setIsAdmin} />} />
           {/* <Route path="/users/:userId" render={(routeProps) => <UserPage {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/users/:userId/update" render={(routeProps) => <UpdateUser {...routeProps} token={token} user={user} setUser={setUser} />} /> */}
           {/* <Route path="/users/:userId/orders" render={(routeProps) => <UserOrders {...routeProps} token={token} user={user} />} /> */}
@@ -67,6 +70,8 @@ const App = () => {
           <Route path="/update/:productId" render={(routeProps) => <AdminUpdate {...routeProps} />} />
           <Route path="/admin-products" render={(routeProps) => <AdminProducts {...routeProps} />} />
           <Route path="/admin-users" render={(routeProps) => <AdminUsers {...routeProps} />} />
+          <Route path="/admin-orders" render={(routeProps) => <AdminOrders {...routeProps} />} />
+          <Route path ="/account" render={(routeProps) => <MyAccount {...routeProps} token={token} />} />
 
         </Router>
       </>

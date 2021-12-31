@@ -20,15 +20,25 @@ const Login = ({ setToken,
             onSubmit={(event) => {
                 event.preventDefault();
                     console.log(email, password);
+                    const orderId = localStorage.getItem("ActiveOrderId");
                     loginUser(email, password, setToken, 
                     setUser, 
-                    setIsAdmin
+                    setIsAdmin, orderId
                     );
                     history.push("/products");
             }
         }>
+            <br />
+            <div className='form-group centered'>
+                    <div className="">
+                        <img src="https://ak.picdn.net/shutterstock/videos/1922917/thumb/1.jpg"
+                            style={{width: 500, height: 200}}
+                            alt="Login"
+                            className="" />
+                    </div>
+                </div>
             <div className="form-group mb-3">
-                    <label>Email</label>
+                    <label><h5><b className="shadow">Email</b></h5></label>
                     <input 
                         onChange={({target: {value}}) => setEmail(value)} 
                         type="text" 
@@ -39,7 +49,7 @@ const Login = ({ setToken,
             </div>
 
             <div className="form-group mb-3">
-                    <label>Password</label>
+                    <label><h5><b className="shadow">Password</b></h5></label>
                     <input 
                         onChange={({target: {value}}) => setPassword(value)} 
                         type="password" 
@@ -49,7 +59,7 @@ const Login = ({ setToken,
                     />
             </div>
 
-            <button className="btn btn-primary btn-dark btn-lg btn-block"
+            <button className="btn btn-primary btn-lg btn-block"
                 type="submit">
                     Login
             </button>
@@ -57,7 +67,7 @@ const Login = ({ setToken,
                 {(match.url === "/register" ?
                     <Link to="/login">Already a user? Login Here! </Link> 
                     :
-                    <Link to="/register">Not a User? Register Here! </Link>
+                    <Link to="/register"><b className="shadow">Not a User? Register Here!</b></Link>
                 )}
             </div>
         </form>

@@ -33,10 +33,11 @@ async function addProductToCart(token, productId, quantity){
     }
 
     const addedProduct = await addProductToOrder(token, activeOrderId, productId, quantity);
-    console.log("Product added to cart: ", addedProduct);
 }
 
-const SingleProductView = ({token, match}) => {
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+const SingleProductView = ({token, match, history}) => {
     const productId = match.params.productId;
     const [newReviewDescription, setNewReviewDescription] = useState('');
     const [newReviewTitle, setNewReviewTitle] = useState("");
@@ -49,46 +50,49 @@ const SingleProductView = ({token, match}) => {
     }, [productId, setSingleProduct])
 
     return (
-        <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded"> 
-            <h3 className="card-title">{singleProduct.name}</h3>
-            <div className="horizGroup">
-                <div className="m-3">
-                    <img src= { singleProduct.img_url } alt="Product Cover"/>
-                </div>
-                <div className="w-75">
-                    <div className="form-group">
-                        <b>Description:</b> {singleProduct.description }
+        <div className='centered w-100'>
+            <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded"> 
+                <h1 className="card-title shadow centered"><b>{singleProduct.name}</b></h1>
+                <div className="horizGroup">
+                    <div className="m-3">
+                        <img src= { singleProduct.img_url } alt="Product Cover" style={{width: 300, height: 400}} />
                     </div>
-                    <div className="form-group list-group-item-text">
-                        <b>Price:</b> { singleProduct.price }
-                    </div>
-                    <div className="form-group list-group-item-text text-danger">
-                        <b>QTY On-Hand:</b> {singleProduct.inventory_qty }
-                    </div>
-                    <div className="horizGroup">
-                        <label>Quantity</label>
-                        <input className="m-3" type="number" id="quantity" value={quantity} min="1" max="100"
-                        onChange={(event) => setQuantity(event.target.value)} />
+                    <div className="w-75">
+                        <div className="form-group">
+                            <b className="">Description:</b> {singleProduct.description }
+                        </div>
+                        <div className="form-group list-group-item-text">
+                            <b className="">Price:</b> { singleProduct.price }
+                        </div>
+                        <div className="form-group list-group-item-text text-danger">
+                            <b className="">QTY On-Hand:</b> {singleProduct.inventory_qty }
+                        </div>
+                        <div className="horizGroup">
+                            <label className=""><b>Quantity</b></label>
+                            <input className="m-3" type="number" id="quantity" value={quantity} min="1" max="100"
+                                onChange={(event) => setQuantity(event.target.value)} />
 
-                        <button className="btn btn-primary btn-danger m-3" onClick={async(event) => {
+                            <button className="btn btn-primary btn-danger m-3 shadow" onClick={async(event) => {
                                 event.preventDefault();
-                                addProductToCart(token, singleProduct.id, quantity)
+                                addProductToCart(token, singleProduct.id, quantity);
+                                await delay(1000);
+                                history.push("/cart");
                             }}> Add to Cart
-                        </button>
-                        <Link to="/products" className='btn btn-primary m-3'>
-                            Back to Products
-                        </Link>
+                            </button>
+                            <Link to="/products" className='btn btn-primary m-3 shadow'>
+                                Back to Products
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="messages" className="centered w-100">
-                <h2>Reviews</h2>
+                <div id="messages" className="centered w-100">
+                    <h2><b className='shadow'>Reviews</b></h2>
                     {
                         reviews.map((review, index) => {
                             return (
                                 <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                     <ul className="list-group list-group-flush">
-                                        <li className="list-group-item"><h3>Post: {review.title}</h3></li>
+                                        <li className="list-group-item"><h3><b>Post: </b> {review.title}</h3></li>
                                         <li className="list-group-item">
                                             <b>From:</b> {review.firstname} {review.lastname}</li>
                                         <li className="list-group-item">
@@ -115,14 +119,14 @@ const SingleProductView = ({token, match}) => {
                     setNewReviewTitle("");
                 }}>
                     <div className="m-3">
-                        <label htmlFor="messageTextArea" className="form-label">Submit a Review!</label>
-                        <div className="form-group w-75">
-                            <label>Title</label>
+                        <label htmlFor="messageTextArea" className="form-label"><h5><b className='shadow'>Submit a Review!</b></h5></label>
+                        <div className="form-group w-100">
+                            <label><b>Title</b></label>
                             <br></br>
                             <input onChange={(event) => setNewReviewTitle(event.target.value)} value={newReviewTitle} type="text" className="form-control" placeholder="Description" required />
                             <br></br>
                         </div>
-                        <textarea className="form-control" id="messageTextArea" rows="3" value={newReviewDescription} onChange={({target : {value}}) => {
+                        <textarea className="form-control" id="messageTextArea" rows="3" value={newReviewDescription} placeholder="Write your review here..." onChange={({target : {value}}) => {
                             setNewReviewDescription(value);
                         }}></textarea>
                     </div>
@@ -131,7 +135,7 @@ const SingleProductView = ({token, match}) => {
             : null)}                    
             
         </div>
-
+        </div>
     )
 }
 

@@ -4,8 +4,9 @@ import React from 'react';
 
 const Title = () => {
     return  <div id="title" className="jumbotron text-center">
-                <h1 className="text-info">GraceShopper</h1>
-                <h5 className="text-warning">Developed by Team ROBOHACKERS</h5>
+                
+                <h1 className="text-info"><b>GraceShopper</b></h1>
+                <h5 className="text-warning"><b>Developed by Team ROBOHACKERS</b></h5>
                 
                 
             </div>

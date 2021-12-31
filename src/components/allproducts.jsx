@@ -2,17 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getAllProducts } from "../api";
 import { Link } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
 
 
 // This component renders the All Products page (maps out all the products in the database)
-const AllProducts = ({ history }) => {
-    // const token = props.token;
+const AllProducts = () => {
     const [products, setProducts] = useState([]);
- 
-    // const [cart, setCart] = useState([]);
-    // const [cartItemCount, setCartItemCount] = useState(1);
-    // const history = useHistory();
 
     const fetchAllProducts = async () => {
         try {
@@ -31,33 +25,40 @@ const AllProducts = ({ history }) => {
         fetchAllProducts();
     }, []);
 
-    return (<div id="product-box" className="form-group centered w-75">
-                <div id="product" className="container">
+    return (<div id="product-box" className="form-group centered w-100">
+                <br />
+                <div className="centered shadow-lg">
+                    <h1>
+                        <b>ALL PRODUCTS</b>
+                    </h1>
+                </div>
+                <br />
+                <div id="product" className="container centered">
                     {products.map((product, index) => {
             
                         return (
                             
-                            <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-                                <div className="form-group list-group-item-info card-title centered">
-                                    <h3 className="card-title">
+                            <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded centered">
+                                <div className="form-group list-group-item card-title centered shadow">
+                                    <h3 className="card card-title border-dark p-3 rounded shadow w-75 centered">
                                         <Link to={"/products/" + product.id} className="link">
-                                            <b>{ product.name}</b> 
+                                            <h1><b>{ product.name}</b></h1> 
                                         </Link>
                                     </h3>
                                 </div>
                                 <div className="horizGroup">
-                                    <div className="m-3">
-                                        <img src= { product.img_url } alt="Product Cover"/>
+                                    <div className="m-3 shadow">
+                                        <img src= { product.img_url } alt="Product Cover" style={{width: 175, height: 225}} />
                                     </div>
                                     <div className="w-75">
                                         <div className="form-group">
-                                            <b>Description:</b> {product.description }
+                                            <b className="">Description:</b> {product.description }
                                         </div>
                                         <div className="form-group list-group-item-text">
-                                            <b>Price:</b> { product.price }
+                                            <b className="">Price:</b> { product.price }
                                         </div>
                                         <div className="form-group list-group-item-text text-danger">
-                                            <b>QTY On-Hand:</b> {product.inventory_qty }
+                                            <b className="">QTY On-Hand:</b> {product.inventory_qty }
                                         </div>
                                     </div>
                                 </div>
