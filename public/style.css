@@ -42,3 +42,18 @@ img {
 .link {
     text-decoration: none;
 }
+
+.font-anton {
+    font-family: 'Anton', sans-serif;
+    font-size: 5em;
+}
+
+.font-vuj {
+    font-family: 'Vujahday Script', cursive;
+    font-size: 1;
+}
+
+.font-amatic {
+    font-family: 'Amatic SC', cursive;
+    font-size: 3em;
+}
