@@ -31,19 +31,53 @@ const MyAccount = ({token}) => {
     }, [token]);
 
     return (
-    <div className="form-group centered w-75">
-        <div className="container">
-            <h1 className="centered"><b>My Account</b></h1>
+    <div className="row">
+        <h1 className="centered"><b>My Account</b></h1>
+        <div className="col">
             <div id="user-info" className="horizGroup">
                 {myInfo.map((stuff, index) => {
                     return (
                         <div key={index} className="centered"> 
                             <br />
-                            <div>
-                                <h2>Hey, {stuff.firstname}!</h2>
-                            </div>
                             <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
                                 <h2>Shipping address</h2>
+                                    <div className="form-group list-group-item-text">
+                                        {stuff.firstname } {stuff.lastname}
+                                    </div>
+
+                                    <div className="form-group list-group-item-text">
+                                            {stuff.street}
+                                    </div>
+
+                                    <div className="form-group list-group-item-text">
+                                            {stuff.city} {stuff.state}
+                                    </div>
+                                    
+                                    <div className="form-group list-group-item-text">
+                                                        {stuff.zip} 
+                                    </div>
+
+                                    <div className="m-1 form-group list-group-item-text">
+
+                                        <button className="btn btn-primary m-1 w-30"
+                                            onClick={async ()=> {
+                                            alert('Edit button has been clicked')
+                                        }}>
+                                            Edit 
+                                        </button>
+
+                                        <button className="btn btn-primary m-1 w-30"
+                                            onClick={async ()=> {
+                                            alert('Delete button has been clicked')
+                                        }}>
+                                            Delete 
+                                        </button>
+
+                                    </div>
+
+                                    <br />
+
+                                    <h2>Billing Address</h2>
                                     <div className="form-group list-group-item-text">
                                         {stuff.firstname } {stuff.lastname}
                                     </div>
@@ -126,9 +160,16 @@ const MyAccount = ({token}) => {
 
 </div>
 
-<div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-                        <h2>Purchase History</h2>
+    <div className="col">
+        <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
+            <h2>Order History</h2>
         </div>
+    </div>
+
+{/* <div className="btn-group-vertical">
+    <button>test1</button>
+    <button>test2</button>
+</div> */}
 
 </div>
 )
