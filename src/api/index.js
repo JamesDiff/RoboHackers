@@ -73,20 +73,22 @@ export const deleteUser = async (userId) => {
   }
 }
 
-export const updateUser = async (userId, firstname, lastname, email, street, city, state, zip, phone) => {
+
+
+export const updateUser = async (userId, newfirstname, newlastname, newemail, newstreet, newcity, newstate, newzip, newphone) => {
   try {
     const { data } = await axios.patch(`/api/users/${userId}`, {
-      firstname: firstname, 
-      lastname: lastname,
-      email: email,
-      street: street, 
-      city: city, 
-      state: state, 
-      zip: zip, 
-      phone: phone
-    })
-    console.log("Updated user is: ", data)
-    return data;
+      firstname: newfirstname,
+      lastname: newlastname,
+      email: newemail,
+      street: newstreet,
+      city: newcity,
+      state: newstate,
+      zip: newzip,
+      phone: newphone
+  })
+  return data;
+    
 }
 catch (error) {
     console.error("Trouble updating user- FE-API updateUser", error)
