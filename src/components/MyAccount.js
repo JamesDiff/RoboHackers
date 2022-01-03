@@ -65,20 +65,6 @@ const MyAccount = ({token}) => {
                                                         {stuff.zip} 
                                     </div>
 
-                                    <div className="m-1 form-group list-group-item-text">
-                                        <Link to="/EditUser">
-                                            <button className="btn btn-primary m-1 w-30">
-                                                Edit 
-                                            </button>
-                                        </Link>
-                                        <button className="btn btn-primary m-1 w-30"
-                                            onClick={async ()=> {
-                                            alert('Delete button has been clicked')
-                                        }}>
-                                            Delete 
-                                        </button>
-
-                                    </div>
 
                                     <br />
 
@@ -99,24 +85,10 @@ const MyAccount = ({token}) => {
                                                         {stuff.zip} 
                                     </div>
 
-                                    <div className="m-1 form-group list-group-item-text">
-
-                                        <Link to="/EditUser">
-                                            <button className="btn btn-primary m-1 w-30">
-                                                Edit 
-                                            </button>
-                                        </Link>
-
-                                        <button className="btn btn-primary m-1 w-30"
-                                            onClick={async ()=> {
-                                            alert('Delete button has been clicked')
-                                        }}>
-                                            Delete 
-                                        </button>
-
-                                    </div>
+                                    
 
                                     <br />
+
                                     <div id="contact-info">
                                     {myInfo.map((stuff, index) => {
                                         return (
@@ -131,6 +103,8 @@ const MyAccount = ({token}) => {
                                                         {stuff.email} 
                                                     </div>
                                             </div>
+
+                                            <br />
 
                                             <div className="m-1 form-group list-group-item-text">
                                                 <Link to="/EditUser">
