@@ -132,6 +132,25 @@ async function setStatusClosed(orderId){
     }
 }
 
+async function deleteOrderByUser(userId) {
+
+    try {
+        
+        const {rows: [order]} = await client.query(`
+            DELETE FROM orders 
+            WHERE "userId"=$1
+            RETURNING *;
+        `, [userId]);
+
+        return (order);
+      }
+
+      catch (error) {
+        console.error('ERROR removing order from database!!! BE - deleteOrderByUser');
+        throw error;
+    }
+}
+
 module.exports = {
     createOrder,
     getAllOrders,
@@ -139,5 +158,6 @@ module.exports = {
     getOrderById,
     deleteOrder,
     assignUserToOrder,
-    setStatusClosed
+    setStatusClosed,
+    deleteOrderByUser
 }

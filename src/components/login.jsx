@@ -29,10 +29,12 @@ const Login = ({ setToken,
             }
         }>
             <br />
+            <br />
+            <br />
             <div className='form-group centered'>
                     <div className="">
-                        <img src="https://ak.picdn.net/shutterstock/videos/1922917/thumb/1.jpg"
-                            style={{width: 500, height: 200}}
+                        <img src="https://emb.gov.ph/wp-content/uploads/2017/02/login-button-png-18028.png"
+                            style={{width: 300, height: 50}}
                             alt="Login"
                             className="" />
                     </div>
