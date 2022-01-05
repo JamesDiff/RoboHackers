@@ -18,6 +18,8 @@ import {
   EditUser
  } from '../components';
 
+ import Home from './home';
+
 const App = () => {
   
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -48,7 +50,6 @@ const App = () => {
           
         <Router>
           <NavBar token={token} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setUser={setUser} />
-          <Route exact path="/" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken}
                                                               setUser={setUser}
                                                               setIsAdmin={setIsAdmin} />} />
@@ -72,7 +73,10 @@ const App = () => {
           <Route path="/admin-users" render={(routeProps) => <AdminUsers {...routeProps} />} />
           <Route path="/admin-orders" render={(routeProps) => <AdminOrders {...routeProps} />} />
           <Route path ="/account" render={(routeProps) => <MyAccount {...routeProps} token={token} />} />
+          <Route path="/" exact render={(routeProps) => <Home {...routeProps} />} />
+
           <Route path="/editUser" render={(routeProps) => <EditUser {...routeProps} token={token} user={user} />} />
+
 
         </Router>
       </>
