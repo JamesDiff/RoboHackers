@@ -73,6 +73,28 @@ export const deleteUser = async (userId) => {
   }
 }
 
+
+
+export const updateUser = async (userId, newfirstname, newlastname, newemail, newstreet, newcity, newstate, newzip, newphone) => {
+  try {
+    const { data } = await axios.patch(`/api/users/${userId}`, {
+      firstname: newfirstname,
+      lastname: newlastname,
+      email: newemail,
+      street: newstreet,
+      city: newcity,
+      state: newstate,
+      zip: newzip,
+      phone: newphone
+  })
+  return data;
+    
+}
+catch (error) {
+    console.error("Trouble updating user- FE-API updateUser", error)
+}
+}
+
 // This function registers a new user
 export const registerUser = async (setToken, setUser, setIsAdmin, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
 

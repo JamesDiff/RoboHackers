@@ -14,7 +14,8 @@ import {
   AdminOrders,
   Cart,
   CreateForm,
-  MyAccount
+  MyAccount,
+  EditUser
  } from '../components';
 
 const App = () => {
@@ -35,7 +36,6 @@ const App = () => {
         setToken(storedToken);
         setUser(currentUser);
         setIsAdmin(admin);
-
     }
   }, [token, user, isAdmin]);
 
@@ -72,6 +72,7 @@ const App = () => {
           <Route path="/admin-users" render={(routeProps) => <AdminUsers {...routeProps} />} />
           <Route path="/admin-orders" render={(routeProps) => <AdminOrders {...routeProps} />} />
           <Route path ="/account" render={(routeProps) => <MyAccount {...routeProps} token={token} />} />
+          <Route path="/editUser" render={(routeProps) => <EditUser {...routeProps} token={token} user={user} />} />
 
         </Router>
       </>

@@ -7,7 +7,7 @@ const { JWT_SECRET } = process.env;
 
 const usersRouter = express.Router();
 
-const { createUser, getUserByEmail, getUser, getAllUsers, deleteUserById, saveActiveOrderId } = require("../db/users");
+const { createUser, getUserByEmail, getUser, getAllUsers, deleteUserById, saveActiveOrderId, updateUser } = require("../db/users");
 const { deleteOrderByUser } =require('../db/orders');
 
 
@@ -139,6 +139,33 @@ usersRouter.get('/', async (req, res) => {
       next(error);
     }
 })
+
+
+//update/patch
+usersRouter.patch ('/:userId', async(req, res, next) => {
+    const id = req.params.userId;
+    const {firstname, lastname, email, street, city, state, zip, phone} = req.body
+    const updateFields = {
+                        
+                        firstname,
+                        lastname,
+                        email,
+                        street,
+                        city,
+                        state,
+                        zip,
+                        phone
+   };
+     try{
+         
+             const updatedUser = await updateUser(id, updateFields);
+             res.send(updatedUser)
+     }
+     catch(error) {
+       next(error);
+     }
+ }) 
+
 
 usersRouter.post(`/saveorder/:orderId`, async (req, res, next) => {
     const userId = req.user.id;
