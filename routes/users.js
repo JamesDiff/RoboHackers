@@ -8,6 +8,7 @@ const { JWT_SECRET } = process.env;
 const usersRouter = express.Router();
 
 const { createUser, getUserByEmail, getUser, getAllUsers, deleteUserById, saveActiveOrderId, updateUser } = require("../db/users");
+const { deleteOrderByUser } =require('../db/orders');
 
 
 usersRouter.post('/register', async (request, response, next) => {
@@ -127,6 +128,8 @@ usersRouter.get('/', async (req, res) => {
     const userId = req.params.userId;
 
     try{
+        const deletedOrder = await deleteOrderByUser(userId);
+        console.log("Deleted order is: ", deletedOrder);
         const deletedReview = await deleteReviewByUser(userId);
         console.log("Deleted review is: ", deletedReview);
         const deletedUser = await deleteUserById(userId);

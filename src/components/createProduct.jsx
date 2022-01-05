@@ -21,10 +21,10 @@ const CreateForm = ({ history }) => {
                 </Link>
             <div className='form-group centered'>
                 <div className="centered">
-                    <img src="https://www.newswire.com/blog/wp-content/uploads/2018/03/newproduct.png"
+                    <img src="https://previews.123rf.com/images/roxanabalint/roxanabalint1802/roxanabalint180200072/94840117-new-product-label-or-price-tag-on-white-background-vector-illustration.jpg"
                         style={{width: 600, height: 200}}
                         alt="New Product"
-                        className='text-danger shadow-lg p-3 mb-5 bg-white rounded' />
+                        className='text-danger p-3 mb-5 bg-white rounded' />
                 </div>
             </div>
             
