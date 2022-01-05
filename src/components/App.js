@@ -48,7 +48,7 @@ const App = () => {
           
         <Router>
           <NavBar token={token} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setUser={setUser} />
-          {/* <Route path="/" render={(routeProps) => <App />} /> */}
+          <Route exact path="/" render={(routeProps) => <AllProducts {...routeProps} token={token} />} />
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken}
                                                               setUser={setUser}
                                                               setIsAdmin={setIsAdmin} />} />
