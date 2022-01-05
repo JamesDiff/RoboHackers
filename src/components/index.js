@@ -14,6 +14,7 @@ import AdminOrders from './adminOrders';
 import Cart from './Cart';
 import MyAccount from './MyAccount';
 import SingleProductView from './SingleProductView';
+import EditUser from './EditUser';
 
 
 export { default as App } from './App';
@@ -32,5 +33,6 @@ export { AllProducts,
         AdminOrders,
         Cart,
         MyAccount,
-        SingleProductView
+        SingleProductView,
+        EditUser
 }
