@@ -27,8 +27,8 @@ const AllProducts = () => {
 
     return (<div id="product-box" className="form-group centered w-100">
                 <br />
-                <div className="centered shadow-lg">
-                    <h1>
+                <div className="centered">
+                    <h1 className="font-lora text-danger shadow-lg w-50 centered">
                         <b>ALL PRODUCTS</b>
                     </h1>
                 </div>
@@ -41,7 +41,7 @@ const AllProducts = () => {
                             <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded centered">
                                 <div className="form-group list-group-item card-title centered shadow">
                                     <h3 className="card card-title border-dark p-3 rounded shadow w-75 centered">
-                                        <Link to={"/products/" + product.id} className="link">
+                                        <Link to={"/products/" + product.id} className="link font-bangers">
                                             <h1><b>{ product.name}</b></h1> 
                                         </Link>
                                     </h3>
