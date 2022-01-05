@@ -12,7 +12,7 @@ const NavBar = ({token,
             <div className="d-flex justify-content-between p-3 centered">
                 <div className="collapse navbar-collapse fs-3" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <Link className="nav-link active" aria-current="page" to="/"><b className="btn-primary">Home</b></Link>
+                        {/* <Link className="nav-link active" aria-current="page" to="/"><b className="btn-primary">Home</b></Link> */}
                         <Link className="nav-link active" to="/products"><b className="btn-primary">All Products</b></Link>
                         <Link className="nav-link active" to="/account"><b className="btn-primary">My Account</b></Link>
                         <Link className="nav-link active" to="/cart"><b className="btn-primary">Cart</b></Link>
