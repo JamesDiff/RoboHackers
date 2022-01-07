@@ -16,6 +16,13 @@
     width: 100%;
 }
 
+.horizGroupHome{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .vertGroup{
     display: flex;
     flex-direction: row;

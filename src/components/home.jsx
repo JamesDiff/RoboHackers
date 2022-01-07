@@ -33,19 +33,23 @@ const Home = () => {
                 <Link to="/login"> Already a user? Login </Link>
                 <Link to="/products"> Browse our products </Link>
                 <br></br>
-                {/*products.map((product, index) => {
+                <div className="horizGroupHome">
+                {products.map((product, index) => {
+                    let href = `products/${product.id}`
                     return (
                         <div key={index} className="card w-60 p-3 border-dark m-3 shadow bg-body rounded centered">
-                                <div className="horizGroup">
+                               
                                     <div className="m-3 shadow">
+                                        <a href={href}>
                                         <img src= { product.img_url } alt="Product Cover" style={{width: 175, height: 225}} />
+                                        </a>
                                     </div>
-                                </div>
+                                
                                 <br></br>
                             </div>
                     )
-
-                })*/}
+                })}
+                </div>
             </div>          
         ) 
 }
