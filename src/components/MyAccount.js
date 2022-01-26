@@ -48,7 +48,7 @@ const MyAccount = ({token}) => {
                         <div key={index} className="centered"> 
                             
                             <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-                                <h2>Shipping address</h2>
+                                <h2>Shipping Address</h2>
                                     <div className="form-group list-group-item-text">
                                         {stuff.firstname } {stuff.lastname}
                                     </div>
@@ -139,16 +139,18 @@ const MyAccount = ({token}) => {
 
     <div className="col">
         <div className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
+        <Link to="/Cart">
+        <h2>My Cart</h2>
+        </Link>
+        <br />
             <div className="horizGroup">
-                <h2>My Order History</h2>
+                <h2>My Order History:</h2>
+                <h4><p>You have no order history.</p></h4>
             </div>
         </div>
     </div>
 
-{/* <div className="btn-group-vertical">
-    <button>test1</button>
-    <button>test2</button>
-</div> */}
+
 
 </div>
 )
