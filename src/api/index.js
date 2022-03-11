@@ -181,7 +181,7 @@ export const loginUser = async (email,
   
   catch (error) {
     console.error("ERROR logging in user!!! 🤦‍♂️ - FE-API loginUser");
-    throw error;
+    return "Invalid credentials. Try again";
   }
 }
 

@@ -45,11 +45,15 @@ const App = () => {
   // All of our routes are laid out for our site.
   return (
       <>
+    
+      <Router>
+
         <Title />
         <br></br>
           
-        <Router>
+        
           <NavBar token={token} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setUser={setUser} />
+          <div style={{margin: "0"}}>
           <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken}
                                                               setUser={setUser}
                                                               setIsAdmin={setIsAdmin} />} />
@@ -66,7 +70,7 @@ const App = () => {
           {/* <Route path="/orders/:orderId" render={(routeProps) => <SingleOrder {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:productId" render={(routeProps) => <Reviews {...routeProps} token={token} user={user} />} /> */}
           {/* <Route path="/reviews/:reviewId" render={(routeProps) => <SingleReview {...routeProps} token={token} user={user} />} /> */}
-          <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} /> } />
+          <Route path="/admin" render={(routeProps) => <AdminPage {...routeProps} token={token}/> } />
           <Route path="/admin-create" render={(routeProps) => <CreateForm {...routeProps} />} />
           <Route path="/update/:productId" render={(routeProps) => <AdminUpdate {...routeProps} />} />
           <Route path="/admin-products" render={(routeProps) => <AdminProducts {...routeProps} />} />
@@ -76,7 +80,7 @@ const App = () => {
           <Route path="/" exact render={(routeProps) => <Home {...routeProps} />} />
 
           <Route path="/editUser" render={(routeProps) => <EditUser {...routeProps} token={token} user={user} />} />
-
+        </div>
 
         </Router>
       </>

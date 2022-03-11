@@ -14,19 +14,28 @@ const Login = ({ setToken,
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState(false);
+
+   
 
     return(
-        <form className="m-3 w-50 position-absolute top-50 start-50 translate-middle"
-            onSubmit={(event) => {
+        <div className="d-flex w-100 justify-content-center">
+            <form className="d-flex flex-column w-75"
+            onSubmit={async (event) => {
                 event.preventDefault();
                     console.log(email, password);
                     const orderId = localStorage.getItem("ActiveOrderId");
-                    loginUser(email, password, setToken, 
+                    const loginResult = await loginUser(email, password, setToken, 
                     setUser, 
                     setIsAdmin, orderId
                     );
-                    history.push("/products");
-            }
+                    //this is probably where the conditional should go; if log in is successful, go to products. Otherwise, go to register page (or maybe display message)
+                    if(loginResult === "Invalid credentials. Try again"){
+                        setLoginError(true);
+                    } else {
+                        history.push("/products")
+                    }
+                }
         }>
             <br />
             <br />
@@ -72,7 +81,11 @@ const Login = ({ setToken,
                     <Link to="/register"><b className="shadow">Not a User? Register Here!</b></Link>
                 )}
             </div>
+            {loginError && <p>Invalid credentials. Try again or create an account</p>}
         </form>
+
+        </div>
+        
     )
 }
 

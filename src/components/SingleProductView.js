@@ -44,6 +44,8 @@ const SingleProductView = ({token, match, history}) => {
     const [singleProduct, setSingleProduct] = useState('');
     const [reviews, setReviews] = useState([]);
     const [quantity, setQuantity] = useState(1);
+    const [showForm, setShowForm] = useState(false);
+    const [showReviews, setShowReviews] = useState(false);
 
     useEffect(() => {
             fetchSingleProduct(productId, setSingleProduct, setReviews)
@@ -85,25 +87,38 @@ const SingleProductView = ({token, match, history}) => {
                         </div>
                     </div>
                 </div>
-                <div id="messages" className="centered w-100">
+
+                {token && (
+                !showReviews? <button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowReviews(true)}>
+                See Reviews
+            </button> : <button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowReviews(false)}>X</button>
+            )}
+                {( showReviews ? <div id="messages" className="centered w-100">
                     <h2><b className='shadow'>Reviews</b></h2>
-                    {
-                        reviews.map((review, index) => {
-                            return (
-                                <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-                                    <ul className="list-group list-group-flush">
-                                        <li className="list-group-item"><h3><b>Post: </b> {review.title}</h3></li>
-                                        <li className="list-group-item">
-                                            <b>From:</b> {review.firstname} {review.lastname}</li>
-                                        <li className="list-group-item">
-                                            <b>Message:</b> {review.description}</li>
-                                    </ul>
-                                </div>
-                            )
+                {
+                    reviews.map((review, index) => {
+                        return (
+                            <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
+                                <ul className="list-group list-group-flush">
+                                    <li className="list-group-item"><h3><b>Post: </b> {review.title}</h3></li>
+                                    <li className="list-group-item">
+                                        <b>From:</b> {review.firstname} {review.lastname}</li>
+                                    <li className="list-group-item">
+                                        <b>Review:</b> {review.description}</li>
+                                </ul>
+                            </div>
+                        )
                     })
-                }
-            </div>   
-            {(token ?
+                } </div> : null
+                )}
+
+                
+            {token && (
+                !showForm ? <button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowForm(true)}>
+                Add a Review
+            </button> : <button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowForm(false)}>X</button>
+            )}
+            {(token && showForm ?
                 <form onSubmit={(event) => {
                     event.preventDefault();
                     
@@ -130,7 +145,7 @@ const SingleProductView = ({token, match, history}) => {
                             setNewReviewDescription(value);
                         }}></textarea>
                     </div>
-                    <button type="submit" className="btn btn-outline-primary w-25 m-3">Send Message</button>
+                    <button type="submit" className="btn btn-outline-primary w-25 m-3">Submit Review</button>
                 </form>
             : null)}                    
             
