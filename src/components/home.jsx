@@ -25,10 +25,10 @@ const Home = () => {
 
         return (
             <div className="centered m-3">
-                <h2> Welcome to DVDungeon </h2>
+                {/* <h2> Welcome to DVDungeon </h2>
                 <h4> A site developed by Team ROBOHACKERS: </h4>
                 <h5> Spencer, Derek, Claire, James </h5>
-                <> </>
+                <> </> */}
                 <Link to="/register"> New to the site? Register </Link>
                 <Link to="/login"> Already a user? Login </Link>
                 <Link to="/products"> Browse our products </Link>
@@ -39,7 +39,7 @@ const Home = () => {
                     return (
                         <div key={index} className="card p-3 border-dark m-3 shadow bg-body rounded col-sm-12 col-md-6 col-lg-4 col-xl-3 product-card">
                                
-                                    <div className="m-3 shadow">
+                                    <div className="m-3">
                                         <Link to={href}>  
                                         <img src= { product.img_url } alt="Product Cover" style={{width: 175, height: 225}} />
                                         </Link>

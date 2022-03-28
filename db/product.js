@@ -21,6 +21,7 @@ async function createProduct(product) {
     }
 }
 
+
 async function getAllProducts() {
     try {
         const { rows } = await client.query(`
@@ -78,6 +79,20 @@ async function updateProduct (id, fields) {
     }
 }
 
+async function updatedInventoryQuantity(updatedQuantity, productId) {
+    console.log ("TWO PARAMATERS, ", updatedQuantity, productId);
+    try{
+       const { rows: [product] } = await client.query(
+        `UPDATE products 
+        SET inventory_qty=${updatedQuantity}
+        WHERE id= ${productId}`)
+        return product;
+        } catch(error){
+        console.error("Error updating quantity");
+        throw error;
+    }
+}
+
 
 async function deleteProduct(id) {
    
@@ -101,5 +116,6 @@ module.exports = {
     getAllProducts,
     getProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    updatedInventoryQuantity
 }

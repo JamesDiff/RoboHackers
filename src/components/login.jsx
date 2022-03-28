@@ -49,7 +49,7 @@ const Login = ({ setToken,
                     </div>
                 </div>
             <div className="form-group mb-3">
-                    <label><h5><b className="shadow">Email</b></h5></label>
+                    <label><h5><b >Email</b></h5></label>
                     <input 
                         onChange={({target: {value}}) => setEmail(value)} 
                         type="text" 
@@ -60,7 +60,7 @@ const Login = ({ setToken,
             </div>
 
             <div className="form-group mb-3">
-                    <label><h5><b className="shadow">Password</b></h5></label>
+                    <label><h5><b >Password</b></h5></label>
                     <input 
                         onChange={({target: {value}}) => setPassword(value)} 
                         type="password" 
@@ -78,7 +78,7 @@ const Login = ({ setToken,
                 {(match.url === "/register" ?
                     <Link to="/login">Already a user? Login Here! </Link> 
                     :
-                    <Link to="/register"><b className="shadow">Not a User? Register Here!</b></Link>
+                    <Link to="/register"><b >Not a User? Register Here!</b></Link>
                 )}
             </div>
             {loginError && <p>Invalid credentials. Try again or create an account</p>}

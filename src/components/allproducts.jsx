@@ -4,18 +4,20 @@ import { getAllProducts } from "../api";
 import { Link } from 'react-router-dom';
 import { Card, Row, Col } from 'react-bootstrap';
 
-// import Search from "./Search";
+import Search from "./Search";
 
 
 // This component renders the All Products page (maps out all the products in the database)
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
     const [filteredResults, setFilteredResults] = useState([]);
+    
 
     const fetchAllProducts = async () => {
         try {
             const list = await getAllProducts();
             setProducts(list.data);
+            setFilteredResults(list.data);
         }
         catch (error) {
             console.error("ERROR fetching all products");
@@ -30,28 +32,29 @@ const AllProducts = () => {
     }, []);
 
     return (
-        
+        <>
+        {<Search products={products} filteredResults={filteredResults} setFilteredResults={setFilteredResults}/>}
+     
         <div id="product-box" className="form-group centered w-100">
-            {/* {<Search products={products} filteredResults={filteredResults} setFilteredResults={setFilteredResults}/>} */}
 
-        <br />
         {/* <div className="centered">
             <h1 className="font-lora text-danger shadow-lg w-50 centered">
                 <b>ALL PRODUCTS</b>
             </h1>
         </div> */}
-        <br />
+        
         <Row id="product" >
-            {products.map((product, index) => {
+            {filteredResults.map((product, index) => {
             let href = `/products/${product.id}`
 
+            
                 return (
 
                     <div key={index} className="card p-3 border-dark m-3 shadow bg-body rounded col-sm-12 col-md-6 col-lg-4 col-xl-3 product-card">
                                
-                                    <div className="m-3 shadow">
+                                    <div className="m-3">
                                         <Link to={href}>  
-                                        <img src= { product.img_url } alt="Product Cover" style={{width: 175, height: 225}} />
+                                        <img src= { product.img_url } alt="Product Cover" style={{width: 170, height: 220}} />
                                         </Link>
                                         
                                     </div>
@@ -59,7 +62,7 @@ const AllProducts = () => {
                                         <b className="">Price:</b> { product.price }
                                     </div>
                                     <div className="form-group list-group-item-text text-danger">
-                                        <b className="">QTY On-Hand:</b> {product.inventory_qty }
+                                        <b className="">QTY On-Hand:</b> {product.inventory_qty > 0 ? product.inventory_qty : "Sold Out"}
                                     </div>
                                 <br></br>
                     </div>
@@ -123,8 +126,9 @@ const AllProducts = () => {
                 )
             })}
         </Row>
-    </div>)
-
+    </div>
+      </>
+    )
 }
 
 export default AllProducts;

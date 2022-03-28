@@ -41,7 +41,7 @@ return (
                     {isAdmin && <Nav.Link><Link to="/admin">Admin</Link></Nav.Link>}
                     {!token ? <Nav.Link><Link to="/login">Login</Link></Nav.Link> : <Nav.Link onClick = {handleClick}>Logout</Nav.Link>}
 
-                    <Form className="d-flex">
+                    {/* <Form className="d-flex">
                         <FormControl
                             type="search"
                             placeholder="Search"
@@ -49,7 +49,7 @@ return (
                             aria-label="Search"
                         />
                         <Button variant="outline-success">Search</Button>
-                    </Form>
+                    </Form> */}
 
                 </Nav>
 

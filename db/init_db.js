@@ -53,7 +53,14 @@ async function createTables() {
           zip VARCHAR(255) NOT NULL,
           phone VARCHAR(255) NOT NULL, 
           is_admin BOOLEAN DEFAULT false,
-          activeOrderId VARCHAR(255)
+          activeOrderId VARCHAR(255),
+          billingfirstname VARCHAR(255) NULL,
+          billinglastname VARCHAR(255) NULL,
+          billingstreet VARCHAR(255) NULL,
+          billingcity VARCHAR(255) NULL,
+          billingstate VARCHAR(255) NULL,
+          billingzip VARCHAR(255) NULL
+         
         );
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
@@ -75,6 +82,8 @@ async function createTables() {
           description VARCHAR(255) NOT NULL
         );
     `);
+
+  
 
     console.log("Finished Creating tables");
   }catch (error) {
@@ -244,7 +253,7 @@ async function createInitialUsers(){
         lastname: "Diffee",
         password: "james123",
         email: "james.j.diffee@gmail.com",
-        street: "1234 Fake Street Boulder, CO 80305",
+        street: "1234 Fake Street",
         city: "Boulder", 
         state: "CO",
         zip: "80305",

@@ -9,14 +9,17 @@ async function createUser({ firstname, lastname, password, email, street, city, 
             isAdmin = false;
         }
         const {rows: [user]} = await client.query(`
-            INSERT INTO users(firstname, lastname, password, email, street, city, state, zip, phone, is_admin)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            INSERT INTO users(firstname, lastname, password, email, street, city, state, zip, phone, is_admin, billingfirstname, billinglastname, billingstreet, billingcity, billingstate, billingzip)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
             ON CONFLICT (email) DO NOTHING
             RETURNING *;
-        `, [firstname, lastname, hashedPassword, email, street, city, state, zip, phone, isAdmin]);
+        `, [firstname, lastname, hashedPassword, email, street, city, state, zip, phone, isAdmin, firstname, lastname, street, city, state, zip]);
         if(!user){
             return null;
         }
+        
+       
+
         delete user.password;
         return user;
     } catch (error) {
@@ -27,6 +30,7 @@ async function createUser({ firstname, lastname, password, email, street, city, 
 
 async function getUser({ email, password}) {
     const user = await getUserByEmail(email);
+    console.log("GET USER (user), ", user)
     try{
         const passwordEqual = await bcrypt.compare(password, user.password);
         if(passwordEqual){
@@ -63,12 +67,14 @@ async function getUserById(id) {
 }
 
 async function getUserByEmail(email) {
+    console.log("GET USER BY EMAIL, ", email)
     try {
         const {rows: [user]} = await client.query(`
             SELECT *
             FROM users
             WHERE email=$1;
         `, [email]);
+        console.log("INSIDE GET USER BY EMAIL (user), ", user)
         if(!user){
             return null;
         }

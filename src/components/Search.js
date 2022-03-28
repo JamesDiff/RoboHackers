@@ -4,22 +4,22 @@ import React, {useState} from "react";
 //const [searchTerm, setSearchTerm] = useState('');
 
 
-export default ({setFilteredResults, posts}) => {
+export default ({setFilteredResults, products}) => {
     const [searchTerm, setSearchTerm] = useState("");
 
-    function filterPosts(posts, searchTerm){
+    function filterProducts(products, searchTerm){
         searchTerm = searchTerm.toLowerCase();
-        return posts.filter((post, index) => {
-            const myPostTitle = post.title.toLowerCase();
-            return myPostTitle.includes(searchTerm);
+        return products.filter((product, index) => {
+            const myProductName = product.name.toLowerCase();
+            return myProductName.includes(searchTerm);
 
         })
     }
 
     return (
-        <div>
+        <div className="SearchComponent">
             <h4>Search</h4>
-            <input value={searchTerm} onChange={(event) => {setSearchTerm(event.target.value); const myFilteredPosts = filterPosts(posts, event.target.value); setFilteredResults(myFilteredPosts)}} placeholder="search" />
+            <input value={searchTerm} onChange={(event) => {setSearchTerm(event.target.value); const myFilteredProducts = filterProducts(products, event.target.value); setFilteredResults(myFilteredProducts)}} placeholder="search" />
         </div>
     );
 };

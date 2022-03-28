@@ -274,13 +274,14 @@ export const updateProduct = async (productId, name, description, price, invento
 }
 
 // Submit a review
-export const submitReviewForProduct = async (token, productId, title, description) => {
+export const submitReviewForProduct = async (token, productId, title, description, stars) => {
   try {
       const { data } = await axios.post(`/api/products/${productId}/reviews`, 
         {
           productId: productId, 
           title: title, 
           description: description, 
+          stars: stars
         },
         {
           headers: {
@@ -292,6 +293,34 @@ export const submitReviewForProduct = async (token, productId, title, descriptio
   }catch (error){
     console.error("Error creating a review for a product", error);
     throw error;
+  }
+}
+
+export const deleteReview = async (token, productId, title, description, stars) => {
+
+  try {
+    const result = await axios.delete(`/api/products/${productId}/reviews`,
+      {
+        productId: productId, 
+        title: title, 
+        description: description, 
+        stars: stars
+      },
+      {
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+      }
+    );
+    console.log("Deleted review is: ", result)
+
+    return result;
+  } 
+  
+  catch (error) {
+      console.error("ERROR deleting product by id!!! 🤦‍♂️ - FE-API deleteProductById");
+      throw error;
   }
 }
 

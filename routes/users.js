@@ -64,6 +64,7 @@ usersRouter.post('/register', async (request, response, next) => {
 
 usersRouter.post('/login', async (request, response, next) => {
     const { email , password, orderId } = request.body;
+    console.log("LOGIN ROUTE, ", email, password)
     try {
         if(!email || !password) {
             throw Error({

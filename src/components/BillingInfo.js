@@ -6,7 +6,7 @@ import { registerUser } from "../api";
 // All fields are required.
 // Once the user fills out form and hits register button, their info will now be authorized and it will push them to the login page where they must login to the site.
 
-const Register = ({ setToken, setUser, setIsAdmin, history }) => {
+const Billing = ({ setToken, setUser, setIsAdmin, history }) => {
 
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
@@ -125,4 +125,4 @@ const Register = ({ setToken, setUser, setIsAdmin, history }) => {
     )
 }
 
-export default Register;
+export default Billing;

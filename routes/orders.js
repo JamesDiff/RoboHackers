@@ -3,7 +3,7 @@ const express = require('express');
 const ordersRouter = express.Router();
 
 
-const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder, deleteLineItem, setStatusClosed } = require('../db');
+const { createOrder, getOrderById, getProductById, addProductToOrder, getAllOrders, deleteOrder, deleteLineItem, setStatusClosed, updatedInventoryQuantity, getLineItemById } = require('../db');
 
 //get all orders
 ordersRouter.get('/', async(req, res, next) => {
@@ -64,7 +64,7 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
         const { orderId, productId } = req.params;
 
         const product = await getProductById(productId);
-        productPrice = product.price;
+        let productPrice = product.price;
         console.log("Adding Product to Order", orderId, productId, quantity, productPrice)
         if(!orderId){
           throw Error({
@@ -72,18 +72,17 @@ ordersRouter.post('/:orderId/products/:productId', async(req, res, next) => {
               message: "This order does not exist"
           });
         }
-
         if(!productId){
           throw Error({
               name: 'NoProduct', 
               message: "This product does not exist"
           });
         }
-            
         const newOrderProduct = await addProductToOrder( orderId, productId, productPrice, quantity );
+            let updatedInventory = product.inventory_qty - quantity;
+            await updatedInventoryQuantity(updatedInventory, productId)
             res.send(newOrderProduct)
         }
-            
     catch(error) {
         console.log(error);
         next(error);
@@ -127,6 +126,11 @@ ordersRouter.delete(`/lineitem/:lineItemId`, async (req, res, next) => {
   const lineItemId = req.params.lineItemId;
   console.log("Deleting line item", lineItemId)
   try{
+    const lineItem = await getLineItemById(lineItemId);
+    console.log("LINE ITEM, ", lineItem);
+    const product = await getProductById(lineItem[0].productId);
+    const updatedInventory = product.inventory_qty + lineItem[0].quantity;
+    await updatedInventoryQuantity(updatedInventory, lineItem[0].productId);
     const deletedLineItem = await deleteLineItem (lineItemId);
     res.send(deletedLineItem);
   } catch(error) {
