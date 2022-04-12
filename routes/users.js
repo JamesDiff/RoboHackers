@@ -167,6 +167,52 @@ usersRouter.patch ('/:userId', async(req, res, next) => {
      }
  }) 
 
+ usersRouter.patch ('/:userId/billing', async(req, res, next) => {
+    const id = req.params.userId;
+    const {billingfirstname, billinglastname,  billingstreet, billingcity, billingstate, billingzip} = req.body
+    const updateFields = {
+                        
+                        billingfirstname,
+                        billinglastname,
+                        billingstreet,
+                        billingcity,
+                        billingstate,
+                        billingzip,
+                        
+   };
+     try{
+         
+             const updatedUser = await updateUser(id, updateFields);
+             res.send(updatedUser)
+     }
+     catch(error) {
+       next(error);
+     }
+ }) 
+
+//  usersRouter.patch ('/:userId/shipping', async(req, res, next) => {
+//     const id = req.params.userId;
+//     const {shippingfirstname, shippinglastname,  shippingstreet, shippingcity, shippingstate, shippingzip} = req.body
+//     const updateFields = {
+                        
+//                         shippingfirstname,
+//                         shippinglastname,
+//                         shippingstreet,
+//                         shippingcity,
+//                         shippingstate,
+//                         shippingzip,
+                        
+//    };
+//      try{
+         
+//              const updatedUser = await updateUser(id, updateFields);
+//              res.send(updatedUser)
+//      }
+//      catch(error) {
+//        next(error);
+//      }
+//  }) 
+
 
 usersRouter.post(`/saveorder/:orderId`, async (req, res, next) => {
     const userId = req.user.id;

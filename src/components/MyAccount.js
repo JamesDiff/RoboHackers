@@ -35,7 +35,7 @@ const MyAccount = ({token}) => {
     <div className="row">
         <div id="account-box" className="form-group centered w-100">
             <br />
-            <div className="centered shadow-lg">
+            <div className="centered">
                         <h1>
                             <b>MY ACCOUNT</b>
                         </h1>

@@ -1,37 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getOrderById, removeLineItemByID, closeOrderById } from "../api";
+import { getOrderById, removeLineItemByID, closeOrderById, updateBilling } from "../api";
 import { Link } from 'react-router-dom';
 import { UpdateBilling } from './updateBilling';
 import { Form } from 'react-bootstrap';
 
 
-async function fetchActiveOrder(setOrder, setUpdatedQtys) {
-    const orderId = localStorage.getItem("ActiveOrderId");
-    if (!orderId) return {};
-
-    const order = await getOrderById(orderId, setOrder);
-
-    if (order && order.lineItems) {
-        let newQtys = [];
-        order.lineItems.forEach(lineItem => {
-            newQtys[lineItem.id] = lineItem.quantity;
-        });
-        setUpdatedQtys(newQtys);
-    }
-}
-
-async function removeLineItem(lineItemId, setOrder, setUpdatedQtys) {
-    const deletedItem = await removeLineItemByID(lineItemId);
-    await fetchActiveOrder(setOrder, setUpdatedQtys);
-}
-
-async function closeOrder(orderId, setOrder, setUpdatedQtys) {
-    const closedOrder = await closeOrderById(orderId);
-    localStorage.removeItem("ActiveOrderId");
-}
-
-const delay = ms => new Promise(res => setTimeout(res, ms));
+// const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const Cart = ({ token, setToken, history }) => {
     const [order, setOrder] = useState({})
@@ -44,27 +19,60 @@ const Cart = ({ token, setToken, history }) => {
         billingcity: "",
         billingstate: "",
         billingzip: ""
-    }); 
+    });
 
     useEffect(() => {
-        fetchActiveOrder(setOrder, setUpdatedQtys);
-        // setTimeout(() => {
-        //     setBillingForm({
-        //         billingfirstname: order.user.billingfirstname,
-        //         billinglastname: order.user.billinglastname,
-        //         billingstreet: order.user.billingstreet,
-        //         billingcity: order.user.city,
-        //         billingstate: order.user.state,
-        //         billingzip: order.user.zip
-        //     })
+        fetchActiveOrder();
 
-        // }, 1000)
     }, []);
 
-    function handleFormUpdate(e){
-        setBillingForm({...billingForm, [e.target.name]: e.target.value});
+    async function fetchActiveOrder() {
+        const orderId = localStorage.getItem("ActiveOrderId");
+        if (!orderId) return {};
+
+        const order = await getOrderById(orderId);
+        setOrder(order);
+        setBillingForm({
+            billingfirstname: order.user.billingfirstname,
+            billinglastname: order.user.billinglastname,
+            billingstreet: order.user.billingstreet,
+            billingcity: order.user.billingcity,
+            billingstate: order.user.billingstate,
+            billingzip: order.user.billingzip
+        })
+
+        if (order && order.lineItems) {
+            let newQtys = [];
+            order.lineItems.forEach(lineItem => {
+                newQtys[lineItem.id] = lineItem.quantity;
+            });
+            setUpdatedQtys(newQtys);
+        }
+    }
+
+    async function removeLineItem(lineItemId, setOrder, setUpdatedQtys) {
+        const deletedItem = await removeLineItemByID(lineItemId);
+        await fetchActiveOrder();
+    }
+
+    async function closeOrder(orderId) {
+        const closedOrder = await closeOrderById(orderId);
+        localStorage.removeItem("ActiveOrderId");
+    }
+
+    function handleFormUpdate(e) {
+        setBillingForm({ ...billingForm, [e.target.name]: e.target.value });
+    }
+
+    async function submitBillingUpdate(event) {
+        event.preventDefault();
+        await updateBilling(order.userId, billingForm);
+        await fetchActiveOrder();
+        setShowUpdate(false);
 
     }
+
+   
 
     if (order.id) {
         return (
@@ -72,8 +80,8 @@ const Cart = ({ token, setToken, history }) => {
                 <div className="horizGroup">
                     {(order.user ?
                         <div className="card w-50 p-3 border-dark m-3 shadow bg-body rounded">
-                            <h3 className="card-title"><b><u>Shipping Information</u></b></h3>
-
+                            <h3 className="card-title"><b>Shipping Information</b></h3>
+                        
                             <div className="w-75">
                                 <div className="form-group">
                                     {order.user.firstname} {order.user.lastname}
@@ -90,6 +98,10 @@ const Cart = ({ token, setToken, history }) => {
                                 <div className="form-group list-group-item-text">
                                     {order.user.phone}
                                 </div>
+                                {token && (!showUpdate ? <button className="m-3 btn btn-outline-primary" onClick={() => setShowUpdate(true)}>
+                                        Update Shipping
+                                    </button> : <button className="w-25 m-3 btn btn-outline-primary" onClick={() => setShowUpdate(false)}>X</button>
+                                    )}
                             </div>
                         </div> : <h3>Please Login/Register to have Shipping Information</h3>)}
                     {(order.user ?
@@ -115,7 +127,7 @@ const Cart = ({ token, setToken, history }) => {
                                 setShowUpdate(true)
                             }}>Update Billing</button> */}
                                 </div>
-                            ) : (<Form>
+                            ) : (<Form onSubmit={submitBillingUpdate}>
                                 {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                               <Form.Label>Email address</Form.Label>
                               <Form.Control type="email" placeholder="Enter email" />
@@ -159,7 +171,7 @@ const Cart = ({ token, setToken, history }) => {
                                 <button className="btn btn-primary btn-danger m-3 shadow" type="submit">
                                     Submit
                                 </button>
-                                <button className="btn btn-primary btn-danger m-3 shadow" onClick= {() => setShowUpdate(false)}>
+                                <button className="btn btn-primary btn-danger m-3 shadow" onClick={() => setShowUpdate(false)}>
                                     X
                                 </button>
                             </Form>
@@ -171,29 +183,30 @@ const Cart = ({ token, setToken, history }) => {
                         </div> : <h3>Please Login/Register to have Billing Information</h3>)}
                 </div>
                 {(order.lineItems ?
-                    <div id="product-box" className="form-group centered w-100">
+                    <div id="product-box" className="centered">
                         <div id="lineItems" className="container ">
                             {order.lineItems.map((lineItem, index) => {
                                 return (
-                                    <div key={index} className="card w-100 p-3 border-dark m-3 shadow bg-body rounded horizGroup">
+                                    <div key={index} className=" w-100 p-3 border-dark m-3 shadow bg-body rounded horizGroup">
                                         <div className="m-3">
                                             <img src={lineItem.img_url}
                                                 alt="Product Cover"
                                                 style={{ width: 175, height: 225 }}
                                             />
                                         </div>
-                                        <h3 className="w-50 card-title"><b>{lineItem.name}</b></h3>
-                                        <div className="w-100 horizGroup alignLeft">
-                                            <div className="m-5 form-group list-group-item-text">
-                                                Quantity: {lineItem.quantity}
-                                            </div>
-                                            <div className="m-5 form-group list-group-item-text">
-                                                <b>Price Per:</b>  ${lineItem.price}
-                                            </div>
-                                            <div className="m-5 form-group list-group-item-text">
-                                                <b>Total Price:</b>  ${lineItem.price * lineItem.quantity}
-                                            </div>
-                                            {/* <div className="m-5 form-group list-group-item-text">
+                                        <div>
+                                            <h3 className="w-50 card-title"><b>{lineItem.name}</b></h3>
+                                            <div className=" horizGroup alignLeft">
+                                                <div className="m-5 form-group list-group-item-text">
+                                                    Quantity: {lineItem.quantity}
+                                                </div>
+                                                <div className="m-5 form-group list-group-item-text">
+                                                    <b>Price Per:</b>  ${lineItem.price}
+                                                </div>
+                                                <div className="m-5 form-group list-group-item-text">
+                                                    <b>Total Price:</b>  ${lineItem.price * lineItem.quantity}
+                                                </div>
+                                                {/* <div className="m-5 form-group list-group-item-text">
                                                 <label>Update Quantity</label>
                                                 <input className="m-3" type="number" id="quantity" 
                                                     min="1" max="100"
@@ -207,14 +220,16 @@ const Cart = ({ token, setToken, history }) => {
                                                     }}> Update
                                                 </button>   
                                             </div>  */}
-                                            <div className="m-5 form-group list-group-item-text">
-                                                <button className="btn btn-primary btn-danger m-3" onClick={async (event) => {
-                                                    event.preventDefault();
-                                                    removeLineItem(lineItem.id, setOrder, setUpdatedQtys)
-                                                }}> Remove
-                                                </button>
+                                                <div className="">
+                                                    <button className="btn btn-primary btn-danger m-3" onClick={async (event) => {
+                                                        event.preventDefault();
+                                                        removeLineItem(lineItem.id, setOrder, setUpdatedQtys)
+                                                    }}> Remove
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>)
                             })}
                         </div>
@@ -223,7 +238,7 @@ const Cart = ({ token, setToken, history }) => {
                 <button className="btn btn-outline-primary m-3" onClick={async (event) => {
                     event.preventDefault();
                     closeOrder(order.id);
-                    await delay(1000);
+                    // await delay(1000);
                     // history.push('/products');
                 }}> Complete Order
                 </button>

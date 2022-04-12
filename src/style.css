@@ -11,6 +11,13 @@
 
 a {
     text-decoration: none;
+}
+
+.site-title{
+    font-family: 'MedievalSharp', cursive;
+    color: #414a4c;
+    font-size: 85px;
+    text-shadow: 1px 1px #555d50;
 
 }
 
@@ -20,9 +27,10 @@ a {
 
 .centered{
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 }
 
 .horizGroup{
@@ -158,6 +166,26 @@ img {
     -webkit-box-shadow: 9px 6px 12px 1px rgba(0,0,0,0.34); 
     box-shadow: 9px 6px 12px 1px rgba(0,0,0,0.34);
     /* font-family: Georgia, 'Times New Roman', Times, serif; */
+}
+
+.cart-card-render{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+}
+
+.cart-card-content{
+    border: .5 black;
+    border-radius: 4px;
+    margin: 10px;
+    padding: 10px;
+    max-width: 600px;
+    -webkit-box-shadow: 9px 6px 12px 1px rgba(0,0,0,0.34); 
+    box-shadow: 9px 6px 12px 1px rgba(0,0,0,0.34);
+
 }
 
 .singleProductQuantity::-webkit-inner-spin-button{

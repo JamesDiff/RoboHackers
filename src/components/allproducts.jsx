@@ -54,7 +54,7 @@ const AllProducts = () => {
                                
                                     <div className="m-3">
                                         <Link to={href}>  
-                                        <img src= { product.img_url } alt="Product Cover" style={{width: 170, height: 220}} />
+                                        <img src= { product.img_url } alt="Product Cover" style={{width: 175, height: 225}} />
                                         </Link>
                                         
                                     </div>

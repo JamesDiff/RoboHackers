@@ -95,6 +95,18 @@ catch (error) {
 }
 }
 
+export const updateBilling = async (userId, billingInfo) => {
+  try {
+    const { data } = await axios.patch(`/api/users/${userId}/billing`, billingInfo)
+  return data;
+    
+}
+catch (error) {
+    console.error("Trouble updating user- FE-API updateUser", error)
+}
+}
+
+
 // This function registers a new user
 export const registerUser = async (setToken, setUser, setIsAdmin, firstname, lastname, password, verifyPassword, email, street, city, state, zip, phone) => {
 
@@ -296,16 +308,10 @@ export const submitReviewForProduct = async (token, productId, title, descriptio
   }
 }
 
-export const deleteReview = async (token, productId, title, description, stars) => {
+export const deleteReview = async (token, reviewId) => {
 
   try {
-    const result = await axios.delete(`/api/products/${productId}/reviews`,
-      {
-        productId: productId, 
-        title: title, 
-        description: description, 
-        stars: stars
-      },
+    return axios.delete(`http://localhost:5000/api/products/reviews/${reviewId}`,
       {
         headers: {
         'Content-Type': 'application/json',
@@ -313,9 +319,7 @@ export const deleteReview = async (token, productId, title, description, stars) 
       }
       }
     );
-    console.log("Deleted review is: ", result)
-
-    return result;
+   
   } 
   
   catch (error) {
@@ -372,7 +376,7 @@ export const getOrderById  = async (orderId, setOrder) => {
   try{
     const {data} = await axios.get(`/api/orders/${orderId}`, {} , {});
     console.log("Got Order", data);
-    setOrder(data);
+    return data;
   } catch (error) {
     console.error("Error getting order by Id")
     throw error;

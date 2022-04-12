@@ -1,7 +1,7 @@
 const express = require('express');
 const productsRouter = express.Router();
 
-const { getAllProducts, getProductById, createProduct,  deleteProduct, createReviewForProduct, updateProduct, deleteReviewByProduct } = require('../db');
+const { getAllProducts, getProductById, createProduct,  deleteProduct, createReviewForProduct, updateProduct, deleteReviewByProduct, deleteReviewById } = require('../db');
 //{ deleteProduct } 
 
 //get products
@@ -117,14 +117,33 @@ productsRouter.delete('/:productId', async (req, res, next) => {
 productsRouter.post("/:productId/reviews", async (req, res, next) => {
   const productId = req.params.productId;
   try{
-    const {description, title} = req.body;
+    const {description, title, stars} = req.body;
     const newReview = {
-      userId:req.user.id, productId:productId, title:title, description:description
+      userId:req.user.id, productId:productId, title:title, description:description, stars:stars
     }
     const createdReview = await createReviewForProduct(newReview);
     res.send(createdReview);
   }catch(error){
     console.error("Error creating review", error);
+    next(error);
+  }
+})
+
+productsRouter.delete('/reviews/:id', async (req, res, next) => { 
+
+  const reviewId = req.params.id;
+
+  try{
+
+    if (reviewId) {
+      const deletedReview = await deleteReviewById(reviewId);
+      console.log("Deleted review is: ", deletedReview);
+      res.status(202).json(deletedReview);
+      
+    } else {
+      throw new Error("You are not authorized to delete this review")
+    }
+  } catch(error) {
     next(error);
   }
 })

@@ -1,14 +1,14 @@
 const client = require('./client');
 const {getUserById} = require("./users")
 
-async function createReviewForProduct({userId, productId, title, description}){
+async function createReviewForProduct({userId, productId, title, description, stars}){
     try{
-        console.log("Creating review", userId, productId, title, description)
+        console.log("Creating review", userId, productId, title, description, stars)
         const {rows: [review]} = await client.query(`
-            INSERT INTO reviews("productId", "userId", title, description)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO reviews("productId", "userId", title, description, stars)
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING *;
-        `, [productId, userId, title, description]);
+        `, [productId, userId, title, description, stars]);
         if(!review){
             return null;
         }
@@ -94,10 +94,30 @@ async function deleteReviewByUser(userId) {
     }
 }
 
+async function deleteReviewById(id) {
+
+    try {
+        
+        const {rows: [review]} = await client.query(`
+            DELETE FROM reviews 
+            WHERE id=$1
+            RETURNING *;
+        `, [id]);
+
+        return (review);
+      }
+
+      catch (error) {
+        console.error('ERROR removing review from database!!! BE - deleteReviewByUser');
+        throw error;
+    }
+}
+
 module.exports = {
     createReviewForProduct,
     getAllReviewsForProduct,
     deleteReviewByProduct,
     deleteReviewByUser,
     addReviewsToProducts,
+    deleteReviewById
 }

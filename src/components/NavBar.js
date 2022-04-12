@@ -31,13 +31,14 @@ return (
             <Navbar.Collapse id="navbarScroll">
                 <Nav
                     className="me-auto my-2 my-lg-0"
-                    style={{ maxHeight: '100px' }}
+                    // style={{ maxHeight: '100px' }}
                     navbarScroll
                 >
                     <Nav.Link><Link to="/">Home</Link></Nav.Link>
                     <Nav.Link><Link to="/products">All Products</Link></Nav.Link>
                     {/* <Nav.Link><Link to="/account">My Account</Link></Nav.Link> */}
                     <Nav.Link><Link to="/cart">My Cart</Link></Nav.Link>
+                    {token ? <Nav.Link><Link to="/account">My Account</Link></Nav.Link> : null}
                     {isAdmin && <Nav.Link><Link to="/admin">Admin</Link></Nav.Link>}
                     {!token ? <Nav.Link><Link to="/login">Login</Link></Nav.Link> : <Nav.Link onClick = {handleClick}>Logout</Nav.Link>}
 

@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 
 
-const StarRating = () => {
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(null);
+const StarRating = ({newReviewStars, setNewReviewStars, hover, setHover}) => {
+
   return (
     <div className="star-rating">
       {[...Array(5)].map((star, index) => {
@@ -12,10 +11,10 @@ const StarRating = () => {
           <button
             type="button"
             key={index}
-            className={index <= (hover || rating) ? "on" : "off"}
-            onClick={() => setRating(index)}
+            className={index <= (hover || newReviewStars) ? "on" : "off"}
+            onClick={() => setNewReviewStars(index)}
             onMouseEnter={() => setHover(index)}
-            onMouseLeave={() => setHover(rating)}
+            onMouseLeave={() => setHover(newReviewStars)}
           >
             <span className="star">&#9733;</span>
           </button>

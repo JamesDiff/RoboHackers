@@ -2,32 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductById, submitReviewForProduct, createOrder, addProductToOrder, deleteReview } from '../api'
 
-import {StarRating} from './starRating'
+import { StarRating } from './starRating'
 
 /*As a user, I want to be able to click a product from the all products page 
 and get a detailed product page with more information about the product on it.*/
 
-async function fetchSingleProduct(productId, setSingleProduct, setReviews) {
-    try {
-        const result = await getProductById(productId, setSingleProduct)
-        setSingleProduct(result)
-        if(result.reviews){
-            setReviews(result.reviews);
-        }
-        return result;
-    } catch (error) {
-        throw error
-    }
-}
+// async function fetchSingleProduct(productId) {
+//     try {
+//         const result = await getProductById(productId, setSingleProduct)
+//         setSingleProduct(result)
+//         if (result.reviews) {
+//             setReviews(result.reviews);
+//         }
+//         return result;
+//     } catch (error) {
+//         throw error
+//     }
+// }
 
-async function submitReview(token, productId, title, description, stars){
+async function submitReview(token, productId, title, description, stars) {
     const result = await submitReviewForProduct(token, productId, title, description, stars);
     console.log("Review is: ", result)
 }
 
-async function addProductToCart(token, productId, quantity){
+async function addProductToCart(token, productId, quantity) {
     let activeOrderId = localStorage.getItem("ActiveOrderId");
-    if(!activeOrderId) {
+    if (!activeOrderId) {
         const orderID = await createOrder(token);
         console.log("Setting OrderId", orderID)
         localStorage.setItem("ActiveOrderId", orderID)
@@ -39,51 +39,77 @@ async function addProductToCart(token, productId, quantity){
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-const SingleProductView = ({token, match, history, user}) => {
+const SingleProductView = ({ token, match, history, user }) => {
     const productId = match.params.productId;
     const [newReviewDescription, setNewReviewDescription] = useState('');
     const [newReviewTitle, setNewReviewTitle] = useState("");
+    const [newReviewStars, setNewReviewStars] = useState(null);
+    const [hover, setHover] = useState(null);
     const [singleProduct, setSingleProduct] = useState('');
     const [reviews, setReviews] = useState([]);
     const [quantity, setQuantity] = useState(1);
     const [showForm, setShowForm] = useState(false);
     const [showReviews, setShowReviews] = useState(false);
+    const [updateCounter, setUpdateCounter] = useState(0);
 
     useEffect(() => {
-            fetchSingleProduct(productId, setSingleProduct, setReviews)
-    }, [productId, setSingleProduct])
+        fetchProduct();
+        console.log("PRODUCT FETCHED BY USEEFFECT")
+    }, [productId, updateCounter])
+
+    //another async function fet product
+
+    async function fetchProduct(){
+        const data = await getProductById(productId);
+        setSingleProduct(data);
+        if(data.reviews){
+            setReviews(data.reviews);
+        }
+    }
+
+    async function handleDeleteClick(id, token){
+        try{
+            await deleteReview(token, id);
+            console.log("REVIEW DELETED, STATE NOT SET YET")
+            setUpdateCounter(updateCounter + 1);
+        }
+        catch(error){
+            console.error("error", error)
+        }
+    }
+
 
     return (
         <div className="Single-product-render">
-            <div className="Single-product-content"> 
+            <div className="Single-product-content">
                 <h1 className="m-3 text-center"><b>{singleProduct.name}</b></h1>
                 <div >
                     <div className="centered m-3">
-                        <img src= { singleProduct.img_url } alt="Product Cover" style={{width: 300, height: 400}} />
+                        <img src={singleProduct.img_url} alt="Product Cover" style={{ width: 300, height: 400 }} />
                     </div>
                     <div >
                         <div >
-                            <b className="">Description:</b> {singleProduct.description }
+                            <b className="">Description:</b> {singleProduct.description}
                         </div>
                         <div >
-                            <b >Price:</b> { singleProduct.price }
+                            <b >Price:</b> {singleProduct.price}
                         </div>
                         <div >
-                            <b >QTY On-Hand:</b> {singleProduct.inventory_qty > 0 ? singleProduct.inventory_qty : "Sold Out" }
-                        </div> 
+                            <b >QTY On-Hand:</b> {singleProduct.inventory_qty > 0 ? singleProduct.inventory_qty : "Sold Out"}
+                        </div>
                         <div >
                             {singleProduct.inventory_qty > 0 ? <div>
                                 <label ><b>Quantity</b></label>
                                 <input className="m-3 singleProductQuantity" type="number" id="quantity" value={quantity} min="1" max={singleProduct.inventory_qty}
-                                    onChange={(event) => setQuantity(Number(event.target.value))} /> 
+                                    onChange={(event) => setQuantity(Number(event.target.value))} />
                             </div> : null}
                             <br></br>
 
-                            {singleProduct.inventory_qty > 0 ? <button className="btn btn-primary btn-danger m-3 shadow" onClick={async(event) => {
+                            {singleProduct.inventory_qty > 0 ? <button className="btn btn-primary btn-danger m-3 shadow" onClick={async (event) => {
                                 event.preventDefault();
                                 addProductToCart(token, singleProduct.id, quantity);
-                                // await delay(1000);
-                                // history.push("/cart");
+                                await delay(1000);
+                                history.push("/cart");
                             }}> Add to Cart
                             </button> : null}
                             <Link to="/products" className='btn btn-primary m-3 shadow'>
@@ -125,73 +151,89 @@ const SingleProductView = ({token, match, history, user}) => {
                     </div>
                 </div> */}
 
-                
-                {!showReviews? <button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowReviews(true)}>
-                See Reviews
-                </button> : (<><button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowReviews(false)}>X</button>
-                
-                <div id="messages" className="centered w-100">
-                    <h2><b >Reviews</b></h2>
-                {
-                    reviews.map((review, index, user, productId) => {
-                        return (
-                            <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
-                                <ul className="list-group list-group-flush">
-                                    <li className="list-group-item"><h3><b>Post: </b> {review.title}</h3></li>
-                                    <li className="list-group-item">
-                                        <b>From:</b> {review.firstname} {review.lastname}</li>
-                                    <li className="list-group-item">
-                                        <b>Review:</b> {review.description}</li>
-                                    <li>{review.stars}</li>
-                                </ul>
-                               <button className="m-3 btn btn-outline-primary" onClick={ () => deleteReview(productId)}>Delete</button>
-                            </div>
-                        )
-                    })
-                } 
-                </div> </> )
-               }
 
-                
-            {token && (
-                !showForm ? <button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowForm(true)}>
-                Add a Review
-            </button> : <button className="w-25 m-3 btn btn-outline-primary" onClick={ () => setShowForm(false)}>X</button>
-            )}
-            {(token && showForm ?
-                <form onSubmit={(event) => {
-                    event.preventDefault();
-                    
-                    submitReview(token, singleProduct.id, newReviewTitle, newReviewDescription);
-                    const newReview = {
-                        title: newReviewTitle, 
-                        description: newReviewDescription
-                    }
-                    let allReviews = reviews;
-                    allReviews.push(newReview);
-                    setReviews(allReviews);
-                    setNewReviewDescription("");
-                    setNewReviewTitle("");
-                }}>
-                    <div className="m-3">
-                        <label htmlFor="messageTextArea" className="form-label"><h5><b >Submit a Review!</b></h5></label>
-                        <div className="form-group w-100">
-                            <label><b>Title</b></label>
-                            <br></br>
-                            <input onChange={(event) => setNewReviewTitle(event.target.value)} value={newReviewTitle} type="text" className="form-control" placeholder="Description" required />
-                            <br></br>
+                {!showReviews ? <button className="w-25 m-3 btn btn-outline-primary" onClick={() => setShowReviews(true)}>
+                    See Reviews
+                </button> : (<><button className="w-25 m-3 btn btn-outline-primary" onClick={() => setShowReviews(false)}>X</button>
+
+                    <div id="messages" className="centered w-100">
+                        <h2><b >Reviews</b></h2>
+                        {
+                            reviews.map((review, index, user, productId) => {
+                                return (
+                                    <div key={index} className="card w-75 p-3 border-dark m-3 shadow bg-body rounded">
+                                        <ul className="list-group list-group-flush">
+                                            <li className="list-group-item"><h3><b>Post: </b> {review.title}</h3></li>
+                                            <li className="list-group-item">
+                                                <b>From:</b> {review.firstname} {review.lastname}</li>
+                                            <li className="list-group-item">
+                                                <b>Review:</b> {review.description}</li>
+                                            <li className="list-group-item">{[...Array(5)].map((star, index) => {
+                                                index += 1;
+                                                return (
+                                                <button
+                                                    type="button"
+                                                    key={index}
+                                                    className={(index <= review.stars) ? "on" : "off"}
+                                                    onClick={() => setNewReviewStars(index)}
+                                                    onMouseEnter={() => setHover(index)}
+                                                    onMouseLeave={() => setHover(newReviewStars)}
+                                                >
+                                                    <span className="star">&#9733;</span>
+                                                </button>
+                                                );
+                                            })}</li>
+                                        </ul>
+                                        <button className="m-3 btn btn-outline-primary" onClick={() => handleDeleteClick(review.id, token)}>Delete</button>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div> </>)
+                }
+
+
+                {token && (
+                    !showForm ? <button className="w-25 m-3 btn btn-outline-primary" onClick={() => setShowForm(true)}>
+                        Add a Review
+                    </button> : <button className="w-25 m-3 btn btn-outline-primary" onClick={() => setShowForm(false)}>X</button>
+                )}
+                {(token && showForm ?
+                    <form onSubmit={async(event) => {
+                        event.preventDefault();
+
+                        await submitReview(token, singleProduct.id, newReviewTitle, newReviewDescription, newReviewStars);
+                        const newReview = {
+                            title: newReviewTitle,
+                            description: newReviewDescription,
+                            stars: newReviewStars
+                        }
+                        // let allReviews = reviews;
+                        // allReviews.push(newReview);
+                        // setReviews(allReviews);
+                        setUpdateCounter(updateCounter + 1);
+                        setNewReviewDescription("");
+                        setNewReviewTitle("");
+                    }}>
+                        <div className="m-3">
+                            <label htmlFor="messageTextArea" className="form-label"><h5><b >Submit a Review!</b></h5></label>
+                            <div className="form-group w-100">
+                                <label><b>Title</b></label>
+                                <br></br>
+                                <input onChange={(event) => setNewReviewTitle(event.target.value)} value={newReviewTitle} type="text" className="form-control" placeholder="Description" required />
+                                <br></br>
+                            </div>
+                            <textarea className="form-control" id="messageTextArea" rows="3" value={newReviewDescription} placeholder="Write your review here..." onChange={({ target: { value } }) => {
+                                setNewReviewDescription(value);
+                            }}></textarea>
+                            {/* <br></br> */}
+                            <StarRating newReviewStars={newReviewStars} setNewReviewStars={setNewReviewStars} hover={hover} setHover={setHover} />
                         </div>
-                        <textarea className="form-control" id="messageTextArea" rows="3" value={newReviewDescription} placeholder="Write your review here..." onChange={({target : {value}}) => {
-                            setNewReviewDescription(value);
-                        }}></textarea>
-                        {/* <br></br> */}
-                        <StarRating />
-                    </div>
-                    <button type="submit" className="btn btn-outline-primary w-25 m-3">Submit Review</button>
-                </form>
-            : null)}                    
-            
-        </div>
+                        <button type="submit" className="btn btn-outline-primary w-25 m-3">Submit Review</button>
+                    </form>
+                    : null)}
+
+            </div>
         </div>
     )
 }

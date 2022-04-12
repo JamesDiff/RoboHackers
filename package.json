@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run client:build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run client:build",
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
