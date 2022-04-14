@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run client:build && npm run db:build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run client:build",
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
@@ -23,6 +23,7 @@
     "chalk": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "heroku-cli": "^7.0.9",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
