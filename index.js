@@ -1,3 +1,5 @@
+const dotenv = require('dotenv')
+
 // This is the Web Server
 const express = require('express');
 const server = express();
@@ -8,6 +10,8 @@ server.use(morgan('dev'));
 
 const cors = require('cors');
 server.use(cors());
+
+dotenv.config()
 
 // handle application/json requests
 server.use(express.json());
